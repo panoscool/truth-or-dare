@@ -1,6 +1,6 @@
 :root {
   --main-color: #83c6e0;
-  --secondary-color: rgb(82, 119, 243);
+  --secondary-color: rgb(159, 214, 236);
   --main-text-color: #3e5869;
   --secondary-text-color: #b0c7d6;
 }
@@ -19,7 +19,7 @@
       "m m m m m m"
       "m m m m m m"
       "m m m m m m"
-      "b b b b b b";
+      "b b b d d d";
 }
 
 .current-player {
@@ -46,7 +46,28 @@
   font-size: 20px;
 }
 
-.btn {
+.btn-truth {
   grid-area: b;
-  font-size: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: fantasy;
+}
+
+.btn-dare {
+  grid-area: d;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: fantasy;
+}
+
+.btn-start {
+  padding: 3px;
+  margin: 3px;
+  width: 80px;
+}
+
+.btn-timer {
+  padding: 3px;
+  margin: 3px;
+  width: 30px;
 }
