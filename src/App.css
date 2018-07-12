@@ -1,0 +1,47 @@
+:root {
+  --main-color: #5ea3d0;
+  --secondary-color: white;
+  --main-text-color: #3e5869;
+  --secondary-text-color: #b0c7d6;
+  --send-message-form: #F5F5F5;
+}
+
+.App {
+  text-align: center;
+  display: grid;
+  height: 80%;
+  width: 80%;
+  align-items: center;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: 
+      "p p p n n n"
+      "m m m m m m"
+      "m m m m m m"
+      "m m m m m m"
+      "m m m m m m"
+      "b b b b b b";
+}
+
+.player {
+  grid-area: p;
+  background: #b0c7d6;
+  font-size: 24px;
+}
+
+.next-player {
+  grid-area: n;
+  background: #b0c7d6;
+  font-size: 24px;
+}
+
+.questions {
+  grid-area: m;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 20px;
+}
+
+.btn {
+  grid-area: b;
+  font-size: 30px;
+}
