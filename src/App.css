@@ -1,21 +1,20 @@
 :root {
-  --main-color: #5ea3d0;
-  --secondary-color: white;
+  --main-color: #83c6e0;
+  --secondary-color: rgb(82, 119, 243);
   --main-text-color: #3e5869;
   --secondary-text-color: #b0c7d6;
-  --send-message-form: #F5F5F5;
 }
 
 .App {
   text-align: center;
   display: grid;
-  height: 80%;
-  width: 80%;
+  height: 100%;
+  width: 100%;
   align-items: center;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat(6, 1fr);
   grid-template-areas: 
-      "p p p n n n"
+      "p p t t n n"
       "m m m m m m"
       "m m m m m m"
       "m m m m m m"
@@ -23,16 +22,22 @@
       "b b b b b b";
 }
 
-.player {
+.current-player {
   grid-area: p;
-  background: #b0c7d6;
-  font-size: 24px;
+  background: var(--main-color);
+  font-size: 18px;
 }
 
 .next-player {
   grid-area: n;
-  background: #b0c7d6;
-  font-size: 24px;
+  background: var(--main-color);
+  font-size: 18px;
+}
+
+.timer {
+  grid-area: t;
+  background: var(--secondary-color);
+  font-size: 18px;
 }
 
 .questions {
