@@ -8,8 +8,6 @@
 .App {
   text-align: center;
   display: grid;
-  height: 100%;
-  width: 100%;
   align-items: center;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(6, 1fr);
@@ -54,6 +52,8 @@
   font-size: 20px;
   font-weight: bold;
   font-family: fantasy;
+  cursor: pointer;
+  height: 40px;
 }
 
 .btn-dare {
@@ -61,16 +61,21 @@
   font-size: 20px;
   font-weight: bold;
   font-family: fantasy;
+  cursor: pointer;
+  height: 40px;
 }
 
 .btn-start {
   padding: 3px;
   margin: 3px;
   width: 80px;
+  cursor: pointer;
 }
 
 .btn-timer {
   padding: 3px;
   margin: 3px;
   width: 30px;
+  cursor: pointer;
+
 }

@@ -14,7 +14,10 @@ class CountdownTimer extends Component {
   }
 
   decrementSeconds = () => {
+    let seconds = this.state.seconds;
+    if (seconds > 0) {
     this.setState({seconds: this.state.seconds -10})
+    }
   }
 
   secondsToTime(secs){
@@ -40,18 +43,19 @@ class CountdownTimer extends Component {
   }
 
   startTimer = () => {
-    if (this.timer === 0) {
+     // if (this.timer === 0) {
       this.timer = setInterval(this.countDown, 1000);
-    }
+   // }
   }
 
   countDown = () => {
     // Remove one second, set state so a re-render happens.
     let seconds = this.state.seconds - 1;
+    if (seconds >= 0) {
     this.setState({
       time: this.secondsToTime(seconds),
       seconds: seconds,
-    });
+    });}
     
     // Check if we're at zero.
     if (seconds === 0) { 
