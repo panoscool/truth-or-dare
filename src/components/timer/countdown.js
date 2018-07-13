@@ -9,11 +9,11 @@ class CountdownTimer extends Component {
     this.timer = 0;
   }
 
-  increment = () => {
+  incrementSeconds = () => {
     this.setState({seconds: this.state.seconds +10})
   }
 
-  decrement = () => {
+  decrementSeconds = () => {
     this.setState({seconds: this.state.seconds -10})
   }
 
@@ -63,9 +63,9 @@ class CountdownTimer extends Component {
     return (
         <div className="CountdownTimer">
             <div className="timer">
-              <button className="btn-timer" onClick={this.decrement}>-</button>
+              <button className="btn-timer" onClick={this.decrementSeconds}>-</button>
                 {this.state.seconds}
-              <button className="btn-timer" onClick={this.increment}>+</button> 
+              <button className="btn-timer" onClick={this.incrementSeconds}>+</button> 
               <br />
               <button className="btn-start" onClick={this.startTimer}>Start</button>
             </div>
