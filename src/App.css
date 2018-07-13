@@ -26,18 +26,21 @@
   grid-area: p;
   background: var(--main-color);
   font-size: 18px;
+  height: 70px;
 }
 
 .next-player {
   grid-area: n;
   background: var(--main-color);
   font-size: 18px;
+  height: 70px;
 }
 
 .timer {
   grid-area: t;
   background: var(--secondary-color);
   font-size: 18px;
+  height: 70px;
 }
 
 .questions {
