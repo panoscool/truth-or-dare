@@ -17,7 +17,7 @@
       "m m m m m m"
       "m m m m m m"
       "m m m m m m"
-      "b b b d d d";
+      "b b h h d d";
 }
 
 .current-player {
@@ -65,7 +65,7 @@
   height: 40px;
 }
 
-.btn-start {
+.btn-s {
   padding: 3px;
   margin: 3px;
   width: 80px;
@@ -78,4 +78,13 @@
   width: 30px;
   cursor: pointer;
 
+}
+
+.btn-home {
+  grid-area: h;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: fantasy;
+  cursor: pointer;
+  height: 40px;
 }

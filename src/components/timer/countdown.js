@@ -4,9 +4,8 @@ class CountdownTimer extends Component {
   constructor() {
     super();
     this.state = {
-      time: {}, seconds: 0 
+      seconds: 0, 
     }
-    this.timer = 0;
   }
 
   incrementSeconds = () => {
@@ -20,47 +19,27 @@ class CountdownTimer extends Component {
     }
   }
 
-  secondsToTime(secs){
-    let hours = Math.floor(secs / (60 * 60));
-
-    let divisor_for_minutes = secs % (60 * 60);
-    let minutes = Math.floor(divisor_for_minutes / 60);
-
-    let divisor_for_seconds = divisor_for_minutes % 60;
-    let seconds = Math.ceil(divisor_for_seconds);
-
-    let obj = {
-      "h": hours,
-      "m": minutes,
-      "s": seconds
-    };
-    return obj;
+  componentWillUnmount () {
+    clearInterval(this.timer)
   }
 
-  componentDidMount() {
-    let timeLeft = this.secondsToTime(this.state.seconds);
-    this.setState({ time: timeLeft });
+  tick = () => {
+    let seconds = this.state.seconds
+    this.setState({seconds: (this.state.seconds - 1)})
+
+    // Check if zero and stop timer.
+    if (seconds === 1) { 
+      clearInterval(this.timer);
+    }
   }
 
   startTimer = () => {
-     // if (this.timer === 0) {
-      this.timer = setInterval(this.countDown, 1000);
-   // }
+    clearInterval(this.timer)
+    this.timer = setInterval(this.tick, 1000)
   }
 
-  countDown = () => {
-    // Remove one second, set state so a re-render happens.
-    let seconds = this.state.seconds - 1;
-    if (seconds >= 0) {
-    this.setState({
-      time: this.secondsToTime(seconds),
-      seconds: seconds,
-    });}
-    
-    // Check if we're at zero.
-    if (seconds === 0) { 
-      clearInterval(this.timer);
-    }
+  stopTimer = () => {
+    clearInterval(this.timer)
   }
 
   render() {
@@ -71,7 +50,8 @@ class CountdownTimer extends Component {
                 {this.state.seconds}
               <button className="btn-timer" onClick={this.incrementSeconds}>+</button> 
               <br />
-              <button className="btn-start" onClick={this.startTimer}>Start</button>
+              <button className="btn-s" onClick={this.startTimer}>Start</button>
+              <button className="btn-s" onClick={this.stopTimer}>Stop</button>
             </div>
         </div>
     );

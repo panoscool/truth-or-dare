@@ -47,6 +47,7 @@ class App extends Component {
 
           <button className="btn-truth" onClick={this.handleRandomTruth}>Truth</button>
           <button className="btn-dare" onClick={this.handleRandomDare}>Dare</button>
+          <button className="btn-home" >Home</button>
       </div>
     );
   }
