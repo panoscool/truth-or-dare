@@ -4,7 +4,7 @@ class CountdownTimer extends Component {
   constructor() {
     super();
     this.state = {
-      seconds: 0, 
+      seconds: 0,
     }
   }
 
@@ -25,7 +25,7 @@ class CountdownTimer extends Component {
 
   tick = () => {
     let seconds = this.state.seconds
-    this.setState({seconds: (this.state.seconds - 1)})
+    this.setState({seconds: this.state.seconds - 1})
 
     // Check if zero and stop timer.
     if (seconds === 1) { 

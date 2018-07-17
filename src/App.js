@@ -25,8 +25,8 @@ class App extends Component {
     }
 
   render() {
-    // {truth.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
-    // {dare.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
+    //  {truth.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
+    //  {dare.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
     return (
       <div className="App">
           <div className="timer">
@@ -42,7 +42,7 @@ class App extends Component {
           </div>
 
           <div className="questions">
-             {truth[this.state.truthQuest]} {dare[this.state.dareQuest]}
+             {truth[Object.keys(this.state.truthQuest)]} {dare[this.state.dareQuest]}
           </div>
 
           <button className="btn-truth" onClick={this.handleRandomTruth}>Truth</button>
