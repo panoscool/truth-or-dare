@@ -7,20 +7,20 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      truthQuest: null,
-      dareQuest: null
+      truthQuest: 0,
+      dareQuest: 0
     }
   }
   
     handleRandomTruth = () => {
       this.setState({
-      truthQuest: Math.round(Math.random() * 9 + 1)
+      truthQuest: Math.round(Math.random() * 4 + 1)
       })
     }
   
     handleRandomDare = () => {
       this.setState({
-      dareQuest: Math.round(Math.random() * 9 + 1)
+      dareQuest: Math.round(Math.random() * 7 + 1)
       })
     }
 
@@ -42,7 +42,7 @@ class App extends Component {
           </div>
 
           <div className="questions">
-             {truth[Object.keys(this.state.truthQuest)]} {dare[this.state.dareQuest]}
+             {truth[this.state.truthQuest].question} {dare[this.state.dareQuest].question}
           </div>
 
           <button className="btn-truth" onClick={this.handleRandomTruth}>Truth</button>

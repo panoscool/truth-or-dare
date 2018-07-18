@@ -1,4 +1,5 @@
 const truth = [
+    {question: "", hasAppeard: true},
     {question: "Question 1", hasAppeard: false},
     {question: "Question 2", hasAppeard: false},
     {question: "Question 3", hasAppeard: false},
@@ -6,6 +7,7 @@ const truth = [
 ]
 
 const dare = [
+    {question: "", hasAppeard: true},
     {question: "Question 5", hasAppeard: false},
     {question: "Question 6", hasAppeard: false},
     {question: "Question 7", hasAppeard: false},
