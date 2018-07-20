@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { truth, dare } from './components/questions';
+import CountdownTimer from './components/countdown';
 import './App.css';
-import CountdownTimer from './components/timer/countdown';
+
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      currQuest: null
+      currQuest: null,
     }
   }
   
@@ -15,6 +16,7 @@ class App extends Component {
       this.setState({
       currQuest: truth[Math.floor(Math.random() * truth.length)]
       })
+      truth[2].hasAppeard = true
     }
   
     handleRandomDare = () => {

@@ -13,9 +13,9 @@ class CountdownTimer extends Component {
   }
 
   decrementSeconds = () => {
-    let seconds = this.state.seconds;
-    if (seconds > 0) {
-    this.setState({seconds: this.state.seconds -10})
+    let seconds = this.state.seconds
+    if(seconds > 0) {
+      this.setState({seconds: this.state.seconds -10})
     }
   }
 
@@ -28,8 +28,8 @@ class CountdownTimer extends Component {
     this.setState({seconds: this.state.seconds - 1})
 
     // Check if zero and stop timer.
-    if (seconds === 1) { 
-      clearInterval(this.timer);
+    if(seconds === 1) { 
+      clearInterval(this.timer)
     }
   }
 
@@ -44,16 +44,16 @@ class CountdownTimer extends Component {
 
   render() {
     return (
-        <div className="CountdownTimer">
-            <div className="timer">
-              <button className="btn-timer" onClick={this.decrementSeconds}>-</button>
-                {this.state.seconds}
-              <button className="btn-timer" onClick={this.incrementSeconds}>+</button> 
+      <div className="CountdownTimer">
+          <div className="timer">
+            <button className="btn-timer" onClick={this.decrementSeconds}>-</button>
+              {this.state.seconds}
+            <button className="btn-timer" onClick={this.incrementSeconds}>+</button> 
               <br />
-              <button className="btn-s" onClick={this.startTimer}>Start</button>
-              <button className="btn-s" onClick={this.stopTimer}>Stop</button>
-            </div>
-        </div>
+            <button className="btn-s" onClick={this.startTimer}>Start</button>
+            <button className="btn-s" onClick={this.stopTimer}>Stop</button>
+          </div>
+      </div>
     );
   }
 }
