@@ -13,10 +13,11 @@ class App extends Component {
   }
   
     handleRandomTruth = () => {
+      let randomNum = Math.floor(Math.random() * truth.length);
       this.setState({
-      currQuest: truth[Math.floor(Math.random() * truth.length)]
+        currQuest: truth[randomNum]
       })
-      truth[2].hasAppeard = true
+      truth[randomNum].hasAppeard = true
     }
   
     handleRandomDare = () => {
@@ -46,8 +47,8 @@ class App extends Component {
              {this.state.currQuest ? <div>{this.state.currQuest.question}</div> : ''}
           </div>
 
-          <button className="btn-truth" onClick={this.handleRandomTruth}>Truth</button>
-          <button className="btn-dare" onClick={this.handleRandomDare}>Dare</button>
+          <button className="btn-truth" onClick={this.handleRandomTruth}>Truth (questLeft 0)</button>
+          <button className="btn-dare" onClick={this.handleRandomDare}>Dare (questLeft 0)</button>
           <button className="btn-home" >Home</button>
       </div>
     );
