@@ -13,17 +13,21 @@ class App extends Component {
   }
   
     handleRandomTruth = () => {
-      let randomNum = Math.floor(Math.random() * truth.length);
+      let remTQuest = truth.filter(t => !t.hasAppeard);
+      let randomNum = Math.floor(Math.random() * remTQuest.length);
       this.setState({
-        currQuest: truth[randomNum]
+        currQuest: remTQuest[randomNum]
       })
       truth[randomNum].hasAppeard = true
     }
   
     handleRandomDare = () => {
+      let remDQuest = dare.filter(d => !d.hasAppeard);
+      let randomNum = Math.floor(Math.random() * remDQuest.length);
       this.setState({
-      currQuest: dare[Math.floor(Math.random() * dare.length)]
+      currQuest: remDQuest[randomNum]
       })
+      dare[randomNum].hasAppeard = true
     }
 
   render() {
