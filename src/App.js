@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { truth, dare } from './components/questions';
-import CountdownTimer from './components/countdown';
 import './App.css';
+import CountdownTimer from './components/countdown';
+import ShowQuest from './components/show-quest';
 
 
 class App extends Component {
@@ -13,8 +14,8 @@ class App extends Component {
   }
   
     handleRandomTruth = () => {
-      let remTQuest = truth.filter(t => !t.hasAppeard);
-      let randomNum = Math.floor(Math.random() * remTQuest.length);
+      let remTQuest = truth.filter(t => !t.hasAppeard)
+      let randomNum = Math.floor(Math.random() * remTQuest.length)
       this.setState({
         currQuest: remTQuest[randomNum]
       })
@@ -22,10 +23,10 @@ class App extends Component {
     }
   
     handleRandomDare = () => {
-      let remDQuest = dare.filter(d => !d.hasAppeard);
-      let randomNum = Math.floor(Math.random() * remDQuest.length);
+      let remDQuest = dare.filter(d => !d.hasAppeard)
+      let randomNum = Math.floor(Math.random() * remDQuest.length)
       this.setState({
-      currQuest: remDQuest[randomNum]
+        currQuest: remDQuest[randomNum]
       })
       dare[randomNum].hasAppeard = true
     }
@@ -48,11 +49,11 @@ class App extends Component {
           </div>
 
           <div className="questions">
-             {this.state.currQuest ? <div>{this.state.currQuest.question}</div> : ''}
+             <ShowQuest currQuest={this.state.currQuest}/>
           </div>
 
-          <button className="btn-truth" onClick={this.handleRandomTruth}>Truth (questLeft 0)</button>
-          <button className="btn-dare" onClick={this.handleRandomDare}>Dare (questLeft 0)</button>
+          <button className="btn-truth" onClick={this.handleRandomTruth}>Truth (remTQuest 0)</button>
+          <button className="btn-dare" onClick={this.handleRandomDare}>Dare (remDQuest 0)</button>
           <button className="btn-home" >Home</button>
       </div>
     );
