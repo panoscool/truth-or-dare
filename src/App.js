@@ -14,21 +14,23 @@ class App extends Component {
   }
   
     handleRandomTruth = () => {
-      let remTQuest = truth.filter(t => !t.hasAppeard)
+     // let remTQuest = truth.filter(t => !t.hasAppeard)
+      let remTQuest = truth.splice(randomNum, 1)
       let randomNum = Math.floor(Math.random() * remTQuest.length)
       this.setState({
         currQuest: remTQuest[randomNum]
       })
-      truth[randomNum].hasAppeard = true
+      // truth[randomNum].hasAppeard = true
     }
   
     handleRandomDare = () => {
-      let remDQuest = dare.filter(d => !d.hasAppeard)
+     // let remDQuest = dare.filter(d => !d.hasAppeard)
+      let remDQuest = dare.splice(randomNum, 1)
       let randomNum = Math.floor(Math.random() * remDQuest.length)
       this.setState({
         currQuest: remDQuest[randomNum]
       })
-      dare[randomNum].hasAppeard = true
+      // dare[randomNum].hasAppeard = true
     }
 
   render() {
@@ -41,19 +43,19 @@ class App extends Component {
           </div>
 
           <div className="current-player">
-            <h3>current player</h3>
-          </div>
+                <h3>current player</h3>
+            </div>
 
-          <div className="next-player">
-            <h3>next player</h3>
-          </div>
+            <div className="next-player">
+                <h3>next player</h3>
+            </div>
 
           <div className="questions">
              <ShowQuest currQuest={this.state.currQuest}/>
           </div>
 
-          <button className="btn-truth" onClick={this.handleRandomTruth}>Truth (remTQuest 0)</button>
-          <button className="btn-dare" onClick={this.handleRandomDare}>Dare (remDQuest 0)</button>
+          <button className="btn-truth" onClick={this.handleRandomTruth}>Truth ({truth.length})</button>
+          <button className="btn-dare" onClick={this.handleRandomDare}>Dare ({dare.length})</button>
           <button className="btn-home" >Home</button>
       </div>
     );

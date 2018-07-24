@@ -1,10 +1,11 @@
 import React from 'react';
 
 const ShowQuest = (props) => {
+  // {props.currQuest ? <div>{props.currQuest.question}</div> : ''} 
     return (
     <div className="show-quest">
-             {props.currQuest ? <div>{props.currQuest.question}</div> : ''}
-          </div>
+        {props.currQuest}
+    </div>
     );
 }
 
