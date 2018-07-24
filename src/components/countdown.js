@@ -34,8 +34,10 @@ class CountdownTimer extends Component {
   }
 
   startTimer = () => {
-    clearInterval(this.timer)
-    this.timer = setInterval(this.tick, 1000)
+    let seconds = this.state.seconds
+    if(seconds > 0) {
+      this.timer = setInterval(this.tick, 1000)
+    }
   }
 
   stopTimer = () => {

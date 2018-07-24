@@ -18,14 +18,22 @@ const truth = [
     "Question 1",
     "Question 2",
     "Question 3",
-    "Question 4"
+    "Question 4",
+    "Question 10",
+    "Question 20",
+    "Question 30",
+    "Question 40"
 ]
 
 const dare = [
     "Question 5",
     "Question 6",
     "Question 7",
-    "Question 8"
+    "Question 8",
+    "Question 50",
+    "Question 60",
+    "Question 70",
+    "Question 80"
 ]
 
 export {truth, dare};
