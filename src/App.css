@@ -51,6 +51,7 @@
   grid-area: b;
   font-size: 20px;
   font-weight: bold;
+  color: blue;
   font-family: fantasy;
   cursor: pointer;
   height: 40px;
@@ -60,6 +61,7 @@
   grid-area: d;
   font-size: 20px;
   font-weight: bold;
+  color: red;
   font-family: fantasy;
   cursor: pointer;
   height: 40px;
