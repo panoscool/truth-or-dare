@@ -26,12 +26,12 @@ class Players extends Component {
     deletePlayer = (index) => {
         let newPlayer = this.state.players
         newPlayer.splice(index, 1)
-        this.setState({players: newPlayer})
+        this.setState({ players: newPlayer })
     }
 
     render() {
         let players = this.state.players.map((playerName, index) => {
-            return <PlayersList key={index} playerName={playerName} deletePlayer={this.deletePlayer(index)}
+            return <PlayersList key={index} playerName={playerName} deletePlayer={this.deletePlayer}
             /> });
         return(
             <div className="players">
