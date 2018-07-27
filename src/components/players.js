@@ -23,7 +23,7 @@ class Players extends Component {
         })
     }
 
-    deletePlayer(index) {
+    deletePlayer = (index) => {
         let newPlayer = this.state.players
         newPlayer.splice(index, 1)
         this.setState({players: newPlayer})
@@ -31,13 +31,14 @@ class Players extends Component {
 
     render() {
         let players = this.state.players.map((playerName, index) => {
-            return <PlayersList key={index} playerName={playerName} deletePlayer={() => this.deletePlayer(index)}
+            return <PlayersList key={index} playerName={playerName} deletePlayer={this.deletePlayer(index)}
             /> });
         return(
             <div className="players">
-            {players}
+                {players}
                 <form onSubmit={this.handleSubmit}>
-                    <input 
+                    <input
+                        placeholder="Add your name here"
                         onChange={this.handleChange}
                         value={this.state.value}
                     />
