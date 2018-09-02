@@ -12,7 +12,7 @@
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(6, 1fr);
   grid-template-areas: 
-      "p p t t n n"
+      "l l l t t t"
       "m m m m m m"
       "m m m m m m"
       "m m m m m m"
@@ -21,14 +21,7 @@
 }
 
 .current-player {
-  grid-area: p;
-  background: var(--main-color);
-  font-size: 18px;
-  height: 70px;
-}
-
-.next-player {
-  grid-area: n;
+  grid-area: l;
   background: var(--main-color);
   font-size: 18px;
   height: 70px;
