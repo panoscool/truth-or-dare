@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PlayersList from './list';
+import InputForm from './input-form';
 
 class Players extends Component {
     constructor() {
@@ -16,10 +17,12 @@ class Players extends Component {
     
     handleSubmit = (e) => {
         e.preventDefault();
+        if(!this.state.name.trim()) { return }
         let newPlayer = this.state.players
         newPlayer.push(this.state.name)
         this.setState({
-            name: ''
+            name: '',
+            players: newPlayer
         })
     }
 
@@ -30,20 +33,21 @@ class Players extends Component {
     }
 
     render() {
-        let players = this.state.players.map((playerName, index) => {
-            return <PlayersList key={index} playerName={playerName} deletePlayer={this.deletePlayer}
-            /> });
         return(
             <div className="players">
-                {players}
-                <form onSubmit={this.handleSubmit}>
-                    <input
-                        placeholder="Add your name here"
-                        onChange={this.handleChange}
-                        value={this.state.value}
-                    />
-                    <button>Add #{this.state.players.length +1}</button>
-                </form>
+                {this.state.players.map((playerName, index) => {
+                    return <PlayersList 
+                    key={index} 
+                    playerName={playerName} 
+                    deletePlayer={this.deletePlayer}
+            /> })}
+            <InputForm
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                value={this.state.value}
+                length={this.state.players.length +1}
+            />
+            <button className="play">Play</button>
             </div>
         );
     }

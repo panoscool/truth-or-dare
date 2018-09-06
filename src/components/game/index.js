@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { truth, dare } from '../questions';
 import CountdownTimer from '../timer';
 import ShowQuest from './show-quest';
-import Players from '../players';
 
 const players = [
   "Anna",
@@ -19,7 +18,7 @@ class Game extends Component {
     this.state = {
       currPlayer: -1,
       currQuest: null,
-      currTitle: null,
+      currType: null,
     }
   }
 
@@ -29,7 +28,7 @@ class Game extends Component {
     let randomNum = Math.floor(Math.random() * truth.length)
     this.setState({
       currQuest: truth[randomNum],
-      currTitle: "Truth"
+      currType: "Truth"
     })
     truth.splice(randomNum, 1)
     // truth[randomNum].hasAppeard = true
@@ -41,7 +40,7 @@ class Game extends Component {
     let randomNum = Math.floor(Math.random() * dare.length)
     this.setState({
       currQuest: dare[randomNum],
-      currTitle: "Dare"
+      currType: "Dare"
     })
     dare.splice(randomNum, 1)
     // dare[randomNum].hasAppeard = true
@@ -64,24 +63,25 @@ class Game extends Component {
     //  {truth.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
     //  {dare.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
     return (
-      <div className="App">
+      <div className="tod">
+        <div className="logo">
+          <img alt="logo" src={`${process.env.PUBLIC_URL}/images/logo.png`} height="70" width="120" />
+        </div>
         <div className="timer">
           <CountdownTimer />
         </div>
 
-        <div className="current-player">
-           <h3>Player: {players[this.state.currPlayer]}</h3>
-        </div>
-
         <div className="questions">
-           <ShowQuest currQuest={this.state.currQuest} currTitle={this.state.currTitle} />
+           <ShowQuest 
+              currQuest={this.state.currQuest} 
+              currType={this.state.currType} 
+              currPlayer={players[this.state.currPlayer]}
+            />
         </div>
 
         <button className="btn-truth" onClick={this.handleRandomTruth}>Truth ({truth.length})</button>
         <button className="btn-dare" onClick={this.handleRandomDare}>Dare ({dare.length})</button>
         <button className="btn-home" >Home</button>
-
-        <Players />
       </div>
     );
   }

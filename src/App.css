@@ -5,7 +5,7 @@
   --secondary-text-color: #b0c7d6;
 }
 
-.App {
+.tod {
   text-align: center;
   display: grid;
   align-items: center;
@@ -20,9 +20,9 @@
       "b b h h d d";
 }
 
-.current-player {
+.logo {
   grid-area: l;
-  background: var(--main-color);
+  background: var(--secondary-color);
   font-size: 18px;
   height: 70px;
 }
