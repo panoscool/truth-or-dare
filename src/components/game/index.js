@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { truth, dare } from '../questions';
 import CountdownTimer from '../timer';
 import ShowQuest from './show-quest';
@@ -81,7 +82,7 @@ class Game extends Component {
 
         <button className="btn-truth" onClick={this.handleRandomTruth}>Truth ({truth.length})</button>
         <button className="btn-dare" onClick={this.handleRandomDare}>Dare ({dare.length})</button>
-        <button className="btn-home" >Home</button>
+        <Link className="btn-home" to="/">Home</Link>
       </div>
     );
   }

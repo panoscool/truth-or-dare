@@ -3,7 +3,7 @@ import React from 'react';
 const PlayerList = (props) => {
     return (
         <div className="player-list">
-            <li>{props.playerName} <button onClick={props.deletePlayer}>x</button></li>
+            <li onClick={props.deletePlayer}>{props.playerName}</li>
         </div>
     );
 }

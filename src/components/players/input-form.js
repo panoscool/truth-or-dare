@@ -8,7 +8,7 @@ const InputForm = (props) => {
             onChange={props.handleChange}
             value={props.value}
         />
-        <button>Add #{props.length}</button>
+        <button className="btn btn-submit">Add #{props.length}</button>
     </form>
     );
 }

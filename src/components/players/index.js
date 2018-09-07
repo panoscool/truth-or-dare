@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import PlayersList from './list';
+import PlayersList from './players-list';
 import InputForm from './input-form';
+import { Link } from 'react-router-dom';
 
 class Players extends Component {
     constructor() {
@@ -34,21 +35,21 @@ class Players extends Component {
 
     render() {
         return(
-            <div className="players">
-                {this.state.players.map((playerName, index) => {
-                    return <PlayersList 
-                    key={index} 
-                    playerName={playerName} 
-                    deletePlayer={this.deletePlayer}
-            /> })}
+          <div className="players">
             <InputForm
-                handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}
-                value={this.state.value}
-                length={this.state.players.length +1}
+               handleChange={this.handleChange}
+               handleSubmit={this.handleSubmit}
+               value={this.state.value}
+               length={this.state.players.length +1}
             />
-            <button className="play">Play</button>
-            </div>
+            {this.state.players.map((playerName, index) => {
+               return <PlayersList 
+               key={index} 
+               playerName={playerName} 
+               deletePlayer={this.deletePlayer}
+            /> })}
+            <Link className="btn btn-play" to="/truth-or-dare">Play</Link>
+           </div>
         );
     }
 }
