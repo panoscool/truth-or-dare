@@ -48,12 +48,12 @@ class CountdownTimer extends Component {
     return (
       <div className="CountdownTimer">
           <div className="timer">
-            <button className="btn-timer" onClick={this.decrementSeconds}>-</button>
+            <button className="btn-t" onClick={this.decrementSeconds}>-</button>
               {this.state.seconds}
-            <button className="btn-timer" onClick={this.incrementSeconds}>+</button> 
+            <button className="btn-t" onClick={this.incrementSeconds}>+</button> 
               <br />
-            <button className="btn-s" onClick={this.startTimer}>Start</button>
-            <button className="btn-s" onClick={this.stopTimer}>Stop</button>
+            <button className="btn-t" onClick={this.startTimer}>Start</button>
+            <button className="btn-t" onClick={this.stopTimer}>Stop</button>
           </div>
       </div>
     );

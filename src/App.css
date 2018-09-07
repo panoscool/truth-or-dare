@@ -73,80 +73,62 @@
   cursor: pointer;
   outline: none;
   box-shadow: none;
+  border: none;
   border-width: 2px;
   border-radius: 3px;
   border-style: solid;
-  background-color: transparent;
+  background-color: var(--secondary-color);
   padding: 8px;
+  text-align: center;
+  font-weight: bold;
+  font-family: fantasy;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+}
+
+.btn-t {
+  margin: 3px;
+  padding: 5px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+  border-style: solid;
+  font-weight: bold;
 }
 
 .btn-truth {
   grid-area: b;
-  font-size: 20px;
-  font-weight: bold;
   color: blue;
-  font-family: fantasy;
-  cursor: pointer;
-  height: 40px;
+  border-color: var(--main-color);
 }
 
 .btn-dare {
   grid-area: d;
-  font-size: 20px;
-  font-weight: bold;
   color: red;
-  font-family: fantasy;
-  cursor: pointer;
-  height: 40px;
-}
-
-.btn-s {
-  padding: 3px;
-  margin: 3px;
-  width: 60px;
-  cursor: pointer;
-}
-
-.btn-timer {
-  padding: 3px;
-  margin: 3px;
-  width: 30px;
-  cursor: pointer;
-
+  border-color: var(--main-color);
 }
 
 .btn-home {
   grid-area: h;
-  border: none;
-  color: white;
-  background-color: var(--main-color);
-  padding: 15px 32px;
-  text-align: center;
-  font-weight: bold;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
-
-.btn-home:hover, .btn-play:hover {
   color: green;
+  border-color: var(--main-color);
 }
-
 
 .btn-play {
-  border: none;
-  color: white;
-  background-color: var(--main-color);
-  padding: 15px 32px;
-  text-align: center;
-  font-weight: bold;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 20px;
   width: 100px;
+  color: green;
+  border-color: var(--main-color);
 }
 
 .btn-submit {
+  padding: 8px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+  border-style: solid;
   color: var(--main-color);
   border-color: var(--main-color);
 }
@@ -155,17 +137,6 @@
   border-width: 3px;
   color: var(--secondary-color);
   font-weight: bold;
-}
-
-.btn-remove {
-  /* top 10px right 20px bottom 5px left 15px */
-  margin: 10px 20px 5px 15px;
-  color: var(--secondary-color);
-  border-color: var(--secondary-color);
-}
-
-.btn-remove:hover {
-  border-color: var(--secondary-text-color);
 }
 
 li {

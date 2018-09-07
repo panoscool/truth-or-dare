@@ -80,9 +80,9 @@ class Game extends Component {
             />
         </div>
 
-        <button className="btn-truth" onClick={this.handleRandomTruth}>Truth ({truth.length})</button>
-        <button className="btn-dare" onClick={this.handleRandomDare}>Dare ({dare.length})</button>
-        <Link className="btn-home" to="/">Home</Link>
+        <button className="btn btn-truth" onClick={this.handleRandomTruth}>Truth ({truth.length})</button>
+        <button className="btn btn-dare" onClick={this.handleRandomDare}>Dare ({dare.length})</button>
+        <Link className="btn btn-home" to="/">Home</Link>
       </div>
     );
   }
