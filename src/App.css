@@ -12,13 +12,13 @@
   align-items: center;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(6, 1fr);
-  grid-template-areas: 
-      "l l l t t t"
-      "m m m m m m"
-      "m m m m m m"
-      "m m m m m m"
-      "m m m m m m"
-      "b b h h d d";
+  grid-template-areas:
+    "l l l t t t"
+    "m m m m m m"
+    "m m m m m m"
+    "m m m m m m"
+    "m m m m m m"
+    "b b h h d d";
 }
 
 .App {
@@ -65,7 +65,7 @@
 
 .questions {
   grid-area: m;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 20px;
 }
 

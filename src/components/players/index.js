@@ -8,7 +8,7 @@ class Players extends Component {
     super();
     this.state = {
       name: "",
-      players: JSON.parse(localStorage.getItem("players")) || []
+      players: JSON.parse(sessionStorage.getItem("players")) || []
     };
   }
 
@@ -39,7 +39,7 @@ class Players extends Component {
   };
 
   refreshStorage = () => {
-    localStorage.setItem("players", JSON.stringify(this.state.players));
+    sessionStorage.setItem("players", JSON.stringify(this.state.players));
   };
 
   render() {

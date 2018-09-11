@@ -8,12 +8,12 @@ class Game extends Component {
   constructor() {
     super();
     this.state = {
-      currPlayer: -1,
-      currQuest: null,
-      currType: null
+      currentPlayer: -1,
+      currentQuest: null,
+      currentType: null
     };
 
-    this.players = JSON.parse(localStorage.getItem("players"));
+    this.players = JSON.parse(sessionStorage.getItem("players"));
   }
 
   handleRandomTruth = () => {
@@ -21,8 +21,8 @@ class Game extends Component {
     // let remTQuest = truth.filter(t => !t.hasGameeard)
     let randomNum = Math.floor(Math.random() * truth.length);
     this.setState({
-      currQuest: truth[randomNum],
-      currType: "Truth"
+      currentQuest: truth[randomNum],
+      currentType: "Truth"
     });
     truth.splice(randomNum, 1);
     // truth[randomNum].hasAppeard = true
@@ -33,22 +33,22 @@ class Game extends Component {
     // let remDQuest = dare.filter(d => !d.hasAppeard)
     let randomNum = Math.floor(Math.random() * dare.length);
     this.setState({
-      currQuest: dare[randomNum],
-      currType: "Dare"
+      currentQuest: dare[randomNum],
+      currentType: "Dare"
     });
     dare.splice(randomNum, 1);
     // dare[randomNum].hasAppeard = true
   };
 
   playerTurn = () => {
-    let index = this.state.currPlayer;
+    let index = this.state.currentPlayer;
     index = index + 1;
 
     if (this.players[index]) {
-      this.setState({ currPlayer: index });
+      this.setState({ currentPlayer: index });
     } else {
       // next question
-      this.setState({ currPlayer: 0 });
+      this.setState({ currentPlayer: 0 });
       // TODO: go to next question
     }
   };
@@ -72,9 +72,9 @@ class Game extends Component {
 
         <div className="questions">
           <ShowQuest
-            currQuest={this.state.currQuest}
-            currType={this.state.currType}
-            currPlayer={this.players[this.state.currPlayer]}
+            currentQuest={this.state.currentQuest}
+            currentType={this.state.currentType}
+            currentPlayer={this.players[this.state.currentPlayer]}
           />
         </div>
 
