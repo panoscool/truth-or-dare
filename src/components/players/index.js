@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import PlayersList from "./players-list";
 import InputForm from "./input-form";
+import PlayersList from "./players-list";
 import { Link } from "react-router-dom";
 
 class Players extends Component {
@@ -42,6 +42,8 @@ class Players extends Component {
     sessionStorage.setItem("players", JSON.stringify(this.state.players));
   };
 
+  handlePlay = () => this.props.onPlay();
+
   render() {
     return (
       <div className="players">
@@ -51,7 +53,6 @@ class Players extends Component {
           value={this.state.name}
           length={this.state.players.length + 1}
         />
-
         {this.state.players.map((playerName, index) => {
           return (
             <PlayersList
@@ -61,10 +62,12 @@ class Players extends Component {
             />
           );
         })}
-
-        <Link className="btn btn-play" to="/truth-or-dare">
+        <button
+          onClick={this.handlePlay}
+          disabled={this.state.players.length <= 1}
+        >
           Play
-        </Link>
+        </button>
       </div>
     );
   }

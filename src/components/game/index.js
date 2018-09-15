@@ -53,6 +53,8 @@ class Game extends Component {
     }
   };
 
+  handleHome = () => this.props.onHome();
+
   render() {
     //  {truth.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
     //  {dare.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
@@ -84,9 +86,9 @@ class Game extends Component {
         <button className="btn btn-dare" onClick={this.handleRandomDare}>
           Dare ({dare.length})
         </button>
-        <Link className="btn btn-home" to="/">
+        <button className="btn btn-home" onClick={this.handleHome}>
           Home
-        </Link>
+        </button>
       </div>
     );
   }

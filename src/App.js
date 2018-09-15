@@ -1,19 +1,36 @@
 import React, { Component } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Players from "./components/players";
 import Game from "./components/game";
 import "./App.css";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      gameOn: false
+    };
+  }
+
+  startGame = () => {
+    this.setState({
+      gameOn: true
+    });
+  };
+
+  stopGame = () => this.setState({ gameOn: false });
   render() {
+    const { gameOn } = this.state;
+    const players = sessionStorage.getItem("players");
+    if (players && gameOn) {
+      return (
+        <div className="App">
+          <Game onHome={this.stopGame} />
+        </div>
+      );
+    }
     return (
       <div className="App">
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component={Players} />
-            <Route path="/truth-or-dare" component={Game} />
-          </Switch>
-        </BrowserRouter>
+        <Players onPlay={this.startGame} />
       </div>
     );
   }

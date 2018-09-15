@@ -26,6 +26,7 @@ class CountdownTimer extends Component {
   tick = () => {
     let { seconds } = this.state;
     this.setState({ seconds: this.state.seconds - 1 });
+    // if seconds = 0 stop timer
     if (seconds === 1) {
       this.stopTimer();
     }
@@ -46,6 +47,7 @@ class CountdownTimer extends Component {
   render() {
     return (
       <div className="CountdownTimer">
+        <div className="title">Countdown Timer</div>
         <div className="timer">
           <button className="btn-t" onClick={this.decrementSeconds}>
             -
