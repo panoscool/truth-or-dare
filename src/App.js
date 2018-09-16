@@ -11,28 +11,17 @@ class App extends Component {
     };
   }
 
-  startGame = () => {
-    this.setState({
-      gameOn: true
-    });
-  };
+  startGame = () => this.setState({ gameOn: true });
 
   stopGame = () => this.setState({ gameOn: false });
+
   render() {
     const { gameOn } = this.state;
     const players = sessionStorage.getItem("players");
     if (players && gameOn) {
-      return (
-        <div className="App">
-          <Game onHome={this.stopGame} />
-        </div>
-      );
+      return <Game onHome={this.stopGame} />;
     }
-    return (
-      <div className="App">
-        <Players onPlay={this.startGame} />
-      </div>
-    );
+    return <Players onPlay={this.startGame} />;
   }
 }
 

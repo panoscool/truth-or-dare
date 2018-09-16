@@ -46,21 +46,27 @@ class CountdownTimer extends Component {
 
   render() {
     return (
-      <div className="CountdownTimer">
-        <div className="title">Countdown Timer</div>
-        <div className="timer">
-          <button className="btn-t" onClick={this.decrementSeconds}>
+      <div className="row">
+        <div className="title col">Countdown Timer &#x21E8;</div>
+        <div className="timer col mt-1">
+          <button
+            className="btn btn-sm btn-info mr-2"
+            onClick={this.decrementSeconds}
+          >
             -
           </button>
           {this.state.seconds}
-          <button className="btn-t" onClick={this.incrementSeconds}>
+          <button
+            className="btn btn-sm btn-info ml-2"
+            onClick={this.incrementSeconds}
+          >
             +
           </button>
           <br />
-          <button className="btn-t" onClick={this.startTimer}>
+          <button className="btn btn-sm btn-info" onClick={this.startTimer}>
             Start
           </button>
-          <button className="btn-t" onClick={this.stopTimer}>
+          <button className="btn btn-sm btn-info" onClick={this.stopTimer}>
             Stop
           </button>
         </div>

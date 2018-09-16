@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { truth, dare } from "../questions";
 import CountdownTimer from "../timer";
 import ShowQuest from "./show-quest";
+import logo from "../../logo.png";
 
 class Game extends Component {
   constructor() {
@@ -59,17 +59,15 @@ class Game extends Component {
     //  {truth.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
     //  {dare.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
     return (
-      <div className="tod">
-        <div className="logo">
-          <img
-            alt="logo"
-            src={`${process.env.PUBLIC_URL}/images/logo.png`}
-            height="70"
-            width="120"
-          />
-        </div>
-        <div className="timer">
-          <CountdownTimer />
+      <div className="container border border-info rounded">
+        <div className="header row">
+          <div className="logo col mt-1">
+            <img alt="logo" src={logo} height="70" width="120" />
+          </div>
+
+          <div className="timer col-8">
+            <CountdownTimer />
+          </div>
         </div>
 
         <div className="questions">
@@ -80,15 +78,26 @@ class Game extends Component {
           />
         </div>
 
-        <button className="btn btn-truth" onClick={this.handleRandomTruth}>
-          Truth ({truth.length})
-        </button>
-        <button className="btn btn-dare" onClick={this.handleRandomDare}>
-          Dare ({dare.length})
-        </button>
-        <button className="btn btn-home" onClick={this.handleHome}>
-          Home
-        </button>
+        <div className="controls">
+          <button
+            className="btn btn-success btn-lg mr-5"
+            onClick={this.handleRandomTruth}
+          >
+            Truth ({truth.length})
+          </button>
+          <button
+            className="btn btn-info btn-lg mx-5"
+            onClick={this.handleHome}
+          >
+            Home
+          </button>
+          <button
+            className="btn btn-danger btn-lg ml-5"
+            onClick={this.handleRandomDare}
+          >
+            Dare ({dare.length})
+          </button>
+        </div>
       </div>
     );
   }

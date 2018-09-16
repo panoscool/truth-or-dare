@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import InputForm from "./input-form";
 import PlayersList from "./players-list";
-import { Link } from "react-router-dom";
 
 class Players extends Component {
   constructor() {
@@ -11,6 +10,8 @@ class Players extends Component {
       players: JSON.parse(sessionStorage.getItem("players")) || []
     };
   }
+
+  handlePlay = () => this.props.onPlay();
 
   handleChange = e => {
     this.setState({ name: e.target.value });
@@ -42,32 +43,38 @@ class Players extends Component {
     sessionStorage.setItem("players", JSON.stringify(this.state.players));
   };
 
-  handlePlay = () => this.props.onPlay();
+  renderPlayers = () => {
+    return this.state.players.map((playerName, index) => {
+      return (
+        <PlayersList
+          key={index}
+          playerName={playerName}
+          deletePlayer={this.deletePlayer}
+        />
+      );
+    });
+  };
 
   render() {
     return (
-      <div className="players">
-        <InputForm
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-          value={this.state.name}
-          length={this.state.players.length + 1}
-        />
-        {this.state.players.map((playerName, index) => {
-          return (
-            <PlayersList
-              key={index}
-              playerName={playerName}
-              deletePlayer={this.deletePlayer}
-            />
-          );
-        })}
-        <button
-          onClick={this.handlePlay}
-          disabled={this.state.players.length <= 1}
-        >
-          Play
-        </button>
+      <div className="container">
+        <div className="form-group">
+          <InputForm
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+            value={this.state.name}
+            length={this.state.players.length + 1}
+          />
+          {this.renderPlayers()}
+          <button
+            type="button"
+            className="btn btn-info btn-lg btn-block"
+            onClick={this.handlePlay}
+            disabled={this.state.players.length <= 1}
+          >
+            Play
+          </button>
+        </div>
       </div>
     );
   }

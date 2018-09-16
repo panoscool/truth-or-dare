@@ -1,165 +1,27 @@
-:root {
-  --main-color: lightblue;
-  --secondary-color: lightskyblue;
-  --main-text-color: blue;
-  --secondary-text-color: red;
-  --background-color: whitesmoke;
-}
-
-.tod {
+.container {
   text-align: center;
-  display: grid;
-  align-items: center;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-  grid-template-areas:
-    "l l l t t t"
-    "m m m m m m"
-    "m m m m m m"
-    "m m m m m m"
-    "m m m m m m"
-    "b b h h d d";
 }
 
-.App {
-  text-align: center;
-  display: flex;
-  width: 90%;
-  flex-direction: column;
-  margin: 20px auto 20px auto;
-  border: 5px solid var(--main-color);
-  background-color: whitesmoke;
-}
-
-.logo {
-  grid-area: l;
-  background: var(--secondary-color);
-  font-size: 18px;
-  height: 70px;
+.list-group-item {
+  cursor: pointer;
 }
 
 .header {
+  background-color: lightblue;
+}
+
+.title {
+  align-self: center;
   color: white;
-  font-family: var(--main-font-style);
-  text-shadow: 2px 2px 4px #000000;
-}
-
-.footer {
-  color: var(--main-text-color);
-  font-family: var(--main-font-style);
-  margin: 5px;
-}
-
-.players-list {
-  text-align: left;
-  margin-bottom: 18px;
-  border-bottom: 1px solid var(--secondary-color);
-}
-
-.timer {
-  grid-area: t;
-  background: var(--secondary-color);
-  font-size: 18px;
-  height: 70px;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .questions {
-  grid-area: m;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 20px;
+  margin-top: 100px;
+  height: 200px;
 }
 
-.btn {
-  cursor: pointer;
-  outline: none;
-  box-shadow: none;
-  border: none;
-  border-width: 2px;
-  border-radius: 3px;
-  border-style: solid;
-  background-color: var(--secondary-color);
-  padding: 8px;
-  text-align: center;
-  font-weight: bold;
-  font-family: fantasy;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 20px;
-}
-
-.btn-t {
-  margin: 3px;
-  padding: 5px;
-  cursor: pointer;
-  outline: none;
-  box-shadow: none;
-  background: transparent;
-  border-style: solid;
-  font-weight: bold;
-}
-
-.btn-truth {
-  grid-area: b;
-  color: blue;
-  border-color: var(--main-color);
-}
-
-.btn-dare {
-  grid-area: d;
-  color: red;
-  border-color: var(--main-color);
-}
-
-.btn-home {
-  grid-area: h;
-  color: green;
-  border-color: var(--main-color);
-}
-
-.btn-play {
-  width: 100px;
-  color: green;
-  border-color: var(--main-color);
-}
-
-.btn-submit {
-  padding: 8px;
-  cursor: pointer;
-  outline: none;
-  box-shadow: none;
-  background: transparent;
-  border-style: solid;
-  color: var(--main-color);
-  border-color: var(--main-color);
-}
-
-.btn-submit:hover {
-  border-width: 3px;
-  color: var(--secondary-color);
-  font-weight: bold;
-}
-
-li {
-  list-style: none;
-  cursor: pointer;
-}
-
-li:hover {
-  background-color: white;
-}
-
-input {
-  width: 50%;
-  border: none;
-  padding: 8px 2px;
-  margin: 8px;
-  border-top: 2px solid var(--main-color);
-  border-bottom: 2px solid var(--main-color);
-}
-
-input:focus {
-  outline: none;
-  border: none;
-  border-top: 3px solid var(--main-color);
-  border-bottom: 3px solid var(--main-color);
+.controls {
+  background-color: lightblue;
 }
