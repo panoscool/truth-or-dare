@@ -6,6 +6,15 @@
   cursor: pointer;
 }
 
+.form-inline {
+  justify-content: center;
+}
+
+.logo {
+  background-color: lightblue;
+  justify-content: center;
+}
+
 .header {
   background-color: lightblue;
 }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import InputForm from "./input-form";
 import PlayersList from "./players-list";
+import logo from "../../logo.png";
 
 class Players extends Component {
   constructor() {
@@ -57,7 +58,10 @@ class Players extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container border border-info rounded">
+        <div className="logo row">
+          <img alt="logo" src={logo} height="70" width="120" />
+        </div>
         <div className="form-group">
           <InputForm
             handleChange={this.handleChange}
@@ -65,7 +69,11 @@ class Players extends Component {
             value={this.state.name}
             length={this.state.players.length + 1}
           />
-          {this.renderPlayers()}
+          {this.state.players.length ? (
+            <div>{this.renderPlayers()}</div>
+          ) : (
+            <h3>Add your names to start the game!</h3>
+          )}
           <button
             type="button"
             className="btn btn-info btn-lg btn-block"
