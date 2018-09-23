@@ -4,13 +4,13 @@ const ShowQuest = props => {
   // {props.currentQuest ? <div>{props.currentQuest.question}</div> : ''}
   return (
     <div className="show-quest">
-      <h3>
+      <h2>
         {props.currentPlayer ? <div>Player: {props.currentPlayer}</div> : ""}
-      </h3>
+      </h2>
       <p />
-      {props.currentType}
+      <h3>{props.currentType}</h3>
       <p />
-      {props.currentQuest}
+      <h3>{props.currentQuest}</h3>
     </div>
   );
 };

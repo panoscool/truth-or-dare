@@ -63,7 +63,13 @@ class Game extends Component {
       <div className="container">
         <div className="border border-info rounded">
           <div className="header">
-            <img alt="logo" src={logo} height="70" width="120" />
+            <img
+              className="py-2"
+              alt="logo"
+              src={logo}
+              height="70"
+              width="120"
+            />
             <CountdownTimer />
           </div>
 

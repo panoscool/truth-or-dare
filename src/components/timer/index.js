@@ -55,7 +55,7 @@ class CountdownTimer extends Component {
           <button className="btn mr-2" onClick={this.decrementSeconds}>
             -
           </button>
-          {this.state.seconds}
+          <h3>{this.state.seconds}</h3>
           <button className="btn ml-2" onClick={this.incrementSeconds}>
             +
           </button>
