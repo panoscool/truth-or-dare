@@ -4,7 +4,8 @@ class CountdownTimer extends Component {
   constructor() {
     super();
     this.state = {
-      seconds: 0
+      seconds: 0,
+      countdown: false
     };
   }
 
@@ -37,38 +38,36 @@ class CountdownTimer extends Component {
     if (!this.timer && seconds > 0) {
       this.timer = setInterval(this.tick, 1000);
     }
+    this.setState({ countdown: true });
   };
 
   stopTimer = () => {
     clearInterval(this.timer);
     this.timer = undefined;
+    this.setState({ countdown: false });
   };
 
   render() {
     return (
-      <div className="row">
-        <div className="title col">Countdown Timer &#x21E8;</div>
-        <div className="timer col mt-1">
-          <button
-            className="btn btn-sm btn-info mr-2"
-            onClick={this.decrementSeconds}
-          >
+      <div className="timer">
+        <div className="title">Challenge Timer</div>
+        <div className="controls mt-1">
+          <button className="btn mr-2" onClick={this.decrementSeconds}>
             -
           </button>
           {this.state.seconds}
-          <button
-            className="btn btn-sm btn-info ml-2"
-            onClick={this.incrementSeconds}
-          >
+          <button className="btn ml-2" onClick={this.incrementSeconds}>
             +
           </button>
-          <br />
-          <button className="btn btn-sm btn-info" onClick={this.startTimer}>
-            Start
-          </button>
-          <button className="btn btn-sm btn-info" onClick={this.stopTimer}>
-            Stop
-          </button>
+          {this.state.countdown === false && this.state.seconds > 0 ? (
+            <button className="btn ml-2" onClick={this.startTimer}>
+              Start
+            </button>
+          ) : (
+            <button className="btn ml-2" onClick={this.stopTimer}>
+              Stop
+            </button>
+          )}
         </div>
       </div>
     );

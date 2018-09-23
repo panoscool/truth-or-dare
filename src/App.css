@@ -1,22 +1,24 @@
-.container {
-  text-align: center;
+:root {
+  --main-color: linear-gradient(to bottom, #ff512f, #f09819);
+}
+
+.name-input-form {
+  display: flex;
 }
 
 .list-group-item {
   cursor: pointer;
 }
 
-.form-inline {
-  justify-content: center;
-}
-
 .logo {
-  background-color: lightblue;
   justify-content: center;
+  background: var(--main-color);
 }
 
 .header {
-  background-color: lightblue;
+  display: flex;
+  justify-content: space-around;
+  background: var(--main-color);
 }
 
 .title {
@@ -32,5 +34,6 @@
 }
 
 .controls {
-  background-color: lightblue;
+  display: flex;
+  background: var(--main-color);
 }

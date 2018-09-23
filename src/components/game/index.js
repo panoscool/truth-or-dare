@@ -4,6 +4,9 @@ import CountdownTimer from "../timer";
 import ShowQuest from "./show-quest";
 import logo from "../../logo.png";
 
+// const truthURL = "http(s)://5b9bf7928d1635001482cd95.mockapi.io/truth";
+// const dareURL = "http(s)://5b9bf7928d1635001482cd95.mockapi.io/dare";
+
 class Game extends Component {
   constructor() {
     super();
@@ -47,9 +50,7 @@ class Game extends Component {
     if (this.players[index]) {
       this.setState({ currentPlayer: index });
     } else {
-      // next question
       this.setState({ currentPlayer: 0 });
-      // TODO: go to next question
     }
   };
 
@@ -59,44 +60,43 @@ class Game extends Component {
     //  {truth.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
     //  {dare.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
     return (
-      <div className="container border border-info rounded">
-        <div className="header row">
-          <div className="logo col mt-1">
+      <div className="container">
+        <div className="border border-info rounded">
+          <div className="header">
             <img alt="logo" src={logo} height="70" width="120" />
-          </div>
-
-          <div className="timer col-8">
             <CountdownTimer />
           </div>
-        </div>
 
-        <div className="questions">
-          <ShowQuest
-            currentQuest={this.state.currentQuest}
-            currentType={this.state.currentType}
-            currentPlayer={this.players[this.state.currentPlayer]}
-          />
-        </div>
+          <div className="questions text-center">
+            <ShowQuest
+              currentQuest={this.state.currentQuest}
+              currentType={this.state.currentType}
+              currentPlayer={this.players[this.state.currentPlayer]}
+            />
+          </div>
 
-        <div className="controls">
-          <button
-            className="btn btn-success btn-lg mr-5"
-            onClick={this.handleRandomTruth}
-          >
-            Truth ({truth.length})
-          </button>
-          <button
-            className="btn btn-info btn-lg mx-5"
-            onClick={this.handleHome}
-          >
-            Home
-          </button>
-          <button
-            className="btn btn-danger btn-lg ml-5"
-            onClick={this.handleRandomDare}
-          >
-            Dare ({dare.length})
-          </button>
+          <div className="controls mb-1">
+            <button
+              className="btn btn-success btn-block m-0"
+              onClick={this.handleRandomTruth}
+            >
+              Truth ({truth.length})
+            </button>
+
+            <button
+              className="btn btn-info btn-block m-0"
+              onClick={this.handleHome}
+            >
+              Home
+            </button>
+
+            <button
+              className="btn btn-danger btn-block m-0"
+              onClick={this.handleRandomDare}
+            >
+              Dare ({dare.length})
+            </button>
+          </div>
         </div>
       </div>
     );
