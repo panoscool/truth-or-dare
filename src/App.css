@@ -1,5 +1,6 @@
 :root {
   --main-color: linear-gradient(to bottom, #ff512f, #f09819);
+  --secondary-color: linear-gradient(to top, #ff512f, #f09819);
 }
 
 .name-input-form {
@@ -31,4 +32,10 @@
 .controls {
   display: flex;
   background: var(--main-color);
+}
+
+.categories {
+  display: flex;
+  font-weight: bold;
+  justify-content: space-around;
 }

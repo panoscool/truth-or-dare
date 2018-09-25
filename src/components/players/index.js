@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import InputForm from "./input-form";
 import PlayersList from "./players-list";
+import Categories from "./categories";
 import logo from "../../logo.png";
 
 class Players extends Component {
@@ -83,6 +84,7 @@ class Players extends Component {
                 <h3>Add your names to start the game!</h3>
               )}
             </div>
+            <Categories />
             <button
               type="button"
               className="btn btn-info btn-lg btn-block"
