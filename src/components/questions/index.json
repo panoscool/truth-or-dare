@@ -1,0 +1,43 @@
+{
+  "truth": [
+    {
+      "id": "dd33b9c4-c3ef-11e8-b8dc-8b77bf3680b2",
+      "value": "Name 10 body parts that your partner likes to kiss.",
+      "category": "funny",
+      "appeared": false
+    },
+    {
+      "id": "289f4fe4-c3f1-11e8-94c5-3b4ead41bb54",
+      "value": "Say a list of 10 items or things you bought and never used or regretted buying.",
+      "category": "soft",
+      "appeared": false
+    },
+    {
+      "id": "3e710aae-c411-11e8-ba90-13acf78e5488",
+      "value": "What was the most embarrassing moment of your life?",
+      "category": "hot",
+      "appeared": false
+    }
+  ],
+
+  "dare": [
+    {
+      "id": "1c5dbec8-c3f1-11e8-981c-a737148c1c42",
+      "value": "Very affectionately kiss another participant (the rest can choose whom).",
+      "category": "funny",
+      "appeared": false
+    },
+    {
+      "id": "4c10339e-c3f1-11e8-b8e0-cbb8fbba2644",
+      "value": "Give a massage to a companion for 5 minutes.",
+      "category": "soft",
+      "appeared": false
+    },
+    {
+      "id": "9109492e-c412-11e8-b2e1-dfb8523807dd",
+      "value": "Asks for money on the street telling a funny story and nothing credible and board 50$.",
+      "category": "hot",
+      "appeared": false
+    }
+  ]
+}

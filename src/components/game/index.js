@@ -4,9 +4,6 @@ import CountdownTimer from "../timer";
 import ShowQuest from "./show-quest";
 import logo from "../../logo.png";
 
-// const truthURL = "http(s)://5b9bf7928d1635001482cd95.mockapi.io/truth";
-// const dareURL = "http(s)://5b9bf7928d1635001482cd95.mockapi.io/dare";
-
 class Game extends Component {
   constructor() {
     super();
@@ -20,27 +17,39 @@ class Game extends Component {
   }
 
   handleRandomTruth = () => {
+    const { questCategory } = this.props;
+
     this.playerTurn();
-    // let remTQuest = truth.filter(t => !t.hasGameeard)
-    let randomNum = Math.floor(Math.random() * truth.length);
+
+    let remTQuest = truth
+      .filter(t => t.category === questCategory)
+      .filter(t => !t.appeared);
+    let randomNum = Math.floor(Math.random() * remTQuest.length);
+
     this.setState({
       currentQuest: truth[randomNum],
       currentType: "Truth"
     });
-    truth.splice(randomNum, 1);
-    // truth[randomNum].hasAppeard = true
+    // truth.splice(randomNum, 1);
+    truth[randomNum].appeared = true;
   };
 
   handleRandomDare = () => {
+    const { questCategory } = this.props;
+
     this.playerTurn();
-    // let remDQuest = dare.filter(d => !d.hasAppeard)
-    let randomNum = Math.floor(Math.random() * dare.length);
+
+    let remDQuest = dare
+      .filter(d => d.category === questCategory)
+      .filter(d => !d.appeared);
+    let randomNum = Math.floor(Math.random() * remDQuest.length);
+
     this.setState({
       currentQuest: dare[randomNum],
       currentType: "Dare"
     });
-    dare.splice(randomNum, 1);
-    // dare[randomNum].hasAppeard = true
+    // dare.splice(randomNum, 1);
+    dare[randomNum].appeared = true;
   };
 
   playerTurn = () => {
@@ -57,6 +66,10 @@ class Game extends Component {
   handleHome = () => this.props.onHome();
 
   render() {
+    let remTQuest = dare.filter(t => !t.appeared);
+
+    let remDQuest = dare.filter(d => !d.appeared);
+
     //  {truth.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
     //  {dare.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
     return (
@@ -86,7 +99,7 @@ class Game extends Component {
               className="btn btn-success btn-block m-0"
               onClick={this.handleRandomTruth}
             >
-              Truth ({truth.length})
+              Truth ({remTQuest.length})
             </button>
 
             <button
@@ -100,7 +113,7 @@ class Game extends Component {
               className="btn btn-danger btn-block m-0"
               onClick={this.handleRandomDare}
             >
-              Dare ({dare.length})
+              Dare ({remDQuest.length})
             </button>
           </div>
         </div>

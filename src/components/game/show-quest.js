@@ -10,7 +10,7 @@ const ShowQuest = props => {
       <p />
       <h3>
         {props.currentQuest ? (
-          <div>{props.currentQuest}</div>
+          <div>{props.currentQuest.value}</div>
         ) : (
           <div style={{ fontStyle: "italic", color: "red" }}>
             <h4>

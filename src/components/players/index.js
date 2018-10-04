@@ -75,16 +75,15 @@ class Players extends Component {
               handleKeyUp={this.handleKeyUp}
               addPlayer={this.addPlayer}
               value={this.state.name}
-              length={this.state.players.length + 1}
             />
             <div className="text-center">
               {this.state.players.length ? (
                 <div>{this.renderPlayers()}</div>
               ) : (
-                <h3>Add your names to start the game!</h3>
+                <h3>Add at least 2 names to start the game!</h3>
               )}
             </div>
-            <Categories />
+            <Categories handleCategory={this.props.handleCategory} />
             <button
               type="button"
               className="btn btn-info btn-lg btn-block"
