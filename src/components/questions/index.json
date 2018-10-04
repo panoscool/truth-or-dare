@@ -17,6 +17,12 @@
       "value": "What was the most embarrassing moment of your life?",
       "category": "hot",
       "appeared": false
+    },
+    {
+      "id": "89019386-c7c7-11e8-a22b-8b5b75d4b58c",
+      "value": "Have you ever been humiliated? Explain what happened and how you felt.",
+      "category": "soft",
+      "appeared": false
     }
   ],
 

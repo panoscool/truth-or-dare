@@ -17,9 +17,9 @@ class Game extends Component {
   }
 
   handleRandomTruth = () => {
-    const { questCategory } = this.props;
-
     this.playerTurn();
+
+    const { questCategory } = this.props;
 
     let remTQuest = truth
       .filter(t => t.category === questCategory)
@@ -35,9 +35,9 @@ class Game extends Component {
   };
 
   handleRandomDare = () => {
-    const { questCategory } = this.props;
-
     this.playerTurn();
+
+    const { questCategory } = this.props;
 
     let remDQuest = dare
       .filter(d => d.category === questCategory)
@@ -66,9 +66,15 @@ class Game extends Component {
   handleHome = () => this.props.onHome();
 
   render() {
-    let remTQuest = dare.filter(t => !t.appeared);
+    const { questCategory } = this.props;
 
-    let remDQuest = dare.filter(d => !d.appeared);
+    let remTQuest = truth
+      .filter(t => t.category === questCategory)
+      .filter(t => !t.appeared);
+
+    let remDQuest = dare
+      .filter(d => d.category === questCategory)
+      .filter(d => !d.appeared);
 
     //  {truth.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
     //  {dare.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
