@@ -9,7 +9,7 @@ class Players extends Component {
     super();
     this.state = {
       name: "",
-      players: JSON.parse(sessionStorage.getItem("players")) || []
+      players: JSON.parse(localStorage.getItem("players")) || []
     };
   }
 
@@ -29,25 +29,29 @@ class Players extends Component {
     if (!this.state.name.trim()) {
       return;
     }
-    let newPlayer = this.state.players;
-    newPlayer.push(this.state.name);
+    const player = {
+      name: this.state.name,
+      score: 0
+    };
+    let newPlayers = this.state.players;
+    newPlayers.push(player);
     this.setState(
       {
         name: "",
-        players: newPlayer
+        players: newPlayers
       },
       this.refreshStorage
     );
   };
 
   deletePlayer = index => {
-    let newPlayer = this.state.players;
-    newPlayer.splice(index, 1);
-    this.setState({ players: newPlayer }, this.refreshStorage);
+    let newPlayers = this.state.players;
+    newPlayers.splice(index, 1);
+    this.setState({ players: newPlayers }, this.refreshStorage);
   };
 
   refreshStorage = () => {
-    sessionStorage.setItem("players", JSON.stringify(this.state.players));
+    localStorage.setItem("players", JSON.stringify(this.state.players));
   };
 
   renderPlayers = () => {

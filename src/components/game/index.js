@@ -3,6 +3,7 @@ import { truth, dare } from "../questions";
 import CountdownTimer from "../timer";
 import ShowQuest from "./show-quest";
 import logo from "../../logo.png";
+import Buttons from "./buttons";
 
 class Game extends Component {
   constructor() {
@@ -13,42 +14,40 @@ class Game extends Component {
       currentType: null
     };
 
-    this.players = JSON.parse(sessionStorage.getItem("players"));
+    this.players = JSON.parse(localStorage.getItem("players"));
   }
 
-  handleRandomTruth = () => {
+  randomTruth = () => {
     this.playerTurn();
 
     const { questCategory } = this.props;
+    const getTruthCategory = truth.filter(t => t.category === questCategory);
 
-    let remTQuest = truth
-      .filter(t => t.category === questCategory)
-      .filter(t => !t.appeared);
-    let randomNum = Math.floor(Math.random() * remTQuest.length);
+    const truthQuest = getTruthCategory.filter(t => !t.appeared);
+
+    const randomNum = Math.floor(Math.random() * truthQuest.length);
 
     this.setState({
-      currentQuest: truth[randomNum],
+      currentQuest: truthQuest[randomNum],
       currentType: "Truth"
     });
-    // truth.splice(randomNum, 1);
     truth[randomNum].appeared = true;
   };
 
-  handleRandomDare = () => {
+  randomDare = () => {
     this.playerTurn();
 
     const { questCategory } = this.props;
+    const getDareCategory = dare.filter(d => d.category === questCategory);
 
-    let remDQuest = dare
-      .filter(d => d.category === questCategory)
-      .filter(d => !d.appeared);
-    let randomNum = Math.floor(Math.random() * remDQuest.length);
+    const dareQuest = getDareCategory.filter(d => !d.appeared);
+
+    const randomNum = Math.floor(Math.random() * dareQuest.length);
 
     this.setState({
-      currentQuest: dare[randomNum],
+      currentQuest: dareQuest[randomNum],
       currentType: "Dare"
     });
-    // dare.splice(randomNum, 1);
     dare[randomNum].appeared = true;
   };
 
@@ -67,17 +66,12 @@ class Game extends Component {
 
   render() {
     const { questCategory } = this.props;
-
-    let remTQuest = truth
+    const remainingTruths = truth
       .filter(t => t.category === questCategory)
       .filter(t => !t.appeared);
-
-    let remDQuest = dare
+    const remainingDares = dare
       .filter(d => d.category === questCategory)
       .filter(d => !d.appeared);
-
-    //  {truth.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
-    //  {dare.map((quest, index) => <h3 key={index}>{quest.question}</h3>)}
     return (
       <div className="container">
         <div className="border border-info rounded">
@@ -92,36 +86,19 @@ class Game extends Component {
             <CountdownTimer />
           </div>
 
-          <div className="questions text-center">
-            <ShowQuest
-              currentQuest={this.state.currentQuest}
-              currentType={this.state.currentType}
-              currentPlayer={this.players[this.state.currentPlayer]}
-            />
-          </div>
+          <ShowQuest
+            currentQuest={this.state.currentQuest}
+            currentType={this.state.currentType}
+            currentPlayer={this.players[this.state.currentPlayer]}
+          />
 
-          <div className="controls mb-1">
-            <button
-              className="btn btn-success btn-block m-0"
-              onClick={this.handleRandomTruth}
-            >
-              Truth ({remTQuest.length})
-            </button>
-
-            <button
-              className="btn btn-info btn-block m-0"
-              onClick={this.handleHome}
-            >
-              Home
-            </button>
-
-            <button
-              className="btn btn-danger btn-block m-0"
-              onClick={this.handleRandomDare}
-            >
-              Dare ({remDQuest.length})
-            </button>
-          </div>
+          <Buttons
+            randomTruth={this.randomTruth}
+            randomDare={this.randomDare}
+            handleHome={this.handleHome}
+            remainingTruths={remainingTruths}
+            remainingDares={remainingDares}
+          />
         </div>
       </div>
     );

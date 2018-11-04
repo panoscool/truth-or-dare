@@ -7,7 +7,7 @@ const PlayerList = props => {
         className="list-group-item list-group-item-action text-center"
         onClick={props.deletePlayer}
       >
-        {props.playerName}
+        {props.playerName.name}
       </li>
     </div>
   );

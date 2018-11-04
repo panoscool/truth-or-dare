@@ -7,7 +7,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      questCategory: "",
+      questCategory: localStorage.getItem("categories") || "",
       gameOn: false
     };
   }
@@ -18,12 +18,17 @@ class App extends Component {
 
   handleCategory = evt => {
     const questCategory = evt.target.value;
-    this.setState({ questCategory });
+    this.setState({ questCategory }, this.refreshStorage);
+  };
+
+  refreshStorage = () => {
+    localStorage.setItem("categories", this.state.questCategory);
   };
 
   render() {
     const { gameOn } = this.state;
-    const players = sessionStorage.getItem("players");
+    const players = localStorage.getItem("players");
+
     if (players && gameOn) {
       return (
         <Game onHome={this.stopGame} questCategory={this.state.questCategory} />
