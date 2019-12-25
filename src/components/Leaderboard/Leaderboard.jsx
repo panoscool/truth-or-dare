@@ -1,4 +1,4 @@
-import React, { Components } from "react";
+import React, { Components } from 'react';
 
 class LeaderBoard extends Components {
   render() {

@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const Buttons = props => {
+const Buttons = (props) => {
   const {
     randomTruth,
     randomDare,
