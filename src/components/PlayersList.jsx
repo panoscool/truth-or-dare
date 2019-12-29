@@ -20,8 +20,8 @@ function PlayersList({ data }) {
   return (
     <div className={classes.root}>
       <List>
-        {data && data.map(({ name }) => (
-          <ListItem>
+        {data && data.map(({ id, name }) => (
+          <ListItem key={id}>
             <ListItemText primary={name} />
             <ListItemSecondaryAction>
               <IconButton edge="end" aria-label="delete">

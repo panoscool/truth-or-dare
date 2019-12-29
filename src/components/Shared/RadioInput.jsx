@@ -29,7 +29,7 @@ function RadioInput(props) {
         >
           {optionsArray.map((option) => (
             <FormControlLabel
-              key={option.value}
+              key={option.id}
               label={option.label}
               value={option.value}
               control={<Radio color='primary' />}

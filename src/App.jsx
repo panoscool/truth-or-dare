@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Players from './components/Players/PlayersPage';
-import Game from './components/Game/GamePage';
+import HomePage from './components/HomePage';
+import GamePage from './components/Game/GamePage';
 
 class App extends Component {
   state = {
@@ -22,10 +22,10 @@ class App extends Component {
     const players = localStorage.getItem('players');
 
     if (players && gameOn) {
-      return <Game onHome={this.stopGame} category={category} />;
+      return <GamePage onHome={this.stopGame} category={category} />;
     }
     return (
-      <Players
+      <HomePage
         handleCategory={this.handleCategory}
         onPlay={this.startGame}
         category={category}
