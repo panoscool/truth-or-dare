@@ -1,26 +1,16 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 
-const Buttons = (props) => {
-  const {
-    randomTruth,
-    randomDare,
-    handleHome,
-    remainingTruths,
-    remainingDares
-  } = props;
+function Buttons({ randomTruth, randomDare }) {
   return (
     <div className="controls mb-1">
-      <button className="btn btn-success btn-block m-0" onClick={randomTruth}>
-        Truth ({remainingTruths.length})
-      </button>
+      <Button variant='contained' onClick={randomTruth}>
+        Truth
+      </Button>
 
-      <button className="btn btn-info btn-block m-0" onClick={handleHome}>
-        Home
-      </button>
-
-      <button className="btn btn-danger btn-block m-0" onClick={randomDare}>
-        Dare ({remainingDares.length})
-      </button>
+      <Button variant='contained' onClick={randomDare}>
+        Dare
+      </Button>
     </div>
   );
 };

@@ -5,15 +5,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import PlayersList from './PlayersList';
 import TextInput from './Shared/TextInput';
-import CategoriesList from './CategoriesList';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex'
   }
 }));
 
-function HomePage() {
+function PlayersPage() {
   const classes = useStyles();
   const { players, setPlayers } = useContext(OptionsContext);
   const [values, setValues] = useState({
@@ -34,7 +33,7 @@ function HomePage() {
 
   function handleUpdate(player) {
     setPlayers(
-      players.map(p => {
+      players.map((p) => {
         if (p.id === player) {
           return { ...player };
         } else {
@@ -47,7 +46,7 @@ function HomePage() {
   }
 
   function handleDelete(id) {
-    setPlayers(players.filter(p => p.id !== id));
+    setPlayers(players.filter((p) => p.id !== id));
   }
 
   function handleSubmit(event) {
@@ -71,7 +70,7 @@ function HomePage() {
           value={values.name || ''}
           handleChange={handleChange}
         />
-        <Button type="submit">Add</Button>
+        <Button variant='contained' type="submit">Add</Button>
       </form>
       <PlayersList
         data={players}
@@ -79,9 +78,8 @@ function HomePage() {
         handleDelete={handleDelete}
         handleUpdate={handleUpdate}
       />
-      <CategoriesList />
     </div>
   );
 }
 
-export default HomePage;
+export default PlayersPage;

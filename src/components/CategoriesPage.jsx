@@ -3,7 +3,7 @@ import cuid from 'cuid';
 import { OptionsContext } from '../context/OptionsContext';
 import RadioInput from './Shared/RadioInput';
 
-function CategoriesList() {
+function CategoriesPage() {
   const { category, setCategory } = useContext(OptionsContext);
 
   function handleChange(event) {
@@ -29,4 +29,4 @@ function CategoriesList() {
   );
 }
 
-export default CategoriesList;
+export default CategoriesPage;

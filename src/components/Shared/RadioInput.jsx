@@ -5,7 +5,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     margin: theme.spacing(1, 2)
@@ -29,13 +29,13 @@ function RadioInput(props) {
     <div className={classes.root}>
       <FormControl component="fieldset">
         <RadioGroup
-          aria-label="radio-buttons"
+          aria-label="radio-group"
           name={name}
           value={value}
           onChange={handleChange}
           className={vertical ? classes.radioGroupVertical : classes.radioGroup}
         >
-          {optionsArray.map(option => (
+          {optionsArray.map((option) => (
             <FormControlLabel
               key={option.id}
               label={option.label}

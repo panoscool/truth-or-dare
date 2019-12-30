@@ -1,91 +1,77 @@
-import React, { Component } from 'react';
+import React, { useContext, useState } from 'react';
+import { OptionsContext } from '../../context/OptionsContext';
 import { truth, dare } from '../questions';
 import ShowQuest from './ShowQuest';
 import Buttons from './Buttons';
 
-class GamePage extends Component {
-  state = {
-    currentPlayer: -1,
+function GamePage() {
+  const { players, category } = useContext(OptionsContext);
+  const [state, setState] = useState({
+    currentPlayer: 0,
     currentQuest: null,
     currentType: null
-  };
+  });
 
-  randomTruth = () => {
-    this.playerTurn();
+  console.log('currentQuest', state.currentQuest)
+  console.log('currentPlayer', state.currentPlayer)
 
-    const { category } = this.props;
+  const randomTruth = () => {
+    playerTurn();
+
     const getTruthCategory = truth.filter(t => t.category === category);
 
     const truthQuest = getTruthCategory.filter(t => !t.appeared);
 
     const randomNum = Math.floor(Math.random() * truthQuest.length);
 
-    this.setState({
+    setState({
       currentQuest: truthQuest[randomNum],
       currentType: 'Truth'
     });
     truth[randomNum].appeared = true;
   };
 
-  randomDare = () => {
-    this.playerTurn();
+  const randomDare = () => {
+    playerTurn();
 
-    const { category } = this.props;
     const getDareCategory = dare.filter(d => d.category === category);
 
     const dareQuest = getDareCategory.filter(d => !d.appeared);
 
     const randomNum = Math.floor(Math.random() * dareQuest.length);
 
-    this.setState({
+    setState({
       currentQuest: dareQuest[randomNum],
       currentType: 'Dare'
     });
     dare[randomNum].appeared = true;
   };
 
-  playerTurn = () => {
-    let index = this.state.currentPlayer;
-    index = index + 1;
+  const playerTurn = () => {
+    let index = state.currentPlayer;
+    index = index++
 
-    if (this.players[index]) {
-      this.setState({ currentPlayer: index });
+    if (players.length > 0) {
+      setState({ currentPlayer: index });
     } else {
-      this.setState({ currentPlayer: 0 });
+      setState({ currentPlayer: 0 });
     }
   };
 
-  handleHome = () => this.props.onHome();
+  return (
+    <div className="container">
+      <div className="border border-info rounded">
+        <ShowQuest
+          currentQuest={state.currentQuest}
+          currentType={state.currentType}
+          currentPlayer={players[state.currentPlayer]}
+        />
 
-  render() {
-    this.players = JSON.parse(localStorage.getItem('players'));
-    const { category } = this.props;
-    const remainingTruths = truth
-      .filter(t => t.category === category)
-      .filter(t => !t.appeared);
-    const remainingDares = dare
-      .filter(d => d.category === category)
-      .filter(d => !d.appeared);
-    return (
-      <div className="container">
-        <div className="border border-info rounded">
-          <ShowQuest
-            currentQuest={this.state.currentQuest}
-            currentType={this.state.currentType}
-            currentPlayer={this.players[this.state.currentPlayer]}
-          />
-
-          <Buttons
-            randomTruth={this.randomTruth}
-            randomDare={this.randomDare}
-            handleHome={this.handleHome}
-            remainingTruths={remainingTruths}
-            remainingDares={remainingDares}
-          />
-        </div>
+        <Buttons randomTruth={randomTruth} randomDare={randomDare}
+        />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default GamePage;
