@@ -1,10 +1,10 @@
 import React, { useState, createContext } from 'react';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
-import { teal, amber, grey } from '@material-ui/core/colors';
+import { teal, amber } from '@material-ui/core/colors';
 
 export const ThemeContext = createContext({
-  setTheme: () => { }
+  setTheme: () => {}
 });
 
 export default ({ children }) => {
@@ -14,7 +14,7 @@ export default ({ children }) => {
 
   const muiTheme = createMuiTheme({
     palette: {
-      primary: theme === 'dark' ? grey : teal,
+      primary: teal,
       secondary: amber,
       type: theme
     },

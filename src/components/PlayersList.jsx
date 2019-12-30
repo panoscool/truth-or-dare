@@ -7,29 +7,34 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    maxWidth: 752,
+    maxWidth: 752
   }
 }));
 
-function PlayersList({ data }) {
+function PlayersList({ data, hnandleSelect, handleDelete }) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <List>
-        {data && data.map(({ id, name }) => (
-          <ListItem key={id}>
-            <ListItemText primary={name} />
-            <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="delete">
-                <DeleteIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>)
-        )}
+        {data &&
+          data.map(p => (
+            <ListItem button key={p.id} onClick={() => hnandleSelect(p)}>
+              <ListItemText primary={p.name} />
+              <ListItemSecondaryAction>
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => handleDelete(p.id)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
       </List>
     </div>
   );
