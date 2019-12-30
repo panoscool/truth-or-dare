@@ -1,8 +1,8 @@
 import React, { useState, createContext } from 'react';
 
 export const OptionsContext = createContext({
-  setPlayers: () => {},
-  setCategory: () => {}
+  setPlayers: () => { },
+  setCategory: () => { }
 });
 
 export default ({ children }) => {

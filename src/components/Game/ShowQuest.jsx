@@ -3,7 +3,7 @@ import React from 'react';
 function ShowQuest(props) {
   // {props.currentQuest ? <div>{props.currentQuest.question}</div> : ''}
   return (
-    <div className="show-quest text-center">
+    <div>
       <h2>
         {props.currentPlayer ? <div>{props.currentPlayer.name}</div> : ''}
       </h2>

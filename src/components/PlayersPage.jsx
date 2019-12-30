@@ -7,8 +7,11 @@ import PlayersList from './PlayersList';
 import TextInput from './Shared/TextInput';
 
 const useStyles = makeStyles((theme) => ({
-  container: {
+  formGroup: {
     display: 'flex'
+  },
+  button: {
+    margin: theme.spacing(1, 2, 1, -1)
   }
 }));
 
@@ -60,17 +63,11 @@ function PlayersPage() {
     }
   }
 
-  console.log('players', players, 'values', values);
-
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <TextInput
-          name="name"
-          value={values.name || ''}
-          handleChange={handleChange}
-        />
-        <Button variant='contained' type="submit">Add</Button>
+      <form onSubmit={handleSubmit} className={classes.formGroup}>
+        <TextInput name="name" value={values.name || ''} handleChange={handleChange} />
+        <Button variant='outlined' type="submit" className={classes.button}>Add</Button>
       </form>
       <PlayersList
         data={players}

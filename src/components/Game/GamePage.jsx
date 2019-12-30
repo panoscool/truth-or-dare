@@ -12,9 +12,6 @@ function GamePage() {
     currentType: null
   });
 
-  console.log('currentQuest', state.currentQuest)
-  console.log('currentPlayer', state.currentPlayer)
-
   const randomTruth = () => {
     playerTurn();
 
@@ -59,17 +56,15 @@ function GamePage() {
   };
 
   return (
-    <div className="container">
-      <div className="border border-info rounded">
-        <ShowQuest
-          currentQuest={state.currentQuest}
-          currentType={state.currentType}
-          currentPlayer={players[state.currentPlayer]}
-        />
+    <div>
+      <ShowQuest
+        currentQuest={state.currentQuest}
+        currentType={state.currentType}
+        currentPlayer={players[state.currentPlayer]}
+      />
 
-        <Buttons randomTruth={randomTruth} randomDare={randomDare}
-        />
-      </div>
+      <Buttons randomTruth={randomTruth} randomDare={randomDare}
+      />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { teal, amber } from '@material-ui/core/colors';
 
 export const ThemeContext = createContext({
-  setTheme: () => {}
+  setTheme: () => { }
 });
 
 export default ({ children }) => {

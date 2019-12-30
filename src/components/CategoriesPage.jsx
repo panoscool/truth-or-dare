@@ -16,8 +16,6 @@ function CategoriesPage() {
     { id: cuid(), value: 'uncensored', label: 'Uncensored' }
   ];
 
-  console.log(category);
-
   return (
     <RadioInput
       vertical

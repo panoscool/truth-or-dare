@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 
 function Buttons({ randomTruth, randomDare }) {
   return (
-    <div className="controls mb-1">
+    <div>
       <Button variant='contained' onClick={randomTruth}>
         Truth
       </Button>
