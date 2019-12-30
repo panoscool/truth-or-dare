@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react"
-import cuid from "cuid"
-import { OptionsContext } from "../context/OptionsContext"
-import { makeStyles } from "@material-ui/core/styles"
-import Button from "@material-ui/core/Button"
-import PlayersList from "./PlayersList"
-import TextInput from "./Shared/TextInput"
+import React, { useContext, useState } from 'react';
+import cuid from 'cuid';
+import { OptionsContext } from '../context/OptionsContext';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import PlayersList from './PlayersList';
+import TextInput from './Shared/TextInput';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   formGroup: {
-    display: "flex"
+    display: 'flex'
   },
   button: {
     margin: theme.spacing(1, 2, 1, -1)
@@ -18,9 +18,10 @@ const useStyles = makeStyles(theme => ({
 function PlayersPage() {
   const classes = useStyles()
   const { players, setPlayers } = useContext(OptionsContext)
+  const [isEdit, setIsEdit] = useState(false)
   const [values, setValues] = useState({
-    id: "",
-    name: ""
+    id: '',
+    name: ''
   })
 
   function handleChange(event) {
@@ -32,6 +33,7 @@ function PlayersPage() {
 
   function hnandleSelect(player) {
     setValues(player)
+    setIsEdit(true)
   }
 
   function handleUpdate(player) {
@@ -40,12 +42,12 @@ function PlayersPage() {
         if (p.id === player.id) {
           return { ...player }
         } else {
-          console.log("p", player)
           return p
         }
       })
     )
-    setValues({})
+    setValues({ id: '', name: '' })
+    setIsEdit(false)
   }
 
   function handleDelete(id) {
@@ -54,25 +56,29 @@ function PlayersPage() {
 
   function handleSubmit(event) {
     event.preventDefault()
+    if (values.name !== undefined && !values.name.trim()) return;
+
     if (values.id) {
       handleUpdate(values)
     } else {
       values.id = cuid()
       setPlayers([...players, values])
-      setValues({})
+      setValues({ id: '', name: '' })
     }
   }
+
+  const disabled = values.name !== undefined && !values.name.trim();
 
   return (
     <div>
       <form onSubmit={handleSubmit} className={classes.formGroup}>
         <TextInput
-          name="name"
-          value={values.name || ""}
+          name='name'
+          value={values.name || ''}
           handleChange={handleChange}
         />
-        <Button variant="outlined" type="submit" className={classes.button}>
-          Add
+        <Button disabled={disabled} variant='outlined' type='submit' className={classes.button}>
+          {isEdit ? 'Edit' : 'Add'}
         </Button>
       </form>
       <PlayersList

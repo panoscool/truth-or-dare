@@ -7,12 +7,12 @@ import OptionsProvider from './context/OptionsContext';
 import * as serviceWorker from './serviceWorker';
 
 const app = (
-  <ThemeProvider>
-    <OptionsProvider>
+  <OptionsProvider>
+    <ThemeProvider>
       <CssBaseline />
       <App />
-    </OptionsProvider>
-  </ThemeProvider>
+    </ThemeProvider>
+  </OptionsProvider>
 )
 
 ReactDOM.render(app, document.getElementById('root'));
