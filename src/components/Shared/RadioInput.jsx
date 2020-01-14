@@ -1,22 +1,24 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
+    display: "flex",
+    justifyContent: "center",
     margin: theme.spacing(1, 2)
   },
   radioGroup: {
-    display: 'flex',
-    flexDirection: 'row'
+    display: "flex",
+    flexDirection: "row"
   },
   radioGroupVertical: {
-    display: 'flex',
-    flexDirection: 'row'
+    display: "flex",
+    flexDirection: "row"
   }
 }));
 
@@ -28,6 +30,7 @@ function RadioInput(props) {
   return (
     <div className={classes.root}>
       <FormControl component="fieldset">
+        <FormLabel component="legend">Game Mode</FormLabel>
         <RadioGroup
           aria-label="radio-group"
           name={name}
@@ -35,7 +38,7 @@ function RadioInput(props) {
           onChange={handleChange}
           className={vertical ? classes.radioGroupVertical : classes.radioGroup}
         >
-          {optionsArray.map((option) => (
+          {optionsArray.map(option => (
             <FormControlLabel
               key={option.id}
               label={option.label}
