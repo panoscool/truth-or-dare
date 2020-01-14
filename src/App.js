@@ -7,7 +7,7 @@ import { PlayArrow, ArrowDownward } from '@material-ui/icons';
 import Navbar from './components/Navbar';
 import PlayersPage from './components/PlayersPage';
 import CategoriesPage from './components/CategoriesPage';
-import GamePage from './components/Game/GamePage';
+import GamePage from './components/GamePage';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -28,6 +28,7 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const classes = useStyles();
   const [home, setHome] = useState(true);
+  const [player, setPlayer] = useState(0);
   const [players, setPlayers] = useState([]);
   const [category, setCategory] = useState('funny');
 
@@ -39,9 +40,19 @@ function App() {
     setHome(true);
   }
 
+  function playerTurn() {
+    if (players.length && players.length !== player + 1) {
+      setPlayer(player + 1);
+    } else {
+      setPlayer(0);
+    }
+  }
+
+  const currentPlayer = !home && players.length && players[player].name;
+
   return (
     <div>
-      <Navbar onHome={handleBackHome} />
+      <Navbar playerName={currentPlayer} onHome={handleBackHome} />
       <Paper className={classes.paper}>
         {home && (
           <div className={classes.center}>
@@ -82,7 +93,13 @@ function App() {
             <PlayersPage players={players} setPlayers={setPlayers} />
           </div>
         )}
-        {!home && <GamePage category={category} players={players} />}
+        {!home && (
+          <GamePage
+            category={category}
+            players={players}
+            playerTurn={playerTurn}
+          />
+        )}
       </Paper>
     </div>
   );

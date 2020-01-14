@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { truth, dare } from '../questions';
-import ShowQuest from './ShowQuest';
+import { truth, dare } from './questions';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -10,26 +10,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function GamePage({ players, category }) {
+function GamePage({ category, playerTurn }) {
   const classes = useStyles();
   const [state, setState] = useState({
-    currentPlayer: 0,
     currentQuest: null,
     currentType: null
   });
-
-  const { currentPlayer } = state;
-  console.log(currentPlayer);
-
-  const playerTurn = () => {
-    let index = state.currentPlayer;
-
-    if (players.length > 0) {
-      setState({ currentPlayer: index++ });
-    } else {
-      setState({ currentPlayer: 0 });
-    }
-  };
 
   const randomTruth = () => {
     playerTurn();
@@ -41,7 +27,7 @@ function GamePage({ players, category }) {
     const randomNum = Math.floor(Math.random() * truthQuest.length);
 
     setState({
-      currentQuest: truthQuest[randomNum],
+      currentQuest: truthQuest[randomNum].value,
       currentType: 'Truth'
     });
     truth[randomNum].appeared = true;
@@ -57,7 +43,7 @@ function GamePage({ players, category }) {
     const randomNum = Math.floor(Math.random() * dareQuest.length);
 
     setState({
-      currentQuest: dareQuest[randomNum],
+      currentQuest: dareQuest[randomNum].value,
       currentType: 'Dare'
     });
     dare[randomNum].appeared = true;
@@ -65,11 +51,11 @@ function GamePage({ players, category }) {
 
   return (
     <div>
-      <ShowQuest
-        currentQuest={state.currentQuest}
-        currentType={state.currentType}
-        currentPlayer={players[state.currentPlayer]}
-      />
+      {state.currentQuest && state.currentQuest !== undefined ? (
+        <Typography gutterBottom>{state.currentQuest}</Typography>
+      ) : (
+        <Typography gutterBottom>Select a question!</Typography>
+      )}
 
       <Button
         size="large"
