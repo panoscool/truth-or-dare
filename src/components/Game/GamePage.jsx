@@ -1,14 +1,35 @@
 import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import { truth, dare } from '../questions';
 import ShowQuest from './ShowQuest';
-import Buttons from './Buttons';
+
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(2)
+  }
+}));
 
 function GamePage({ players, category }) {
+  const classes = useStyles();
   const [state, setState] = useState({
     currentPlayer: 0,
     currentQuest: null,
     currentType: null
   });
+
+  const { currentPlayer } = state;
+  console.log(currentPlayer);
+
+  const playerTurn = () => {
+    let index = state.currentPlayer;
+
+    if (players.length > 0) {
+      setState({ currentPlayer: index++ });
+    } else {
+      setState({ currentPlayer: 0 });
+    }
+  };
 
   const randomTruth = () => {
     playerTurn();
@@ -42,17 +63,6 @@ function GamePage({ players, category }) {
     dare[randomNum].appeared = true;
   };
 
-  const playerTurn = () => {
-    let index = state.currentPlayer;
-    index = index++
-
-    if (players.length > 0) {
-      setState({ currentPlayer: index });
-    } else {
-      setState({ currentPlayer: 0 });
-    }
-  };
-
   return (
     <div>
       <ShowQuest
@@ -61,8 +71,24 @@ function GamePage({ players, category }) {
         currentPlayer={players[state.currentPlayer]}
       />
 
-      <Buttons randomTruth={randomTruth} randomDare={randomDare}
-      />
+      <Button
+        size="large"
+        color="primary"
+        variant="contained"
+        className={classes.button}
+        onClick={randomTruth}
+      >
+        Truth
+      </Button>
+      <Button
+        size="large"
+        color="secondary"
+        variant="contained"
+        className={classes.button}
+        onClick={randomDare}
+      >
+        Dare
+      </Button>
     </div>
   );
 }

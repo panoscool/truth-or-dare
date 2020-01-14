@@ -1,16 +1,16 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles(theme => ({
   textField: {
     minWidth: 120,
-    width: "100%",
+    width: '100%',
     margin: theme.spacing(1)
   }
 }));
 
-function TextInput({ handleChange, handleFocus, inputProps, ...props }) {
+function TextInput({ handleChange, inputProps, ...props }) {
   const classes = useStyles();
 
   return (
@@ -22,7 +22,6 @@ function TextInput({ handleChange, handleFocus, inputProps, ...props }) {
       fullWidth
       inputProps={inputProps}
       onChange={handleChange}
-      onFocus={handleFocus}
       className={classes.textField}
     />
   );

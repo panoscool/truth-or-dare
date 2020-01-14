@@ -11,7 +11,7 @@ import GamePage from './components/Game/GamePage';
 
 const useStyles = makeStyles(theme => ({
   button: {
-    margin: theme.spacing(2),
+    margin: theme.spacing(2)
   },
   paper: {
     margin: theme.spacing(2),
@@ -28,9 +28,8 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const classes = useStyles();
   const [home, setHome] = useState(true);
-  const [guest, setGuest] = useState(true);
   const [players, setPlayers] = useState([]);
-  const [category, setCategory] = useState("funny");
+  const [category, setCategory] = useState('funny');
 
   function handleHome() {
     setHome(false);
@@ -38,7 +37,6 @@ function App() {
 
   function handleBackHome() {
     setHome(true);
-    setGuest(true);
   }
 
   return (
@@ -48,7 +46,7 @@ function App() {
         {home && (
           <div className={classes.center}>
             <CategoriesPage category={category} setCategory={setCategory} />
-            {guest && home && (
+            {!players.length && (
               <>
                 <Button
                   variant="outlined"
@@ -56,13 +54,14 @@ function App() {
                   size="large"
                   className={classes.button}
                   startIcon={<PlayArrow />}
-                  onClick={handleHome}>
+                  onClick={handleHome}
+                >
                   Play as Guest
                 </Button>
                 <Typography gutterBottom>OR</Typography>
               </>
             )}
-            {!guest && home &&
+            {players.length > 0 && (
               <>
                 <Button
                   disabled={players.length <= 0}
@@ -71,14 +70,16 @@ function App() {
                   size="large"
                   className={classes.button}
                   startIcon={<PlayArrow />}
-                  onClick={handleHome}>
+                  onClick={handleHome}
+                >
                   Play
                 </Button>
                 <Typography>
                   <ArrowDownward className={classes.icon} />
                 </Typography>
-              </>}
-            <PlayersPage players={players} setPlayers={setPlayers} setGuest={setGuest} />
+              </>
+            )}
+            <PlayersPage players={players} setPlayers={setPlayers} />
           </div>
         )}
         {!home && <GamePage category={category} players={players} />}

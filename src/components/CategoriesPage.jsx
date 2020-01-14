@@ -15,7 +15,6 @@ function CategoriesPage({ category, setCategory }) {
 
   return (
     <RadioInput
-      vertical
       name="category"
       value={category || ''}
       optionsArray={categories}

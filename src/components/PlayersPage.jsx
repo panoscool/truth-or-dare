@@ -1,25 +1,25 @@
-import React, { useState } from "react";
-import cuid from "cuid";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import PlayersList from "./PlayersList";
-import TextInput from "./Shared/TextInput";
+import React, { useState } from 'react';
+import cuid from 'cuid';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import PlayersList from './PlayersList';
+import TextInput from './Shared/TextInput';
 
 const useStyles = makeStyles(theme => ({
   formGroup: {
-    display: "flex"
+    display: 'flex'
   },
   button: {
     margin: theme.spacing(1, 1, 1, -1)
   }
 }));
 
-function PlayersPage({ players, setPlayers, setGuest }) {
+function PlayersPage({ players, setPlayers }) {
   const classes = useStyles();
   const [isEdit, setIsEdit] = useState(false);
   const [values, setValues] = useState({
-    id: "",
-    name: ""
+    id: '',
+    name: ''
   });
 
   function handleChange(event) {
@@ -27,10 +27,6 @@ function PlayersPage({ players, setPlayers, setGuest }) {
       ...values,
       [event.target.name]: event.target.value
     });
-  }
-
-  function handleFocus() {
-    setGuest(false);
   }
 
   function hnandleSelect(player) {
@@ -48,7 +44,7 @@ function PlayersPage({ players, setPlayers, setGuest }) {
         }
       })
     );
-    setValues({ id: "", name: "" });
+    setValues({ id: '', name: '' });
     setIsEdit(false);
   }
 
@@ -65,7 +61,7 @@ function PlayersPage({ players, setPlayers, setGuest }) {
     } else {
       values.id = cuid();
       setPlayers([...players, values]);
-      setValues({ id: "", name: "" });
+      setValues({ id: '', name: '' });
     }
   }
 
@@ -77,9 +73,8 @@ function PlayersPage({ players, setPlayers, setGuest }) {
         <TextInput
           name="name"
           placeholder="Add names"
-          value={values.name || ""}
+          value={values.name || ''}
           handleChange={handleChange}
-          handleFocus={handleFocus}
         />
         <Button
           disabled={disabled}
@@ -87,7 +82,7 @@ function PlayersPage({ players, setPlayers, setGuest }) {
           type="submit"
           className={classes.button}
         >
-          {isEdit ? "Edit" : "Add"}
+          {isEdit ? 'Edit' : 'Add'}
         </Button>
       </form>
       <PlayersList
