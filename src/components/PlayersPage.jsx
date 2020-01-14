@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import cuid from "cuid";
-import { OptionsContext } from "../context/OptionsContext";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import PlayersList from "./PlayersList";
@@ -11,13 +10,12 @@ const useStyles = makeStyles(theme => ({
     display: "flex"
   },
   button: {
-    margin: theme.spacing(1, 2, 1, -1)
+    margin: theme.spacing(1, 1, 1, -1)
   }
 }));
 
-function PlayersPage() {
+function PlayersPage({ players, setPlayers, setGuest }) {
   const classes = useStyles();
-  const { players, setPlayers, setGuest } = useContext(OptionsContext);
   const [isEdit, setIsEdit] = useState(false);
   const [values, setValues] = useState({
     id: "",
@@ -78,6 +76,7 @@ function PlayersPage() {
       <form onSubmit={handleSubmit} className={classes.formGroup}>
         <TextInput
           name="name"
+          placeholder="Add names"
           value={values.name || ""}
           handleChange={handleChange}
           handleFocus={handleFocus}

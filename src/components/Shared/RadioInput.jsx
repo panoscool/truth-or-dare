@@ -10,11 +10,11 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     justifyContent: "center",
-    margin: theme.spacing(1, 2)
+    margin: theme.spacing(1)
   },
   radioGroup: {
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "column"
   },
   radioGroupVertical: {
     display: "flex",
@@ -30,7 +30,7 @@ function RadioInput(props) {
   return (
     <div className={classes.root}>
       <FormControl component="fieldset">
-        <FormLabel component="legend">Game Mode</FormLabel>
+        <FormLabel component="legend">{vertical && 'Game Mode'}</FormLabel>
         <RadioGroup
           aria-label="radio-group"
           name={name}

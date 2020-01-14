@@ -13,7 +13,7 @@ const app = (
       <App />
     </ThemeProvider>
   </OptionsProvider>
-)
+);
 
 ReactDOM.render(app, document.getElementById('root'));
 

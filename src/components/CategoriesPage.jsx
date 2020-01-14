@@ -1,11 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import cuid from 'cuid';
-import { OptionsContext } from '../context/OptionsContext';
 import RadioInput from './Shared/RadioInput';
 
-function CategoriesPage() {
-  const { category, setCategory } = useContext(OptionsContext);
-
+function CategoriesPage({ category, setCategory }) {
   function handleChange(event) {
     setCategory(event.target.value);
   }

@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Navbar({ handleHome }) {
+function Navbar({ onHome }) {
   const classes = useStyles();
 
   return (
@@ -31,7 +31,7 @@ function Navbar({ handleHome }) {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
-            onClick={handleHome}
+            onClick={onHome}
           >
             <HomeIcon />
           </IconButton>

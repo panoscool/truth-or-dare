@@ -1,11 +1,9 @@
-import React, { useContext, useState } from 'react';
-import { OptionsContext } from '../../context/OptionsContext';
+import React, { useState } from 'react';
 import { truth, dare } from '../questions';
 import ShowQuest from './ShowQuest';
 import Buttons from './Buttons';
 
-function GamePage() {
-  const { players, category } = useContext(OptionsContext);
+function GamePage({ players, category }) {
   const [state, setState] = useState({
     currentPlayer: 0,
     currentQuest: null,

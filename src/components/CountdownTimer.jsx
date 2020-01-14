@@ -7,22 +7,20 @@ function CountdownTimer() {
   })
 
   const incrementSeconds = () => {
-    this.setState({ seconds: this.state.seconds + 10 });
+    setState({ seconds: state.seconds + 10 });
   };
 
   const decrementSeconds = () => {
-    let seconds = this.state.seconds;
-    if (seconds > 0) {
-      this.setState({ seconds: this.state.seconds - 10 });
+    if (state.seconds > 0) {
+      setState({ seconds: state.seconds - 10 });
     }
   };
 
   const tick = () => {
-    let { seconds } = this.state;
-    this.setState({ seconds: this.state.seconds - 1 });
+    setState({ seconds: state.seconds - 1 });
     // if seconds = 0 stop timer
-    if (seconds === 1) {
-      this.stopTimer();
+    if (state.seconds === 1) {
+      stopTimer();
     }
   };
 
@@ -41,26 +39,23 @@ function CountdownTimer() {
   };
 
   return (
-    <div className="timer">
-      <div className="title">Challenge Timer</div>
-      <div className="controls mt-1">
-        <button className="btn mr-2" onClick={this.decrementSeconds}>
-          -
+    <div className="controls mt-1">
+      <button className="btn mr-2" onClick={decrementSeconds}>
+        -
           </button>
-        <h4>{this.state.seconds}</h4>
-        <button className="btn ml-2" onClick={this.incrementSeconds}>
-          +
+      <h4>{state.seconds}</h4>
+      <button className="btn ml-2" onClick={incrementSeconds}>
+        +
           </button>
-        {this.state.countdown === false && this.state.seconds > 0 ? (
-          <button className="btn ml-2" onClick={this.startTimer}>
-            Start
+      {state.countdown === false && state.seconds > 0 ? (
+        <button className="btn ml-2" onClick={startTimer}>
+          Start
             </button>
-        ) : (
-            <button className="btn ml-2" onClick={this.stopTimer}>
-              Stop
+      ) : (
+          <button className="btn ml-2" onClick={stopTimer}>
+            Stop
             </button>
-          )}
-      </div>
+        )}
     </div>
   );
 }

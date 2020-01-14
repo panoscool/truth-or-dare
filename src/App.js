@@ -1,45 +1,88 @@
-import React, { useState, useContext } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import { OptionsContext } from "./context/OptionsContext";
-import Navbar from "./components/Navbar";
-import PlayersPage from "./components/PlayersPage";
-import CategoriesPage from "./components/CategoriesPage";
-import GamePage from "./components/Game/GamePage";
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import { PlayArrow, ArrowDownward } from '@material-ui/icons';
+import Navbar from './components/Navbar';
+import PlayersPage from './components/PlayersPage';
+import CategoriesPage from './components/CategoriesPage';
+import GamePage from './components/Game/GamePage';
 
 const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(2),
+  },
+  paper: {
+    margin: theme.spacing(2),
+    padding: theme.spacing(2)
+  },
   center: {
-    textAlign: "center"
+    textAlign: 'center'
+  },
+  icon: {
+    color: 'grey'
   }
 }));
 
 function App() {
   const classes = useStyles();
-  const { guest, setGuest } = useContext(OptionsContext);
   const [home, setHome] = useState(true);
+  const [guest, setGuest] = useState(true);
+  const [players, setPlayers] = useState([]);
+  const [category, setCategory] = useState("funny");
 
   function handleHome() {
+    setHome(false);
+  }
+
+  function handleBackHome() {
     setHome(true);
     setGuest(true);
   }
 
   return (
     <div>
-      <Navbar handleHome={handleHome} />
-      {home && (
-        <div className={classes.center}>
-          <CategoriesPage />
-          {guest && home && (
-            <>
-              <Button onClick={() => setHome(false)}>Play as Guest</Button>
-              <Typography gutterBottom>OR</Typography>
-            </>
-          )}
-          <PlayersPage />
-        </div>
-      )}
-      {!home && <GamePage />}
+      <Navbar onHome={handleBackHome} />
+      <Paper className={classes.paper}>
+        {home && (
+          <div className={classes.center}>
+            <CategoriesPage category={category} setCategory={setCategory} />
+            {guest && home && (
+              <>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  size="large"
+                  className={classes.button}
+                  startIcon={<PlayArrow />}
+                  onClick={handleHome}>
+                  Play as Guest
+                </Button>
+                <Typography gutterBottom>OR</Typography>
+              </>
+            )}
+            {!guest && home &&
+              <>
+                <Button
+                  disabled={players.length <= 0}
+                  variant="outlined"
+                  color="primary"
+                  size="large"
+                  className={classes.button}
+                  startIcon={<PlayArrow />}
+                  onClick={handleHome}>
+                  Play
+                </Button>
+                <Typography>
+                  <ArrowDownward className={classes.icon} />
+                </Typography>
+              </>}
+            <PlayersPage players={players} setPlayers={setPlayers} setGuest={setGuest} />
+          </div>
+        )}
+        {!home && <GamePage category={category} players={players} />}
+      </Paper>
     </div>
   );
 }
