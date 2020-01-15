@@ -3,16 +3,13 @@ import ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import App from './App';
 import ThemeProvider from './context/ThemeContext';
-import OptionsProvider from './context/OptionsContext';
 import * as serviceWorker from './serviceWorker';
 
 const app = (
-  <OptionsProvider>
-    <ThemeProvider>
-      <CssBaseline />
-      <App />
-    </ThemeProvider>
-  </OptionsProvider>
+  <ThemeProvider>
+    <CssBaseline />
+    <App />
+  </ThemeProvider>
 );
 
 ReactDOM.render(app, document.getElementById('root'));

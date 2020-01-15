@@ -12,47 +12,66 @@ const useStyles = makeStyles(theme => ({
 
 function GamePage({ category, playerTurn }) {
   const classes = useStyles();
-  const [state, setState] = useState({
-    currentQuest: null,
-    currentType: null
+  const [question, setQuestion] = useState(null);
+  const [questType, setQuestType] = useState(null);
+
+  const t = truth.map(t => {
+    return {
+      ...t,
+      appeared: false
+    };
   });
 
   const randomTruth = () => {
     playerTurn();
 
-    const getTruthCategory = truth.filter(t => t.category === category);
+    const getTruthCategory = t.filter(t => t.category === category);
+    console.log('getTruthCategory', getTruthCategory);
 
     const truthQuest = getTruthCategory.filter(t => !t.appeared);
+    console.log('truthQuest', truthQuest);
 
     const randomNum = Math.floor(Math.random() * truthQuest.length);
+    console.log('randomNum', randomNum);
 
-    setState({
-      currentQuest: truthQuest[randomNum].value,
-      currentType: 'Truth'
-    });
-    truth[randomNum].appeared = true;
+    if (truthQuest) {
+      setQuestion(truthQuest[randomNum].value);
+      setQuestType('Truth');
+      t[randomNum].appeared = true;
+    }
   };
+
+  const d = dare.map(d => {
+    return {
+      ...d,
+      appeared: false
+    };
+  });
 
   const randomDare = () => {
     playerTurn();
 
-    const getDareCategory = dare.filter(d => d.category === category);
+    const getDareCategory = d.filter(d => d.category === category);
+    console.log(getDareCategory);
 
     const dareQuest = getDareCategory.filter(d => !d.appeared);
+    console.log(dareQuest);
 
     const randomNum = Math.floor(Math.random() * dareQuest.length);
+    console.log(randomNum);
 
-    setState({
-      currentQuest: dareQuest[randomNum].value,
-      currentType: 'Dare'
-    });
-    dare[randomNum].appeared = true;
+    if (dareQuest) {
+      setQuestion(dareQuest[randomNum].value);
+      setQuestType('Dare');
+      d[randomNum].appeared = true;
+    }
   };
 
   return (
     <div>
-      {state.currentQuest && state.currentQuest !== undefined ? (
-        <Typography gutterBottom>{state.currentQuest}</Typography>
+      {questType && questType}
+      {question ? (
+        <Typography gutterBottom>{question}</Typography>
       ) : (
         <Typography gutterBottom>Select a question!</Typography>
       )}
