@@ -5,8 +5,17 @@ import Button from '@material-ui/core/Button';
 import { truth, dare } from './questions';
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    textAlign: 'center'
+  },
   button: {
     margin: theme.spacing(2)
+  },
+  category: {
+    marginBottom: theme.spacing(2)
+  },
+  question: {
+    marginBottom: theme.spacing(2)
   }
 }));
 
@@ -15,7 +24,7 @@ function GamePage({ category, playerTurn }) {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [questionType, setQuestionType] = useState(null);
 
-  const randomTruth = () => {
+  function handleRandomTruth() {
     playerTurn();
 
     const getTruthCategory = truth.filter(t => t.category === category);
@@ -29,7 +38,7 @@ function GamePage({ category, playerTurn }) {
     }
   };
 
-  const randomDare = () => {
+  function handleRandomDare() {
     playerTurn();
 
     const getDareCategory = dare.filter(d => d.category === category);
@@ -44,10 +53,10 @@ function GamePage({ category, playerTurn }) {
   };
 
   return (
-    <div>
-      {questionType && questionType}
+    <div className={classes.root}>
+      {questionType && <Typography className={classes.category}>{questionType}</Typography>}
       {currentQuestion ? (
-        <Typography gutterBottom>{currentQuestion}</Typography>
+        <Typography variant='h6' className={classes.question}>{currentQuestion}</Typography>
       ) : (
           <Typography gutterBottom>Select a question!</Typography>
         )}
@@ -57,7 +66,7 @@ function GamePage({ category, playerTurn }) {
         color="primary"
         variant="contained"
         className={classes.button}
-        onClick={randomTruth}
+        onClick={handleRandomTruth}
       >
         Truth
       </Button>
@@ -66,7 +75,7 @@ function GamePage({ category, playerTurn }) {
         color="secondary"
         variant="contained"
         className={classes.button}
-        onClick={randomDare}
+        onClick={handleRandomDare}
       >
         Dare
       </Button>

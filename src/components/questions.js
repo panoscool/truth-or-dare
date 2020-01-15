@@ -21,18 +21,18 @@ const truth = [
     id: cuid(),
     question:
       'Have you ever been humiliated? Explain what happened and how you felt.',
-    category: 'funny'
+    category: 'challenging'
   },
   {
     id: cuid(),
     question: 'Describe the strangest dream you’ve had in your life.',
-    category: 'funny'
+    category: 'challenging'
   },
   {
     id: cuid(),
     question:
       'What is the quality or characteristic that would like to change about you?',
-    category: 'funny'
+    category: 'uncensored'
   },
   {
     id: cuid(),
@@ -58,13 +58,13 @@ const dare = [
   {
     id: cuid(),
     question: 'Give a massage to a companion for 5 minutes.',
-    category: 'funny'
+    category: 'uncensored'
   },
   {
     id: cuid(),
     question:
       'Asks for money on the street telling a funny story and nothing credible and board 50$.',
-    category: 'funny'
+    category: 'challenging'
   }
 ];
 
