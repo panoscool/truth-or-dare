@@ -12,69 +12,45 @@ const useStyles = makeStyles(theme => ({
 
 function GamePage({ category, playerTurn }) {
   const classes = useStyles();
-  const [question, setQuestion] = useState(null);
-  const [questType, setQuestType] = useState(null);
-
-  const t = truth.map(t => {
-    return {
-      ...t,
-      appeared: false
-    };
-  });
+  const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [questionType, setQuestionType] = useState(null);
 
   const randomTruth = () => {
     playerTurn();
 
-    const getTruthCategory = t.filter(t => t.category === category);
-    console.log('getTruthCategory', getTruthCategory);
+    const getTruthCategory = truth.filter(t => t.category === category);
+    const remainingTruth = getTruthCategory.filter(t => !t.appeared);
+    const randomNum = Math.floor(Math.random() * remainingTruth.length);
 
-    const truthQuest = getTruthCategory.filter(t => !t.appeared);
-    console.log('truthQuest', truthQuest);
-
-    const randomNum = Math.floor(Math.random() * truthQuest.length);
-    console.log('randomNum', randomNum);
-
-    if (truthQuest) {
-      setQuestion(truthQuest[randomNum].value);
-      setQuestType('Truth');
-      t[randomNum].appeared = true;
+    if (remainingTruth.length > 0) {
+      setCurrentQuestion(remainingTruth[randomNum].question);
+      setQuestionType('Truth');
+      remainingTruth[randomNum].appeared = true;
     }
   };
-
-  const d = dare.map(d => {
-    return {
-      ...d,
-      appeared: false
-    };
-  });
 
   const randomDare = () => {
     playerTurn();
 
-    const getDareCategory = d.filter(d => d.category === category);
-    console.log(getDareCategory);
+    const getDareCategory = dare.filter(d => d.category === category);
+    const remainingDare = getDareCategory.filter(d => !d.appeared);
+    const randomNum = Math.floor(Math.random() * remainingDare.length);
 
-    const dareQuest = getDareCategory.filter(d => !d.appeared);
-    console.log(dareQuest);
-
-    const randomNum = Math.floor(Math.random() * dareQuest.length);
-    console.log(randomNum);
-
-    if (dareQuest) {
-      setQuestion(dareQuest[randomNum].value);
-      setQuestType('Dare');
-      d[randomNum].appeared = true;
+    if (remainingDare.length > 0) {
+      setCurrentQuestion(remainingDare[randomNum].question);
+      setQuestionType('Dare');
+      remainingDare[randomNum].appeared = true;
     }
   };
 
   return (
     <div>
-      {questType && questType}
-      {question ? (
-        <Typography gutterBottom>{question}</Typography>
+      {questionType && questionType}
+      {currentQuestion ? (
+        <Typography gutterBottom>{currentQuestion}</Typography>
       ) : (
-        <Typography gutterBottom>Select a question!</Typography>
-      )}
+          <Typography gutterBottom>Select a question!</Typography>
+        )}
 
       <Button
         size="large"
