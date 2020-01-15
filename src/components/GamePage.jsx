@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { truth, dare } from './questions';
+import Spinner from './Shared/Spinner';
+import axios from './apiConfig';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,6 +24,33 @@ function GamePage({ category, playerTurn }) {
   const classes = useStyles();
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [questionType, setQuestionType] = useState(null);
+  const [truth, setTruth] = useState([]);
+  const [dare, setDare] = useState([]);
+  const [state, setState] = useState({
+    loading: true,
+    error: null
+  });
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const t = await axios.get('/truth');
+        const d = await axios.get('/dare');
+
+        setTruth(t.data);
+        setDare(d.data);
+        setState({ loading: false });
+      } catch (err) {
+        setState({
+          loading: false,
+          error: err
+        });
+      }
+    };
+
+    fetchData();
+
+  }, [setTruth, setDare, setState]);
 
   function handleRandomTruth() {
     playerTurn();
@@ -54,12 +82,13 @@ function GamePage({ category, playerTurn }) {
 
   return (
     <div className={classes.root}>
-      {questionType && <Typography className={classes.category}>{questionType}</Typography>}
-      {currentQuestion ? (
-        <Typography variant='h6' className={classes.question}>{currentQuestion}</Typography>
-      ) : (
-          <Typography gutterBottom>Select a question!</Typography>
-        )}
+      {state.loading ? <Spinner /> : <>
+        {questionType && <Typography className={classes.category}>{questionType}</Typography>}
+        {currentQuestion ? (
+          <Typography variant='h6' className={classes.question}>{currentQuestion}</Typography>
+        ) : (
+            <Typography gutterBottom>Select a question!</Typography>
+          )}</>}
 
       <Button
         size="large"
