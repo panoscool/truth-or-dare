@@ -16,6 +16,7 @@ function CategoriesPage({ category, setCategory }) {
   return (
     <RadioInput
       name="category"
+      label="Game Mode"
       value={category || ''}
       optionsArray={categories}
       handleChange={handleChange}

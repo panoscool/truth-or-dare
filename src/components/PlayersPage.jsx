@@ -72,6 +72,7 @@ function PlayersPage({ players, setPlayers }) {
       <form onSubmit={handleSubmit} className={classes.formGroup}>
         <TextInput
           name="name"
+          label="Add names"
           placeholder="Add names"
           value={values.name || ''}
           handleChange={handleChange}

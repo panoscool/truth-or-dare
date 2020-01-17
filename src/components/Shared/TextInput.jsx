@@ -15,7 +15,6 @@ function TextInput({ handleChange, inputProps, ...props }) {
 
   return (
     <TextField
-      id="outlined-dense"
       margin="dense"
       variant="outlined"
       {...props}

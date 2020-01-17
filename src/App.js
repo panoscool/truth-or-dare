@@ -71,7 +71,7 @@ function App() {
                 >
                   Play as Guest
                 </Button>
-                <Typography gutterBottom>OR</Typography>
+                <Typography gutterBottom>- OR -</Typography>
               </>
             )}
             {players.length > 0 && (

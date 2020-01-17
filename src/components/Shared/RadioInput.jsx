@@ -25,19 +25,13 @@ const useStyles = makeStyles(theme => ({
 function RadioInput(props) {
   const classes = useStyles();
 
-  const { name, value, optionsArray, handleChange } = props;
+  const { name, value, label, optionsArray, handleChange } = props;
 
   return (
     <div className={classes.root}>
       <FormControl component="fieldset">
-        <FormLabel component="legend">Game Mode</FormLabel>
-        <RadioGroup
-          aria-label="radio-group"
-          name={name}
-          value={value}
-          onChange={handleChange}
-          className={classes.radioGroup}
-        >
+        <FormLabel component="legend">{label}</FormLabel>
+        <RadioGroup name={name} value={value} onChange={handleChange} className={classes.radioGroup}>
           {optionsArray.map(option => (
             <FormControlLabel
               key={option.id}

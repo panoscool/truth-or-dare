@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Spinner from './Shared/Spinner';
-import axios from './apiConfig';
+import axios from '../apiConfig';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -85,21 +85,21 @@ function GamePage({ gameOn, setGameOn, category, playerTurn }) {
       {state.loading ? (
         <Spinner />
       ) : (
-        <>
-          {questionType && (
-            <Typography className={classes.typography}>
-              {questionType}
-            </Typography>
-          )}
-          {currentQuestion ? (
-            <Typography variant="h6" className={classes.typography}>
-              {currentQuestion}
-            </Typography>
-          ) : (
-            <Typography gutterBottom>Select a question!</Typography>
-          )}
-        </>
-      )}
+          <>
+            {questionType && (
+              <Typography className={classes.typography}>
+                {questionType}
+              </Typography>
+            )}
+            {currentQuestion ? (
+              <Typography variant="h6" className={classes.typography}>
+                {currentQuestion}
+              </Typography>
+            ) : (
+                <Typography gutterBottom>Select a question!</Typography>
+              )}
+          </>
+        )}
 
       <Button
         size="large"
