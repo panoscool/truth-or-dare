@@ -19,8 +19,8 @@ const useStyles = makeStyles(theme => ({
 
 function GamePage({ gameOn, setGameOn, category, playerTurn }) {
   const classes = useStyles();
-  const [currentQuestion, setCurrentQuestion] = useState(null);
   const [questionType, setQuestionType] = useState(null);
+  const [currentQuestion, setCurrentQuestion] = useState(null);
   const [truth, setTruth] = useState([]);
   const [dare, setDare] = useState([]);
   const [state, setState] = useState({
@@ -34,8 +34,8 @@ function GamePage({ gameOn, setGameOn, category, playerTurn }) {
         const t = await axios.get('/truth');
         const d = await axios.get('/dare');
 
-        setTruth(t.data);
-        setDare(d.data);
+        setTruth(t.data.filter(t => t.category === category));
+        setDare(d.data.filter(d => d.category === category));
         setState({ loading: false });
       } catch (err) {
         setState({
@@ -46,7 +46,7 @@ function GamePage({ gameOn, setGameOn, category, playerTurn }) {
     }
 
     fetchData();
-  }, [setTruth, setDare, setState]);
+  }, [category, setTruth, setDare, setState]);
 
   function handleRandomTruth() {
     setGameOn(true);
@@ -54,8 +54,7 @@ function GamePage({ gameOn, setGameOn, category, playerTurn }) {
       playerTurn();
     }
 
-    const getTruthCategory = truth.filter(t => t.category === category);
-    const remainingTruth = getTruthCategory.filter(t => !t.appeared);
+    const remainingTruth = truth.filter(t => !t.appeared);
     const randomNum = Math.floor(Math.random() * remainingTruth.length);
 
     if (remainingTruth.length > 0) {
@@ -71,8 +70,7 @@ function GamePage({ gameOn, setGameOn, category, playerTurn }) {
       playerTurn();
     }
 
-    const getDareCategory = dare.filter(d => d.category === category);
-    const remainingDare = getDareCategory.filter(d => !d.appeared);
+    const remainingDare = dare.filter(d => !d.appeared);
     const randomNum = Math.floor(Math.random() * remainingDare.length);
 
     if (remainingDare.length > 0) {
