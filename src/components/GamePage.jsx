@@ -12,15 +12,12 @@ const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(2)
   },
-  category: {
-    marginBottom: theme.spacing(2)
-  },
-  question: {
+  typography: {
     marginBottom: theme.spacing(2)
   }
 }));
 
-function GamePage({ category, playerTurn }) {
+function GamePage({ gameOn, setGameOn, category, playerTurn }) {
   const classes = useStyles();
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [questionType, setQuestionType] = useState(null);
@@ -46,14 +43,16 @@ function GamePage({ category, playerTurn }) {
           error: err
         });
       }
-    };
+    }
 
     fetchData();
-
   }, [setTruth, setDare, setState]);
 
   function handleRandomTruth() {
-    playerTurn();
+    setGameOn(true);
+    if (gameOn) {
+      playerTurn();
+    }
 
     const getTruthCategory = truth.filter(t => t.category === category);
     const remainingTruth = getTruthCategory.filter(t => !t.appeared);
@@ -64,10 +63,13 @@ function GamePage({ category, playerTurn }) {
       setQuestionType('Truth');
       remainingTruth[randomNum].appeared = true;
     }
-  };
+  }
 
   function handleRandomDare() {
-    playerTurn();
+    setGameOn(true);
+    if (gameOn) {
+      playerTurn();
+    }
 
     const getDareCategory = dare.filter(d => d.category === category);
     const remainingDare = getDareCategory.filter(d => !d.appeared);
@@ -78,17 +80,28 @@ function GamePage({ category, playerTurn }) {
       setQuestionType('Dare');
       remainingDare[randomNum].appeared = true;
     }
-  };
+  }
 
   return (
     <div className={classes.root}>
-      {state.loading ? <Spinner /> : <>
-        {questionType && <Typography className={classes.category}>{questionType}</Typography>}
-        {currentQuestion ? (
-          <Typography variant='h6' className={classes.question}>{currentQuestion}</Typography>
-        ) : (
+      {state.loading ? (
+        <Spinner />
+      ) : (
+        <>
+          {questionType && (
+            <Typography className={classes.typography}>
+              {questionType}
+            </Typography>
+          )}
+          {currentQuestion ? (
+            <Typography variant="h6" className={classes.typography}>
+              {currentQuestion}
+            </Typography>
+          ) : (
             <Typography gutterBottom>Select a question!</Typography>
-          )}</>}
+          )}
+        </>
+      )}
 
       <Button
         size="large"

@@ -28,6 +28,7 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const classes = useStyles();
   const [home, setHome] = useState(true);
+  const [gameOn, setGameOn] = useState(false);
   const [player, setPlayer] = useState(0);
   const [players, setPlayers] = useState([]);
   const [category, setCategory] = useState('funny');
@@ -38,6 +39,7 @@ function App() {
 
   function handleBackHome() {
     setHome(true);
+    setGameOn(false);
   }
 
   function playerTurn() {
@@ -95,6 +97,8 @@ function App() {
         )}
         {!home && (
           <GamePage
+            gameOn={gameOn}
+            setGameOn={setGameOn}
             category={category}
             players={players}
             playerTurn={playerTurn}
