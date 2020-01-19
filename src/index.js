@@ -1,15 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import App from './App';
+import OptionsContext from './context/OptionsContext';
 import ThemeProvider from './context/ThemeContext';
 import * as serviceWorker from './serviceWorker';
 
 const app = (
-  <ThemeProvider>
-    <CssBaseline />
-    <App />
-  </ThemeProvider>
+  <BrowserRouter>
+    <OptionsContext>
+      <ThemeProvider>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
+    </OptionsContext>
+  </BrowserRouter>
 );
 
 ReactDOM.render(app, document.getElementById('root'));

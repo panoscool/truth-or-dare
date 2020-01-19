@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex'
   },
   button: {
-    margin: theme.spacing(1, 1, 1, -1)
+    margin: theme.spacing(1, 0, 1, 0)
   }
 }));
 
@@ -78,9 +78,10 @@ function PlayersPage({ players, setPlayers }) {
           handleChange={handleChange}
         />
         <Button
-          disabled={disabled}
-          variant="outlined"
           type="submit"
+          color="primary"
+          variant="outlined"
+          disabled={disabled}
           className={classes.button}
         >
           {isEdit ? 'Edit' : 'Add'}

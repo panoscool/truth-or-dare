@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     justifyContent: 'center',
-    margin: theme.spacing(1)
+    margin: theme.spacing(2, 0)
   },
   radioGroup: {
     display: 'flex',
@@ -31,7 +31,12 @@ function RadioInput(props) {
     <div className={classes.root}>
       <FormControl component="fieldset">
         <FormLabel component="legend">{label}</FormLabel>
-        <RadioGroup name={name} value={value} onChange={handleChange} className={classes.radioGroup}>
+        <RadioGroup
+          name={name}
+          value={value}
+          onChange={handleChange}
+          className={classes.radioGroup}
+        >
           {optionsArray.map(option => (
             <FormControlLabel
               key={option.id}

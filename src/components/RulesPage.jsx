@@ -1,5 +1,22 @@
 import React from 'react';
 import cuid from 'cuid';
+import { makeStyles } from '@material-ui/core/styles';
+import ArroRight from '@material-ui/icons/ArrowRight';
+import {
+  Typography,
+  Paper,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon
+} from '@material-ui/core';
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    margin: theme.spacing(2),
+    padding: theme.spacing(2)
+  }
+}));
 
 const rules_list = [
   {
@@ -39,17 +56,22 @@ const rules_list = [
 ];
 
 function RulesPage() {
+  const classes = useStyles();
+
   return (
-    <div>
-      <h1>Don’t Break The Rules</h1>
-      <p>
-        <ul>
-          {rules_list.map(r => (
-            <li key={r.id}>{r.name}</li>
-          ))}
-        </ul>
-      </p>
-    </div>
+    <Paper className={classes.paper}>
+      <Typography variant="h5">Don’t Break The Rules</Typography>
+      <List>
+        {rules_list.map(r => (
+          <ListItem key={r.id}>
+            <ListItemIcon>
+              <ArroRight />
+            </ListItemIcon>
+            <ListItemText primary={r.rule} />
+          </ListItem>
+        ))}
+      </List>
+    </Paper>
   );
 }
 

@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Spinner from './Shared/Spinner';
 import axios from '../apiConfig';
+import { OptionsContext } from '../context/OptionsContext';
 
 const useStyles = makeStyles(theme => ({
   root: {
     textAlign: 'center'
+  },
+  paper: {
+    margin: theme.spacing(2),
+    padding: theme.spacing(2)
   },
   button: {
     margin: theme.spacing(2)
@@ -17,8 +23,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function GamePage({ gameOn, setGameOn, category, playerTurn }) {
+function GamePage() {
   const classes = useStyles();
+  const { gameOn, setGameOn, category, playerTurn } = useContext(
+    OptionsContext
+  );
   const [questionType, setQuestionType] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [truth, setTruth] = useState([]);
@@ -82,9 +91,10 @@ function GamePage({ gameOn, setGameOn, category, playerTurn }) {
 
   return (
     <div className={classes.root}>
-      {state.loading ? (
-        <Spinner />
-      ) : (
+      <Paper className={classes.paper}>
+        {state.loading ? (
+          <Spinner />
+        ) : (
           <>
             {questionType && (
               <Typography className={classes.typography}>
@@ -96,29 +106,30 @@ function GamePage({ gameOn, setGameOn, category, playerTurn }) {
                 {currentQuestion}
               </Typography>
             ) : (
-                <Typography gutterBottom>Select a question!</Typography>
-              )}
+              <Typography gutterBottom>Select a question!</Typography>
+            )}
           </>
         )}
 
-      <Button
-        size="large"
-        color="primary"
-        variant="contained"
-        className={classes.button}
-        onClick={handleRandomTruth}
-      >
-        Truth
-      </Button>
-      <Button
-        size="large"
-        color="secondary"
-        variant="contained"
-        className={classes.button}
-        onClick={handleRandomDare}
-      >
-        Dare
-      </Button>
+        <Button
+          size="large"
+          color="primary"
+          variant="contained"
+          className={classes.button}
+          onClick={handleRandomTruth}
+        >
+          Truth
+        </Button>
+        <Button
+          size="large"
+          color="secondary"
+          variant="contained"
+          className={classes.button}
+          onClick={handleRandomDare}
+        >
+          Dare
+        </Button>
+      </Paper>
     </div>
   );
 }
