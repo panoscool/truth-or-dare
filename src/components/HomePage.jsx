@@ -8,6 +8,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Divider from '@material-ui/core/Divider';
 import {
   PlayArrow,
   ArrowDownward,
@@ -17,7 +18,6 @@ import {
 import { OptionsContext } from '../context/OptionsContext';
 import CategoriesPage from './CategoriesPage';
 import PlayersPage from './PlayersPage';
-import { Divider } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {

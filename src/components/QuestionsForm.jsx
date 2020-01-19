@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import TextInput from './Shared/TextInput';
 import RadioInput from './Shared/RadioInput';
 import { Button, Paper } from '@material-ui/core';
+import useWindowDimensions from '../hooks/useWindowDimensions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,6 +28,7 @@ const useStyles = makeStyles(theme => ({
 
 function QuestionsForm() {
   const classes = useStyles();
+  const { width } = useWindowDimensions();
   const [questionType, setQuestionType] = useState(null);
   const [values, setValues] = useState({
     question: '',
@@ -68,6 +70,7 @@ function QuestionsForm() {
           <RadioInput
             name="category"
             label="Select Category"
+            vertical={width < 460}
             value={values.category || ''}
             handleChange={handleChange}
             optionsArray={[

@@ -14,18 +14,18 @@ const useStyles = makeStyles(theme => ({
   },
   radioGroup: {
     display: 'flex',
-    flexDirection: 'column',
-    [theme.breakpoints.up('sm')]: {
-      display: 'flex',
-      flexDirection: 'row'
-    }
+    flexDirection: 'row'
+  },
+  radioGroupVertical: {
+    display: 'flex',
+    flexDirection: 'column'
   }
 }));
 
 function RadioInput(props) {
   const classes = useStyles();
 
-  const { name, value, label, optionsArray, handleChange } = props;
+  const { name, value, label, vertical, optionsArray, handleChange } = props;
 
   return (
     <div className={classes.root}>
@@ -35,7 +35,7 @@ function RadioInput(props) {
           name={name}
           value={value}
           onChange={handleChange}
-          className={classes.radioGroup}
+          className={vertical ? classes.radioGroupVertical : classes.radioGroup}
         >
           {optionsArray.map(option => (
             <FormControlLabel
