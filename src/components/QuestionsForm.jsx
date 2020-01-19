@@ -6,6 +6,8 @@ import TextInput from './Shared/TextInput';
 import RadioInput from './Shared/RadioInput';
 import { Button, Paper } from '@material-ui/core';
 import useWindowDimensions from '../hooks/useWindowDimensions';
+import Spinner from './Shared/Spinner';
+import axios from '../apiConfig';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,8 +33,12 @@ function QuestionsForm() {
   const { width } = useWindowDimensions();
   const [questionType, setQuestionType] = useState(null);
   const [values, setValues] = useState({
-    question: '',
-    category: ''
+    category: '',
+    question: ''
+  });
+  const [state, setState] = useState({
+    loading: false,
+    error: null
   });
 
   function handleQuestionType(event) {
@@ -46,8 +52,22 @@ function QuestionsForm() {
     });
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+    try {
+      setState({ loading: true });
+
+      await axios.post(`/${questionType}`, values);
+
+      setState({ loading: false });
+      setQuestionType(null);
+      setValues({ category: '', question: '' });
+    } catch (err) {
+      setState({
+        loading: false,
+        error: err
+      });
+    }
   }
 
   return (
@@ -86,15 +106,19 @@ function QuestionsForm() {
             value={values.question || ''}
             handleChange={handleChange}
           />
-          <Button
-            fullWidth
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.button}
-          >
-            Save
-          </Button>
+          {state.loading ? (
+            <Spinner />
+          ) : (
+            <Button
+              fullWidth
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.button}
+            >
+              Save
+            </Button>
+          )}
         </form>
       </div>
     </Paper>
