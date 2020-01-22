@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 function GamePage() {
   const classes = useStyles();
-  const { gameOn, setGameOn, category, playerTurn } = useContext(
+  const { category, playerName, playerTurn } = useContext(
     OptionsContext
   );
   const [questionType, setQuestionType] = useState(null);
@@ -57,12 +57,13 @@ function GamePage() {
     fetchData();
   }, [category, setTruth, setDare, setState]);
 
-  function handleRandomTruth() {
-    setGameOn(true);
-    if (gameOn) {
-      playerTurn();
-    }
+  function handlePlayerTurn() {
+    playerTurn();
+    setQuestionType(null);
+    setCurrentQuestion(null);
+  }
 
+  function handleRandomTruth() {
     const remainingTruth = truth.filter(t => !t.appeared);
     const randomNum = Math.floor(Math.random() * remainingTruth.length);
 
@@ -74,11 +75,6 @@ function GamePage() {
   }
 
   function handleRandomDare() {
-    setGameOn(true);
-    if (gameOn) {
-      playerTurn();
-    }
-
     const remainingDare = dare.filter(d => !d.appeared);
     const randomNum = Math.floor(Math.random() * remainingDare.length);
 
@@ -95,40 +91,50 @@ function GamePage() {
         {state.loading ? (
           <Spinner />
         ) : (
-          <>
-            {questionType && (
-              <Typography className={classes.typography}>
-                {questionType}
-              </Typography>
-            )}
-            {currentQuestion ? (
-              <Typography variant="h6" className={classes.typography}>
-                {currentQuestion}
-              </Typography>
-            ) : (
-              <Typography gutterBottom>Select a question!</Typography>
-            )}
-          </>
-        )}
+            <>
+              {questionType && (
+                <Typography className={classes.typography}>
+                  {questionType}
+                </Typography>
+              )}
+              {currentQuestion ? (
+                <Typography variant="h6" className={classes.typography}>
+                  {currentQuestion}
+                </Typography>
+              ) : (
+                  <Typography gutterBottom>{playerName ? `${playerName} select a question type!` : "Select a question type!"}</Typography>
+                )}
+            </>
+          )}
 
-        <Button
-          size="large"
-          color="primary"
-          variant="contained"
-          className={classes.button}
-          onClick={handleRandomTruth}
-        >
-          Truth
-        </Button>
-        <Button
-          size="large"
-          color="secondary"
-          variant="contained"
-          className={classes.button}
-          onClick={handleRandomDare}
-        >
-          Dare
-        </Button>
+        {currentQuestion && playerName ?
+          <Button
+            fullWidth
+            color="primary"
+            variant="outlined"
+            onClick={handlePlayerTurn}>
+            Next player
+          </Button>
+          : <>
+            <Button
+              size="large"
+              color="primary"
+              variant="contained"
+              className={classes.button}
+              onClick={handleRandomTruth}
+            >
+              Truth
+            </Button>
+            <Button
+              size="large"
+              color="secondary"
+              variant="contained"
+              className={classes.button}
+              onClick={handleRandomDare}
+            >
+              Dare
+            </Button>
+          </>}
       </Paper>
     </div>
   );

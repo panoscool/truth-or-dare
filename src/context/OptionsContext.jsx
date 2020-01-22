@@ -2,15 +2,13 @@ import React, { useState, createContext } from 'react';
 import { useLocation } from 'react-router-dom';
 
 export const OptionsContext = createContext({
-  setPlayers: () => {},
-  setCategory: () => {},
-  playerTurn: () => {},
-  setGameOn: () => {}
+  setPlayers: () => { },
+  setCategory: () => { },
+  playerTurn: () => { },
 });
 
 export default ({ children }) => {
   const { pathname } = useLocation();
-  const [gameOn, setGameOn] = useState(false);
   const [player, setPlayer] = useState(0);
   const [players, setPlayers] = useState([]);
   const [category, setCategory] = useState('funny');
@@ -30,8 +28,6 @@ export default ({ children }) => {
     <OptionsContext.Provider
       value={{
         playerName: currentPlayer,
-        gameOn: gameOn,
-        setGameOn: setGameOn,
         players: players,
         setPlayers: setPlayers,
         category: category,
