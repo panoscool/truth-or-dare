@@ -25,11 +25,11 @@ const useStyles = makeStyles(theme => ({
 function RadioInput(props) {
   const classes = useStyles();
 
-  const { name, value, label, vertical, optionsArray, handleChange } = props;
+  const { required, name, value, label, vertical, optionsArray, handleChange } = props;
 
   return (
     <div className={classes.root}>
-      <FormControl component="fieldset">
+      <FormControl required={required} component="fieldset">
         <FormLabel component="legend">{label}</FormLabel>
         <RadioGroup
           name={name}
@@ -42,7 +42,7 @@ function RadioInput(props) {
               key={option.id}
               label={option.label}
               value={option.value}
-              control={<Radio color="primary" />}
+              control={<Radio required={required} color="primary" />}
             />
           ))}
         </RadioGroup>

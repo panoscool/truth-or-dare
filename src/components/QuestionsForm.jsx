@@ -78,6 +78,7 @@ function QuestionsForm() {
         </Typography>
         <form onSubmit={handleSubmit}>
           <RadioInput
+            required
             name="questionType"
             label="Question Type"
             value={questionType || ''}
@@ -88,6 +89,7 @@ function QuestionsForm() {
             ]}
           />
           <RadioInput
+            required
             name="category"
             label="Select Category"
             vertical={width < 460}
@@ -100,6 +102,7 @@ function QuestionsForm() {
             ]}
           />
           <TextInput
+            required
             name="question"
             label="Add question"
             placeholder="Add question"
@@ -109,16 +112,16 @@ function QuestionsForm() {
           {state.loading ? (
             <Spinner />
           ) : (
-            <Button
-              fullWidth
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.button}
-            >
-              Save
+              <Button
+                fullWidth
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.button}
+              >
+                Save
             </Button>
-          )}
+            )}
         </form>
       </div>
     </Paper>
