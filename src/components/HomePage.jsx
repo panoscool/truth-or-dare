@@ -9,12 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
-import {
-  PlayArrow,
-  ArrowDownward,
-  AddCircleOutline,
-  InfoOutlined
-} from '@material-ui/icons';
+import { PlayArrow, ArrowDownward, AddCircleOutline, InfoOutlined } from '@material-ui/icons';
 import { OptionsContext } from '../context/OptionsContext';
 import CategoriesPage from './CategoriesPage';
 import PlayersPage from './PlayersPage';

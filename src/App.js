@@ -5,6 +5,7 @@ import HomePage from './components/HomePage';
 import GamePage from './components/GamePage';
 import QuestionsForm from './components/QuestionsForm';
 import RulesPage from './components/RulesPage';
+import NotFoundPage from './components/NotFoundPage';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
         <Route path="/game" component={GamePage} />
         <Route path="/create" component={QuestionsForm} />
         <Route path="/information" component={RulesPage} />
-        <Route path="/" component={HomePage} />
+        <Route exact path="/" component={HomePage} />
+        <Route component={NotFoundPage} />
       </Switch>
     </div>
   );
