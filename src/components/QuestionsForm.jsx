@@ -7,7 +7,7 @@ import RadioInput from './Shared/RadioInput';
 import { Button, Paper } from '@material-ui/core';
 import useWindowDimensions from '../hooks/useWindowDimensions';
 import Spinner from './Shared/Spinner';
-import axios from '../apiConfig';
+import firebase from '../config/firebase';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,12 +57,13 @@ function QuestionsForm() {
     try {
       setState({ loading: true });
 
-      await axios.post(`/${questionType}`, values);
+      await firebase.firestore().collection(questionType).add(values);
 
       setState({ loading: false });
       setQuestionType(null);
       setValues({ category: '', question: '' });
     } catch (err) {
+      console.error(err);
       setState({
         loading: false,
         error: err
@@ -84,8 +85,8 @@ function QuestionsForm() {
             value={questionType || ''}
             handleChange={handleQuestionType}
             optionsArray={[
-              { id: cuid(), value: 'truth', label: 'Truth' },
-              { id: cuid(), value: 'dare', label: 'Dare' }
+              { id: cuid(), value: 'truth_questions', label: 'Truth' },
+              { id: cuid(), value: 'dare_questions', label: 'Dare' }
             ]}
           />
           <RadioInput
@@ -115,8 +116,8 @@ function QuestionsForm() {
               <Button
                 fullWidth
                 type="submit"
-                variant="contained"
                 color="primary"
+                variant="contained"
                 className={classes.button}
               >
                 Save

@@ -6,8 +6,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
-import ThemeToggle from './ThemeToggle';
-import { OptionsContext } from '../context/OptionsContext';
+import ThemeToggle from '../ThemeToggle';
+import { OptionsContext } from '../../context/OptionsContext';
+import AuthMenu from './AuthMenu';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,6 +44,7 @@ function Navbar() {
             {playerName ? playerName : null}
           </Typography>
           <ThemeToggle />
+          <AuthMenu />
         </Toolbar>
       </AppBar>
     </div>

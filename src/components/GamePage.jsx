@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Spinner from './Shared/Spinner';
-import axios from '../apiConfig';
+import firebase from '../config/firebase';
 import { OptionsContext } from '../context/OptionsContext';
 
 const useStyles = makeStyles(theme => ({
@@ -18,8 +18,11 @@ const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(2)
   },
-  typography: {
-    marginBottom: theme.spacing(2)
+  qType: {
+    textTransform: 'capitalize'
+  },
+  question: {
+    margin: theme.spacing(2, 0)
   }
 }));
 
@@ -40,11 +43,12 @@ function GamePage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const t = await axios.get('/truth');
-        const d = await axios.get('/dare');
+        const t = await firebase.firestore().collection('truth_questions').get();
+        const d = await firebase.firestore().collection('dare_questions').get();
 
-        setTruth(t.data.filter(t => t.category === category));
-        setDare(d.data.filter(d => d.category === category));
+        setTruth(t.docs.map(doc => doc.data()).filter(t => t.category === category));
+        setDare(d.docs.map(doc => doc.data()).filter(d => d.category === category));
+
         setState({ loading: false });
       } catch (err) {
         setState({
@@ -58,7 +62,7 @@ function GamePage() {
   }, [category, setTruth, setDare, setState]);
 
   function handlePlayerTurn() {
-    playerTurn();
+    playerTurn(questionType);
     setQuestionType(null);
     setCurrentQuestion(null);
   }
@@ -69,7 +73,7 @@ function GamePage() {
 
     if (remainingTruth.length > 0) {
       setCurrentQuestion(remainingTruth[randomNum].question);
-      setQuestionType('Truth');
+      setQuestionType('truth');
       remainingTruth[randomNum].appeared = true;
     }
   }
@@ -80,7 +84,7 @@ function GamePage() {
 
     if (remainingDare.length > 0) {
       setCurrentQuestion(remainingDare[randomNum].question);
-      setQuestionType('Dare');
+      setQuestionType('dare');
       remainingDare[randomNum].appeared = true;
     }
   }
@@ -93,12 +97,12 @@ function GamePage() {
         ) : (
             <>
               {questionType && (
-                <Typography className={classes.typography}>
+                <Typography className={classes.qType}>
                   {questionType}
                 </Typography>
               )}
               {currentQuestion ? (
-                <Typography variant="h6" className={classes.typography}>
+                <Typography variant="h6" className={classes.question}>
                   {currentQuestion}
                 </Typography>
               ) : (

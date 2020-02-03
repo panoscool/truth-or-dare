@@ -9,20 +9,31 @@ export const OptionsContext = createContext({
 
 export default ({ children }) => {
   const { pathname } = useLocation();
-  const [player, setPlayer] = useState(0);
+  const [playerIndex, setPlayerIndex] = useState(0);
   const [players, setPlayers] = useState([]);
   const [category, setCategory] = useState('funny');
 
-  function playerTurn() {
-    if (players.length && players.length !== player + 1) {
-      setPlayer(player + 1);
+  function scoreUpdate(qType) {
+    const newPlayers = players.map((p, idx) => {
+      if (idx === playerIndex) {
+        p.score[qType] = p.score[qType] + 1;
+      }
+      return p;
+    });
+    setPlayers(newPlayers);
+    nextPlayer();
+  }
+
+  function nextPlayer() {
+    if (players.length && players.length !== playerIndex + 1) {
+      setPlayerIndex(playerIndex + 1);
     } else {
-      setPlayer(0);
+      setPlayerIndex(0);
     }
   }
 
   const currentPlayer =
-    pathname === '/game' && players.length && players[player].name;
+    pathname === '/game' && players.length && players[playerIndex].name;
 
   return (
     <OptionsContext.Provider
@@ -32,7 +43,7 @@ export default ({ children }) => {
         setPlayers: setPlayers,
         category: category,
         setCategory: setCategory,
-        playerTurn: playerTurn
+        playerTurn: scoreUpdate
       }}
     >
       {children}

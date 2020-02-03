@@ -12,7 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import { PlayArrow, ArrowDownward, AddCircleOutline, InfoOutlined } from '@material-ui/icons';
 import { OptionsContext } from '../context/OptionsContext';
 import CategoriesPage from './CategoriesPage';
-import PlayersPage from './PlayersPage';
+import PlayersPage from './Players/PlayersPage';
 
 const useStyles = makeStyles(theme => ({
   root: {

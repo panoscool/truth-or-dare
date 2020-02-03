@@ -3,7 +3,7 @@ import cuid from 'cuid';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import PlayersList from './PlayersList';
-import TextInput from './Shared/TextInput';
+import TextInput from '../Shared/TextInput';
 
 const useStyles = makeStyles(theme => ({
   formGroup: {
@@ -19,7 +19,11 @@ function PlayersPage({ players, setPlayers }) {
   const [isEdit, setIsEdit] = useState(false);
   const [values, setValues] = useState({
     id: '',
-    name: ''
+    name: '',
+    score: {
+      truth: 0,
+      dare: 0
+    }
   });
 
   function handleChange(event) {
@@ -27,6 +31,10 @@ function PlayersPage({ players, setPlayers }) {
       ...values,
       [event.target.name]: event.target.value
     });
+  }
+
+  function handleFormReset() {
+    setValues({ id: '', name: '', score: { truth: 0, dare: 0 } });
   }
 
   function hnandleSelect(player) {
@@ -44,7 +52,7 @@ function PlayersPage({ players, setPlayers }) {
         }
       })
     );
-    setValues({ id: '', name: '' });
+    handleFormReset();
     setIsEdit(false);
   }
 
@@ -61,7 +69,7 @@ function PlayersPage({ players, setPlayers }) {
     } else {
       values.id = cuid();
       setPlayers([...players, values]);
-      setValues({ id: '', name: '' });
+      handleFormReset();
     }
   }
 

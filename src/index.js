@@ -3,18 +3,21 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import App from './App';
-import OptionsContext from './context/OptionsContext';
+import AuthProvider from './context/AuthContext';
+import OptionsProvider from './context/OptionsContext';
 import ThemeProvider from './context/ThemeContext';
 import * as serviceWorker from './serviceWorker';
 
 const app = (
   <BrowserRouter>
-    <OptionsContext>
-      <ThemeProvider>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
-    </OptionsContext>
+    <AuthProvider>
+      <OptionsProvider>
+        <ThemeProvider>
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
+      </OptionsProvider>
+    </AuthProvider>
   </BrowserRouter>
 );
 
