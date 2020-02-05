@@ -1,8 +1,8 @@
 import React from 'react';
 import cuid from 'cuid';
 import { makeStyles } from '@material-ui/core/styles';
-import ArroRight from '@material-ui/icons/ArrowRight';
 import { Typography, Paper, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
+import ArroRight from '@material-ui/icons/ArrowRight';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -22,9 +22,9 @@ const rules_list = [
 ];
 
 const categories_breakdown = [
-  { id: cuid(), category: "Funny: ..." },
-  { id: cuid(), category: "Challenging: ..." },
-  { id: cuid(), category: "Uncensored: ..." }
+  { id: cuid(), category: "Funny: Casual questions to relax and laugh with friends, schoolmates or colleagues. 🙂" },
+  { id: cuid(), category: "Challenging: A list of funny and embarrassing questions to challenge each other. 😬" },
+  { id: cuid(), category: "Uncensored: For hardcore players only that can face any answer or challenge assigned to them. 😈" }
 ];
 
 function InformationPage() {

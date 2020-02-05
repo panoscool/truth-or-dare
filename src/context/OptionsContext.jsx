@@ -32,8 +32,7 @@ export default ({ children }) => {
     }
   }
 
-  const currentPlayer =
-    pathname === '/game' && players.length && players[playerIndex].name;
+  const currentPlayer = pathname === '/game' && players.length && players[playerIndex].name;
 
   return (
     <OptionsContext.Provider

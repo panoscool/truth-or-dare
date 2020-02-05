@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import cuid from 'cuid';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import { Button, Paper, Typography } from '@material-ui/core';
 import TextInput from './Shared/TextInput';
 import RadioInput from './Shared/RadioInput';
-import { Button, Paper } from '@material-ui/core';
 import useWindowDimensions from '../hooks/useWindowDimensions';
+import { AuthContext } from '../context/AuthContext';
 import Spinner from './Shared/Spinner';
 import firebase from '../config/firebase';
 
@@ -34,6 +34,7 @@ const useStyles = makeStyles(theme => ({
 function QuestionsForm() {
   const classes = useStyles();
   const { width } = useWindowDimensions();
+  const { userId } = useContext(AuthContext);
   const [questionType, setQuestionType] = useState(null);
   const [values, setValues] = useState({
     category: '',
@@ -61,7 +62,13 @@ function QuestionsForm() {
     try {
       setState({ loading: true });
 
-      await firebase.firestore().collection(questionType).add(values);
+      const newQuestion = {
+        ...values,
+        userId: userId,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+
+      await firebase.firestore().collection(questionType).add(newQuestion);
 
       setState({ loading: false });
       setQuestionType(null);

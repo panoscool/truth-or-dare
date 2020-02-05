@@ -11,10 +11,11 @@ import firebase from './config/firebase';
 import { AuthContext } from './context/AuthContext';
 
 function App() {
-  const { setAuthenticated } = useContext(AuthContext);
+  const { setAuthenticated, setUserId } = useContext(AuthContext);
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
       setAuthenticated(true);
+      setUserId(user.uid);
     } else {
       setAuthenticated(false);
     }

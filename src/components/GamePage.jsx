@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import { Paper, Typography, Button } from '@material-ui/core';
+import { OptionsContext } from '../context/OptionsContext';
 import Spinner from './Shared/Spinner';
 import firebase from '../config/firebase';
-import { OptionsContext } from '../context/OptionsContext';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,11 +26,11 @@ const useStyles = makeStyles(theme => ({
 
 function GamePage() {
   const classes = useStyles();
-  const { category, playerName, playerTurn } = useContext(
-    OptionsContext
-  );
+  const { category, playerName, playerTurn } = useContext(OptionsContext);
   const [questionType, setQuestionType] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [isTruthOver, setTruthOver] = useState(false);
+  const [isDareOver, setDareOver] = useState(false);
   const [truth, setTruth] = useState([]);
   const [dare, setDare] = useState([]);
   const [state, setState] = useState({
@@ -67,49 +65,55 @@ function GamePage() {
     setCurrentQuestion(null);
   }
 
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max.length);
+  }
+
   function handleRandomTruth() {
     const remainingTruth = truth.filter(t => !t.appeared);
-    const randomNum = Math.floor(Math.random() * remainingTruth.length);
+    const randomNum = getRandomInt(remainingTruth);
 
     if (remainingTruth.length > 0) {
-      setCurrentQuestion(remainingTruth[randomNum].question);
       setQuestionType('truth');
+      setCurrentQuestion(remainingTruth[randomNum].question);
       remainingTruth[randomNum].appeared = true;
+    } else {
+      setTruthOver(true);
     }
   }
 
   function handleRandomDare() {
     const remainingDare = dare.filter(d => !d.appeared);
-    const randomNum = Math.floor(Math.random() * remainingDare.length);
+    const randomNum = getRandomInt(remainingDare);
 
     if (remainingDare.length > 0) {
-      setCurrentQuestion(remainingDare[randomNum].question);
       setQuestionType('dare');
+      setCurrentQuestion(remainingDare[randomNum].question);
       remainingDare[randomNum].appeared = true;
+    } else {
+      setDareOver(true);
+    }
+  }
+
+  function whatRender() {
+    if (state.loading) {
+      return <Spinner />;
+    } else if (isTruthOver && isDareOver) {
+      return <Typography variant="h4">Game over</Typography>;
+    } else if (questionType && currentQuestion) {
+      return (<>
+        <Typography className={classes.qType}>{questionType}</Typography>
+        <Typography variant="h6" className={classes.question}>{currentQuestion}</Typography>
+      </>);
+    } else {
+      return <Typography gutterBottom>{playerName ? `${playerName} select a question type!` : "Select a question type!"}</Typography>;
     }
   }
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        {state.loading ? (
-          <Spinner />
-        ) : (
-            <>
-              {questionType && (
-                <Typography className={classes.qType}>
-                  {questionType}
-                </Typography>
-              )}
-              {currentQuestion ? (
-                <Typography variant="h6" className={classes.question}>
-                  {currentQuestion}
-                </Typography>
-              ) : (
-                  <Typography gutterBottom>{playerName ? `${playerName} select a question type!` : "Select a question type!"}</Typography>
-                )}
-            </>
-          )}
+        {whatRender()}
 
         {currentQuestion && playerName ?
           <Button
@@ -124,6 +128,7 @@ function GamePage() {
               size="large"
               color="primary"
               variant="contained"
+              disabled={isTruthOver}
               className={classes.button}
               onClick={handleRandomTruth}
             >
@@ -133,6 +138,7 @@ function GamePage() {
               size="large"
               color="secondary"
               variant="contained"
+              disabled={isDareOver}
               className={classes.button}
               onClick={handleRandomDare}
             >
