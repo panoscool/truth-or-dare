@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AuthContext } from '../../context/AuthContext';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
+import LeaderboardModal from '../LeaderboardModal';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -14,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
 
 const modals = {
   SignInForm,
-  SignUpForm
+  SignUpForm,
+  LeaderboardModal
 };
 
 function ModalManager() {

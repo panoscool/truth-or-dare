@@ -24,7 +24,7 @@ const rules_list = [
 const categories_breakdown = [
   { id: cuid(), category: "Funny: Casual questions to relax and laugh with friends, schoolmates or colleagues. 🙂" },
   { id: cuid(), category: "Challenging: A list of funny and embarrassing questions to challenge each other. 😬" },
-  { id: cuid(), category: "Uncensored: For hardcore players only that can face any answer or challenge assigned to them. 😈" }
+  { id: cuid(), category: "Uncensored: For hardcore players only that can face any question or challenge assigned to them. 😈" }
 ];
 
 function InformationPage() {
