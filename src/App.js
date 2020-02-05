@@ -4,7 +4,7 @@ import Navbar from './components/Navigation/Navbar';
 import HomePage from './components/HomePage';
 import GamePage from './components/GamePage';
 import QuestionsForm from './components/QuestionsForm';
-import RulesPage from './components/RulesPage';
+import InformationPage from './components/InformationPage';
 import NotFoundPage from './components/NotFoundPage';
 import ModalManager from './components/Authentication/ModalManager';
 import firebase from './config/firebase';
@@ -27,7 +27,7 @@ function App() {
       <Switch>
         <Route path="/game" component={GamePage} />
         <Route path="/create" component={QuestionsForm} />
-        <Route path="/information" component={RulesPage} />
+        <Route path="/information" component={InformationPage} />
         <Route exact path="/" component={HomePage} />
         <Route component={NotFoundPage} />
       </Switch>

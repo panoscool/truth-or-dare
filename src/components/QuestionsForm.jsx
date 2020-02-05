@@ -25,6 +25,9 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     marginBottom: theme.spacing(2)
+  },
+  error: {
+    color: 'red'
   }
 }));
 
@@ -54,6 +57,7 @@ function QuestionsForm() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+
     try {
       setState({ loading: true });
 
@@ -124,6 +128,7 @@ function QuestionsForm() {
             </Button>
             )}
         </form>
+        <span className={classes.error}>{state.error && `${state.error.message} Please login or register.`}</span>
       </div>
     </Paper>
   );

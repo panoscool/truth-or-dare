@@ -17,12 +17,16 @@ const useStyles = makeStyles((theme) => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500]
+  },
+  error: {
+    color: 'red'
   }
 }));
 
 function SignUpForm() {
   const classes = useStyles();
   const { modal, setModal } = useContext(AuthContext);
+  const [error, setError] = useState(null);
   const [values, setValues] = useState({
     displayName: '',
     email: '',
@@ -46,6 +50,7 @@ function SignUpForm() {
       handleClose(false);
     } catch (err) {
       console.log(err);
+      setError(err);
     }
   }
 
@@ -63,9 +68,11 @@ function SignUpForm() {
           </IconButton>
         </DialogTitle>
         <DialogContent>
+          <span className={classes.error}>{error && error.message}</span>
           <form onSubmit={handleUserRegister}>
             <TextInput
               autoFocus
+              required
               type="text"
               name='displayName'
               label="Name"
@@ -73,6 +80,7 @@ function SignUpForm() {
               handleChange={handleChange}
             />
             <TextInput
+              required
               type="email"
               name='email'
               label="Email"
@@ -80,6 +88,7 @@ function SignUpForm() {
               handleChange={handleChange}
             />
             <TextInput
+              required
               type="password"
               name='password'
               label="Password"

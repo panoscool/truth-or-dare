@@ -17,12 +17,16 @@ const useStyles = makeStyles((theme) => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500]
+  },
+  error: {
+    color: 'red'
   }
 }));
 
 function SignInForm() {
   const classes = useStyles();
   const { modal, setModal } = useContext(AuthContext);
+  const [error, setError] = useState(null);
   const [values, setValues] = useState({
     email: '',
     password: ''
@@ -44,6 +48,7 @@ function SignInForm() {
       handleClose(null);
     } catch (err) {
       console.error(err);
+      setError(err);
     }
   }
 
@@ -56,14 +61,16 @@ function SignInForm() {
       <Dialog open={Boolean(modal)} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">
           Login
-        <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+          <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
             <Close />
           </IconButton>
         </DialogTitle>
         <DialogContent>
+          <span className={classes.error}>{error && error.message}</span>
           <form onSubmit={handleUserLogin}>
             <TextInput
               autoFocus
+              required
               type="email"
               name='email'
               label="Email"
@@ -71,6 +78,7 @@ function SignInForm() {
               handleChange={handleChange}
             />
             <TextInput
+              required
               type="password"
               name='password'
               label="Password"
