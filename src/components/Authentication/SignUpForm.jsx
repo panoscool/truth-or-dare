@@ -71,7 +71,6 @@ function SignUpForm() {
           <span className={classes.error}>{error && error.message}</span>
           <form onSubmit={handleUserRegister}>
             <TextInput
-              autoFocus
               required
               type="text"
               name='displayName'

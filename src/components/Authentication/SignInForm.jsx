@@ -69,7 +69,6 @@ function SignInForm() {
           <span className={classes.error}>{error && error.message}</span>
           <form onSubmit={handleUserLogin}>
             <TextInput
-              autoFocus
               required
               type="email"
               name='email'

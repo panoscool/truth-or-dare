@@ -1,14 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Person from '@material-ui/icons/Person';
-import { AuthContext } from '../../context/AuthContext';
 import firebase from '../../config/firebase';
 
-function AuthMenu() {
-  const { authenticated, setModal } = useContext(AuthContext);
+function AuthMenu({ authenticated, setModal }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
