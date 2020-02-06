@@ -23,8 +23,8 @@ function SocialLogin() {
       setModal(null);
 
       const provider = {
-        fbProvider: new firebase.auth.FacebookAuthProvider(),
-        gProvider: new firebase.auth.GoogleAuthProvider()
+        facebook: new firebase.auth.FacebookAuthProvider(),
+        google: new firebase.auth.GoogleAuthProvider()
       };
 
       await firebase.auth().signInWithPopup(provider[selectedProvider]);
@@ -36,8 +36,8 @@ function SocialLogin() {
   return (
     <div className={classes.root}>
       <Typography>- OR -</Typography>
-      <Button onClick={() => handleSocialLogin('fbProvider')} className={classes.button} fullWidth color="primary" variant="outlined">Continue with Facebook</Button>
-      <Button onClick={() => handleSocialLogin('gProvider')} className={classes.button} fullWidth color="default" variant="outlined">Continue with Google</Button>
+      <Button onClick={() => handleSocialLogin('facebook')} className={classes.button} fullWidth color="primary" variant="outlined">Continue with Facebook</Button>
+      <Button onClick={() => handleSocialLogin('google')} className={classes.button} fullWidth color="default" variant="outlined">Continue with Google</Button>
     </div>
   );
 }

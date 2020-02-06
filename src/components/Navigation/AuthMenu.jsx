@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Person from '@material-ui/icons/Person';
+import Avatar from '@material-ui/core/Avatar';
 import firebase from '../../config/firebase';
 
-function AuthMenu({ authenticated, setModal }) {
+const useStyles = makeStyles(theme => ({
+  small: {
+    margin: theme.spacing(-1),
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  }
+}));
+
+function AuthMenu({ authenticated, displayName, photoURL, setModal }) {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -19,6 +30,16 @@ function AuthMenu({ authenticated, setModal }) {
     setAnchorEl(null);
   };
 
+  function renderAvatar() {
+    if (authenticated && photoURL) {
+      return <Avatar className={classes.small} alt={displayName} src={photoURL} />;
+    } else if (authenticated && !photoURL) {
+      return <Person />;
+    } else {
+      return <AccountCircle />;
+    }
+  }
+
   return (
     <div>
       <IconButton
@@ -28,7 +49,7 @@ function AuthMenu({ authenticated, setModal }) {
         onClick={handleMenu}
         color="inherit"
       >
-        {authenticated ? <Person /> : <AccountCircle />}
+        {renderAvatar()}
       </IconButton>
       <Menu
         id="menu-appbar"
@@ -46,7 +67,10 @@ function AuthMenu({ authenticated, setModal }) {
         onClose={handleClose}
       >
         {authenticated ?
-          <MenuItem onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
+          <span>
+            <MenuItem disabled>{displayName}</MenuItem>
+            <MenuItem onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
+          </span>
           :
           <span>
             <MenuItem onClick={() => handleClose('SignInForm')}>Login</MenuItem>

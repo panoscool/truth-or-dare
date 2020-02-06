@@ -8,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import HomeIcon from '@material-ui/icons/Home';
 import BubbleChart from '@material-ui/icons/BubbleChart';
-import ThemeToggle from '../ThemeToggle';
 import AuthMenu from './AuthMenu';
 import { AuthContext } from '../../context/AuthContext';
 import { OptionsContext } from '../../context/OptionsContext';
@@ -27,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 function Navbar() {
   const classes = useStyles();
-  const { authenticated, setModal } = useContext(AuthContext);
+  const { authenticated, displayName, photoURL, setModal } = useContext(AuthContext);
   const { playerName } = useContext(OptionsContext);
 
   return (
@@ -47,14 +46,13 @@ function Navbar() {
           <Typography variant="h6" className={classes.title}>
             {playerName ? playerName : null}
           </Typography>
-          <ThemeToggle />
           {playerName ?
             <Tooltip title="Score">
               <IconButton onClick={() => setModal('LeaderboardModal')} edge="start" color="inherit" aria-label="menu">
                 <BubbleChart />
               </IconButton>
             </Tooltip> : null}
-          <AuthMenu authenticated={authenticated} setModal={setModal} />
+          <AuthMenu authenticated={authenticated} displayName={displayName} photoURL={photoURL} setModal={setModal} />
         </Toolbar>
       </AppBar>
     </div>

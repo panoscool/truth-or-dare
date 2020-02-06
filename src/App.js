@@ -12,11 +12,13 @@ import { AuthContext } from './context/AuthContext';
 import PrivacyPolicy from './components/PrivacyPolicy';
 
 function App() {
-  const { setAuthenticated, setUserId } = useContext(AuthContext);
+  const { setAuthenticated, setUserId, setDisplayName, setPhotoURL } = useContext(AuthContext);
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
       setAuthenticated(true);
       setUserId(user.uid);
+      setDisplayName(user.displayName);
+      setPhotoURL(user.photoURL);
     } else {
       setAuthenticated(false);
     }
