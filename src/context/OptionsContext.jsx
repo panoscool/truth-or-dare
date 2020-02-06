@@ -4,7 +4,8 @@ import { useLocation } from 'react-router-dom';
 export const OptionsContext = createContext({
   setPlayers: () => { },
   setCategory: () => { },
-  playerTurn: () => { },
+  nextPlayer: () => { },
+  scoreUpdate: () => { }
 });
 
 export default ({ children }) => {
@@ -42,7 +43,8 @@ export default ({ children }) => {
         setPlayers: setPlayers,
         category: category,
         setCategory: setCategory,
-        playerTurn: scoreUpdate
+        nextPlayer: nextPlayer,
+        scoreUpdate: scoreUpdate
       }}
     >
       {children}

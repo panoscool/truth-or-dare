@@ -9,6 +9,7 @@ import NotFoundPage from './components/NotFoundPage';
 import ModalManager from './components/Authentication/ModalManager';
 import firebase from './config/firebase';
 import { AuthContext } from './context/AuthContext';
+import PrivacyPolicy from './components/PrivacyPolicy';
 
 function App() {
   const { setAuthenticated, setUserId } = useContext(AuthContext);
@@ -26,6 +27,7 @@ function App() {
       <ModalManager />
       <Navbar />
       <Switch>
+        <Route path="/privacy-policy" component={PrivacyPolicy} />
         <Route path="/game" component={GamePage} />
         <Route path="/create" component={QuestionsForm} />
         <Route path="/information" component={InformationPage} />

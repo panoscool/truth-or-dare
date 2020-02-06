@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Typography, Button } from '@material-ui/core';
+import { Paper, Typography, Button, ButtonGroup } from '@material-ui/core';
+import { SubdirectoryArrowLeft, SubdirectoryArrowRight } from '@material-ui/icons';
 import { OptionsContext } from '../context/OptionsContext';
 import Spinner from './Shared/Spinner';
 import firebase from '../config/firebase';
@@ -26,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 
 function GamePage() {
   const classes = useStyles();
-  const { category, playerName, playerTurn } = useContext(OptionsContext);
+  const { category, playerName, nextPlayer, scoreUpdate } = useContext(OptionsContext);
   const [questionType, setQuestionType] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [isTruthOver, setTruthOver] = useState(false);
@@ -59,8 +60,12 @@ function GamePage() {
     fetchData();
   }, [category, setTruth, setDare, setState]);
 
-  function handlePlayerTurn() {
-    playerTurn(questionType);
+  function handlePlayerTurn(update) {
+    if (update === 'update') {
+      scoreUpdate(questionType);
+    } else {
+      nextPlayer();
+    }
     setQuestionType(null);
     setCurrentQuestion(null);
   }
@@ -116,13 +121,20 @@ function GamePage() {
         {whatRender()}
 
         {currentQuestion && playerName ?
-          <Button
-            fullWidth
-            color="primary"
-            variant="outlined"
-            onClick={handlePlayerTurn}>
-            Next player
-          </Button>
+          <ButtonGroup aria-label="outlined primary button group">
+            <Button
+              color="secondary"
+              onClick={handlePlayerTurn}
+              startIcon={<SubdirectoryArrowLeft />}>
+              Skip Question
+            </Button>
+            <Button
+              color="primary"
+              onClick={() => handlePlayerTurn('update')}
+              endIcon={<SubdirectoryArrowRight />}>
+              Next Player
+            </Button>
+          </ButtonGroup>
           : <>
             <Button
               size="large"
