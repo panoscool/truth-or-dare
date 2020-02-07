@@ -49,8 +49,8 @@ function SignUpForm() {
 
       handleClose(false);
     } catch (err) {
-      console.log(err);
-      setError(err);
+      console.error(err.message);
+      setError(err.message);
     }
   }
 
@@ -68,7 +68,7 @@ function SignUpForm() {
           </IconButton>
         </DialogTitle>
         <DialogContent>
-          <span className={classes.error}>{error && error.message}</span>
+          <span className={classes.error}>{error && error}</span>
           <form onSubmit={handleUserRegister}>
             <TextInput
               required

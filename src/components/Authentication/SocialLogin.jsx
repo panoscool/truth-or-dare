@@ -28,8 +28,8 @@ function SocialLogin() {
       };
 
       await firebase.auth().signInWithPopup(provider[selectedProvider]);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error.message);
     }
   }
 

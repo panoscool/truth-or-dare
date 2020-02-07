@@ -47,8 +47,8 @@ function SignInForm() {
 
       handleClose(null);
     } catch (err) {
-      console.error(err);
-      setError(err);
+      console.error(err.message);
+      setError(err.message);
     }
   }
 
@@ -66,7 +66,7 @@ function SignInForm() {
           </IconButton>
         </DialogTitle>
         <DialogContent>
-          <span className={classes.error}>{error && error.message}</span>
+          <span className={classes.error}>{error && error}</span>
           <form onSubmit={handleUserLogin}>
             <TextInput
               required

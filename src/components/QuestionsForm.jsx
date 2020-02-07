@@ -74,10 +74,10 @@ function QuestionsForm() {
       setQuestionType(null);
       setValues({ category: '', question: '' });
     } catch (err) {
-      console.error(err);
+      console.error(err.message);
       setState({
         loading: false,
-        error: err
+        error: err.message
       });
     }
   }
@@ -135,7 +135,7 @@ function QuestionsForm() {
             </Button>
             )}
         </form>
-        <span className={classes.error}>{state.error && `${state.error.message} Please login or register.`}</span>
+        <span className={classes.error}>{state.error && `${state.error} Please login or register.`}</span>
       </div>
     </Paper>
   );
