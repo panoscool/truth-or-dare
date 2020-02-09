@@ -2,12 +2,12 @@ import React, { useState, useContext } from 'react';
 import cuid from 'cuid';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Paper, Typography } from '@material-ui/core';
-import TextInput from './Shared/TextInput';
-import RadioInput from './Shared/RadioInput';
-import useWindowDimensions from '../hooks/useWindowDimensions';
-import { AuthContext } from '../context/AuthContext';
-import Spinner from './Shared/Spinner';
-import firebase from '../config/firebase';
+import TextInput from '../Shared/TextInput';
+import RadioInput from '../Shared/RadioInput';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
+import { AuthContext } from '../../context/AuthContext';
+import Spinner from '../Shared/Spinner';
+import firebase from '../../config/firebase';
 
 const useStyles = makeStyles(theme => ({
   root: {

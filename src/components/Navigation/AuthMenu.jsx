@@ -9,6 +9,9 @@ import Avatar from '@material-ui/core/Avatar';
 import firebase from '../../config/firebase';
 
 const useStyles = makeStyles(theme => ({
+  icon: {
+    margin: theme.spacing(-1)
+  },
   small: {
     margin: theme.spacing(-1),
     width: theme.spacing(3),
@@ -34,9 +37,9 @@ function AuthMenu({ authenticated, displayName, photoURL, setModal }) {
     if (authenticated && photoURL) {
       return <Avatar className={classes.small} alt={displayName} src={photoURL} />;
     } else if (authenticated && !photoURL) {
-      return <Person />;
+      return <Person className={classes.icon} />;
     } else {
-      return <AccountCircle />;
+      return <AccountCircle className={classes.icon} />;
     }
   }
 

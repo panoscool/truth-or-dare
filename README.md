@@ -1,6 +1,9 @@
-## Live app: http://cool-tord.web.app/
-
-### Installation & Development
+### Installation
 - Clone `git clone`
 - Run `npm install`
+
+### Development
+- Add your firebase config
 - Run `npm start`
+
+Live demo: https://tord.netlify.com/
