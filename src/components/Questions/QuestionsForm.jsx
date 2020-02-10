@@ -60,7 +60,7 @@ function QuestionsForm() {
     event.preventDefault();
 
     try {
-      setState({ loading: true });
+      setState({ loading: true, error: false });
 
       const newQuestion = {
         ...values,
@@ -70,15 +70,12 @@ function QuestionsForm() {
 
       await firebase.firestore().collection(questionType).add(newQuestion);
 
-      setState({ loading: false });
+      setState({ loading: false, error: false });
       setQuestionType(null);
       setValues({ category: '', question: '' });
     } catch (err) {
       console.error(err.message);
-      setState({
-        loading: false,
-        error: err.message
-      });
+      setState({ loading: false, error: err.message });
     }
   }
 

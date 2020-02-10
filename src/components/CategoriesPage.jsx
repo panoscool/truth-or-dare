@@ -4,7 +4,7 @@ import RadioInput from './Shared/RadioInput';
 import SelectInput from './Shared/SelectInput';
 import useWindowDimensions from '../hooks/useWindowDimensions';
 
-function CategoriesPage({ select, category, setCategory }) {
+function CategoriesPage({ label, select, category, setCategory }) {
   const { width } = useWindowDimensions();
   function handleChange(event) {
     setCategory(event.target.value);
@@ -16,11 +16,11 @@ function CategoriesPage({ select, category, setCategory }) {
     { id: cuid(), value: 'uncensored', label: 'Uncensored' }
   ];
 
-  if (select) {
+  if (select && width < 460) {
     return (
       <SelectInput
         name="category"
-        label="Game Mode"
+        label={label}
         value={category || ''}
         optionsArray={categories}
         handleChange={handleChange}
@@ -31,7 +31,7 @@ function CategoriesPage({ select, category, setCategory }) {
   return (
     <RadioInput
       name="category"
-      label="Game Mode"
+      label={label}
       vertical={width < 460}
       value={category || ''}
       optionsArray={categories}

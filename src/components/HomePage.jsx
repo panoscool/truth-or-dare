@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Paper, Divider, List, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction } from '@material-ui/core';
-import { PlayArrow, ArrowDownward, AddCircleOutline, InfoOutlined, WbSunnyOutlined } from '@material-ui/icons';
+import { PlayArrow, ArrowDownward, AddCircleOutline, InfoOutlined, WbSunnyOutlined, ListAltOutlined, LockOpenOutlined } from '@material-ui/icons';
+import { AuthContext } from '../context/AuthContext';
 import { OptionsContext } from '../context/OptionsContext';
 import CategoriesPage from './CategoriesPage';
 import PlayersPage from './Players/PlayersPage';
@@ -29,6 +30,7 @@ const useStyles = makeStyles(theme => ({
 
 function HomePage() {
   const classes = useStyles();
+  const { authenticated, admin } = useContext(AuthContext);
   const { players, setPlayers, category, setCategory } = useContext(
     OptionsContext
   );
@@ -36,7 +38,7 @@ function HomePage() {
   return (
     <Paper className={classes.paper}>
       <div className={classes.root}>
-        <CategoriesPage category={category} setCategory={setCategory} />
+        <CategoriesPage label="Game Mode" category={category} setCategory={setCategory} />
         {!players.length && (
           <>
             <Button
@@ -83,6 +85,21 @@ function HomePage() {
                 </ListItemIcon>
                 <ListItemText primary="Add Questions" />
               </ListItem>
+              {authenticated && admin &&
+                <span>
+                  <ListItem button component={Link} to="/questions">
+                    <ListItemIcon>
+                      <ListAltOutlined />
+                    </ListItemIcon>
+                    <ListItemText primary="Questions List" />
+                  </ListItem>
+                  <ListItem button component={Link} to="/admin">
+                    <ListItemIcon>
+                      <LockOpenOutlined />
+                    </ListItemIcon>
+                    <ListItemText primary="Make Admin" />
+                  </ListItem>
+                </span>}
               <ListItem button component={Link} to="/information">
                 <ListItemIcon>
                   <InfoOutlined />

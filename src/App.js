@@ -9,9 +9,9 @@ import AdminForm from './components/AdminForm';
 import InformationPage from './components/InformationPage';
 import NotFoundPage from './components/NotFoundPage';
 import ModalManager from './components/Authentication/ModalManager';
-import firebase from './config/firebase';
-import { AuthContext } from './context/AuthContext';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import { AuthContext } from './context/AuthContext';
+import firebase from './config/firebase';
 
 function App() {
   const { setAuthenticated, setAdmin, setUserId, setDisplayName, setPhotoURL } = useContext(AuthContext);

@@ -1,32 +1,38 @@
 import React, { useState, useEffect, useContext } from 'react';
+import format from 'date-fns/format';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import firebase from '../../config/firebase';
-import { OptionsContext } from '../../context/OptionsContext';
 import CategoriesPage from '../CategoriesPage';
 import Spinner from '../Shared/Spinner';
-import format from 'date-fns/format';
+import { OptionsContext } from '../../context/OptionsContext';
+import firebase from '../../config/firebase';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
+  paper: {
     textAlign: 'center',
-    backgroundColor: theme.palette.background.paper
+    margin: theme.spacing(2),
+    padding: theme.spacing(2)
+  },
+  button: {
+    marginBottom: theme.spacing(2)
+  },
+  error: {
+    color: 'red'
   }
 }));
 
 function QuestionsPage() {
   const classes = useStyles();
-  const { category } = useContext(OptionsContext);
-  const [truth, setTruth] = useState([]);
-  const [dare, setDare] = useState([]);
-  const [data, setData] = useState(true);
+  const { category, setCategory } = useContext(OptionsContext);
+  const [snapshot, setSnapshot] = useState([]);
+  const [url, setUrl] = useState('truth_questions');
   const [state, setState] = useState({
     loading: true,
     error: null
@@ -35,64 +41,63 @@ function QuestionsPage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const t = await firebase
-          .firestore()
-          .collection('truth_questions')
-          .get();
-        const d = await firebase
-          .firestore()
-          .collection('dare_questions')
-          .get();
+        setState({ loading: true, error: false });
 
-        setTruth(
-          t.docs.map(doc => doc.data()).filter(t => t.category === category)
-        );
-        setDare(
-          d.docs.map(doc => doc.data()).filter(d => d.category === category)
-        );
+        const snapshot = await firebase.firestore().collection(url).where('category', '==', category).get();
 
-        setState({ loading: false });
+        setSnapshot(snapshot);
+
+        setState({ loading: false, error: false });
       } catch (err) {
+        console.error(err.message);
         setState({
           loading: false,
-          error: err
+          error: err.message
         });
       }
     }
 
     fetchData();
-  }, [category, setTruth, setDare, setState]);
+  }, [url, category, setSnapshot, setState]);
 
-  function dataSelection() {
-    setData(!data);
+  function deleteQuestion(id) {
+    try {
+      firebase.firestore().collection(url).doc(id).delete();
+    } catch (err) {
+      console.error(err.message);
+      setState({ loading: false, error: err.message });
+    }
   }
 
-  const questions = data ? truth : dare;
+  function dataSelection() {
+    const newUrl = url === 'truth_questions' ? 'dare_questions' : 'truth_questions';
+    setUrl(newUrl);
+  }
 
   return (
-    <div className={classes.root}>
-      <Button color="secondary" variant="contained" onClick={dataSelection}>
-        Show {data ? 'truth' : 'dare'} questions
+    <Paper className={classes.paper}>
+      <Button onClick={dataSelection} disabled={state.loading} color="secondary" variant="contained" className={classes.button}>
+        Show {url === 'dare_questions' ? 'truth' : 'dare'} questions
       </Button>
-      <CategoriesPage category={category} select={true} />
-      {state.loading && <Spinner />}
+      <CategoriesPage label="Categories" category={category} setCategory={setCategory} select={true} />
+      <span className={classes.error}>{state.error}</span>
       <List>
-        {questions &&
-          questions.map((q, idx) => (
-            <ListItem key={idx}>
-              <ListItemText
-                primary={q.question}
-                secondary={format(q.createdAt.toDate(), 'do LLLL yyyy')}
-              />
-              <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="delete">
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
+        {state.loading ? <Spinner /> :
+          snapshot.docs.map((doc) => {
+            const d = doc.data();
+            return (
+              <ListItem button key={doc.id}>
+                <ListItemText primary={d.question} secondary={format(d.createdAt.toDate(), 'd MMMM yyyy')} />
+                <ListItemSecondaryAction>
+                  <IconButton edge="end" aria-label="delete" onClick={() => deleteQuestion(doc.id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            );
+          })}
       </List>
-    </div>
+    </Paper>
   );
 }
 
