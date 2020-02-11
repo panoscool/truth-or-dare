@@ -22,6 +22,9 @@ const useStyles = makeStyles(theme => ({
   },
   question: {
     margin: theme.spacing(2, 0)
+  },
+  error: {
+    color: 'red'
   }
 }));
 
@@ -50,15 +53,13 @@ function GamePage() {
 
         setState({ loading: false });
       } catch (err) {
-        setState({
-          loading: false,
-          error: err
-        });
+        console.error(err.message);
+        setState({ loading: false, error: err.message });
       }
     }
 
     fetchData();
-  }, [category, setTruth, setDare, setState]);
+  }, [category]);
 
   function handlePlayerTurn(update) {
     if (update === 'update') {
@@ -110,6 +111,8 @@ function GamePage() {
         <Typography className={classes.qType}>{questionType}</Typography>
         <Typography variant="h6" className={classes.question}>{currentQuestion}</Typography>
       </>);
+    } else if (state.error) {
+      return <Typography gutterBottom className={classes.error}>{state.error}</Typography>;
     } else {
       return <Typography gutterBottom>{playerName ? `${playerName} select a question type!` : "Select a question type!"}</Typography>;
     }

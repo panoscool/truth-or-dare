@@ -132,7 +132,7 @@ function QuestionsForm() {
             </Button>
             )}
         </form>
-        <span className={classes.error}>{state.error && `${state.error} Please login or register.`}</span>
+        <Typography gutterBottom className={classes.error}>{`${state.error} Please login or register.`}</Typography>
       </div>
     </Paper>
   );

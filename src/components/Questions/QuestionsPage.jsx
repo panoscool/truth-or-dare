@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import format from 'date-fns/format';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
@@ -76,8 +77,8 @@ function QuestionsPage() {
         Show {url === 'dare_questions' ? 'truth' : 'dare'} questions
       </Button>
       <CategoriesPage label="Categories" category={category} setCategory={setCategory} select={true} />
-      <span className={classes.error}>{state.error}</span>
-      <List>
+      <Typography className={classes.error}>{state.error}</Typography>
+      <List dense>
         {state.loading ? <Spinner /> :
           snapshot && snapshot.docs.map((doc) => {
             const d = doc.data();
