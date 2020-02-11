@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 function RadioInput(props) {
   const classes = useStyles();
 
-  const { required, name, value, label, vertical, optionsArray, handleChange } = props;
+  const { required, name, value, label, vertical, disabled, optionsArray, handleChange } = props;
 
   return (
     <div className={classes.root}>
@@ -40,6 +40,7 @@ function RadioInput(props) {
           {optionsArray.map(option => (
             <FormControlLabel
               key={option.id}
+              disabled={disabled}
               label={option.label}
               value={option.value}
               control={<Radio required={required} color="primary" />}

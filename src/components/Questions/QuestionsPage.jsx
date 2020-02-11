@@ -39,30 +39,26 @@ function QuestionsPage() {
   });
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        setState({ loading: true, error: false });
+    setState({ loading: true, error: false });
 
-        const snapshot = await firebase.firestore().collection(url).where('category', '==', category).get();
+    let unsubscribe = firebase.firestore().collection(url).where('category', '==', category).onSnapshot(snapshot => {
 
-        setSnapshot(snapshot);
+      setSnapshot(snapshot);
+      setState({ loading: false, error: false });
 
-        setState({ loading: false, error: false });
-      } catch (err) {
-        console.error(err.message);
-        setState({
-          loading: false,
-          error: err.message
-        });
-      }
-    }
+    }, (err) => {
+      console.error(err.message);
+      setState({ loading: false, error: err.message });
+    });
 
-    fetchData();
-  }, [url, category, setSnapshot, setState]);
+    return () => {
+      unsubscribe();
+    };
+  }, [category, url]);
 
-  function deleteQuestion(id) {
+  async function deleteQuestion(id) {
     try {
-      firebase.firestore().collection(url).doc(id).delete();
+      await firebase.firestore().collection(url).doc(id).delete();
     } catch (err) {
       console.error(err.message);
       setState({ loading: false, error: err.message });
@@ -83,10 +79,10 @@ function QuestionsPage() {
       <span className={classes.error}>{state.error}</span>
       <List>
         {state.loading ? <Spinner /> :
-          snapshot.docs.map((doc) => {
+          snapshot && snapshot.docs.map((doc) => {
             const d = doc.data();
             return (
-              <ListItem button key={doc.id}>
+              <ListItem key={doc.id}>
                 <ListItemText primary={d.question} secondary={format(d.createdAt.toDate(), 'd MMMM yyyy')} />
                 <ListItemSecondaryAction>
                   <IconButton edge="end" aria-label="delete" onClick={() => deleteQuestion(doc.id)}>

@@ -14,17 +14,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function SelectForm({
-  name,
-  value,
-  optionsArray,
-  label,
-  required,
-  disabled,
-  handleChange
-}) {
+function SelectForm(props) {
   const classes = useStyles();
-
   const inputLabel = useRef(null);
   const [labelWidth, setLabelWidth] = useState(0);
 
@@ -32,21 +23,12 @@ function SelectForm({
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
-  return (
-    <FormControl
-      required={required}
-      disabled={disabled}
-      variant="outlined"
-      margin="dense"
-      className={classes.formControl}
-    >
-      <InputLabel ref={inputLabel}>{label}</InputLabel>
+  const { name, value, optionsArray, label, required, disabled, handleChange } = props;
 
-      <Select
-        value={value}
-        onChange={handleChange}
-        input={<OutlinedInput labelWidth={labelWidth} name={name} />}
-      >
+  return (
+    <FormControl required={required} disabled={disabled} variant="outlined" margin="dense" className={classes.formControl}>
+      <InputLabel ref={inputLabel}>{label}</InputLabel>
+      <Select value={value} onChange={handleChange} input={<OutlinedInput labelWidth={labelWidth} name={name} />}>
         {optionsArray &&
           optionsArray.map(({ value, label }) => (
             <MenuItem key={value} value={value}>
