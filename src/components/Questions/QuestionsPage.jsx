@@ -42,15 +42,18 @@ function QuestionsPage() {
   useEffect(() => {
     setState({ loading: true, error: false });
 
-    let unsubscribe = firebase.firestore().collection(url).where('category', '==', category).onSnapshot(snapshot => {
+    let unsubscribe = firebase.firestore().collection(url)
+      .where('category', '==', category)
+      .orderBy('createdAt', 'desc')
+      .onSnapshot(snapshot => {
 
-      setSnapshot(snapshot);
-      setState({ loading: false, error: false });
+        setSnapshot(snapshot);
+        setState({ loading: false, error: false });
 
-    }, (err) => {
-      console.error(err.message);
-      setState({ loading: false, error: err.message });
-    });
+      }, (err) => {
+        console.error(err.message);
+        setState({ loading: false, error: err.message });
+      });
 
     return () => {
       unsubscribe();
