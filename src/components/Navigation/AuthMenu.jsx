@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function AuthMenu({ authenticated, displayName, photoURL, setModal }) {
+function AuthMenu({ admin, authenticated, displayName, photoURL, setModal }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -72,6 +72,7 @@ function AuthMenu({ authenticated, displayName, photoURL, setModal }) {
         {authenticated ?
           <span>
             <MenuItem disabled>{displayName}</MenuItem>
+            {admin && <MenuItem onClick={() => handleClose('AdminForm')}>Admin</MenuItem>}
             <MenuItem onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
           </span>
           :

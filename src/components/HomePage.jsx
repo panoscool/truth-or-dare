@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Paper, Divider, List, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction } from '@material-ui/core';
-import { PlayArrow, ArrowDownward, AddCircleOutline, InfoOutlined, WbSunnyOutlined, ListAltOutlined, LockOpenOutlined } from '@material-ui/icons';
+import { PlayArrow, ArrowDownward, AddCircleOutline, InfoOutlined, WbSunnyOutlined, ListAltOutlined } from '@material-ui/icons';
 import { AuthContext } from '../context/AuthContext';
 import { OptionsContext } from '../context/OptionsContext';
 import CategoriesPage from './CategoriesPage';
@@ -86,20 +86,12 @@ function HomePage() {
                 <ListItemText primary="Add Questions" />
               </ListItem>
               {authenticated && admin &&
-                <span>
-                  <ListItem button component={Link} to="/questions">
-                    <ListItemIcon>
-                      <ListAltOutlined />
-                    </ListItemIcon>
-                    <ListItemText primary="Questions List" />
-                  </ListItem>
-                  <ListItem button component={Link} to="/admin">
-                    <ListItemIcon>
-                      <LockOpenOutlined />
-                    </ListItemIcon>
-                    <ListItemText primary="Make Admin" />
-                  </ListItem>
-                </span>}
+                <ListItem button component={Link} to="/questions">
+                  <ListItemIcon>
+                    <ListAltOutlined />
+                  </ListItemIcon>
+                  <ListItemText primary="Questions List" />
+                </ListItem>}
               <ListItem button component={Link} to="/information">
                 <ListItemIcon>
                   <InfoOutlined />

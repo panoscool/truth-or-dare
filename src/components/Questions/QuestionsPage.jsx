@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import format from 'date-fns/format';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -31,6 +32,7 @@ const useStyles = makeStyles(theme => ({
 
 function QuestionsPage() {
   const classes = useStyles();
+  const history = useHistory();
   const { category, setCategory } = useContext(OptionsContext);
   const [snapshot, setSnapshot] = useState([]);
   const [url, setUrl] = useState('truth_questions');
@@ -40,7 +42,7 @@ function QuestionsPage() {
   });
 
   useEffect(() => {
-    setState({ loading: true, error: false });
+    setState({ loading: true, error: null });
 
     let unsubscribe = firebase.firestore().collection(url)
       .where('category', '==', category)
@@ -48,7 +50,7 @@ function QuestionsPage() {
       .onSnapshot(snapshot => {
 
         setSnapshot(snapshot);
-        setState({ loading: false, error: false });
+        setState({ loading: false, error: null });
 
       }, (err) => {
         console.error(err.message);
@@ -76,7 +78,7 @@ function QuestionsPage() {
 
   return (
     <Paper className={classes.paper}>
-      <Button onClick={dataSelection} disabled={state.loading} color="secondary" variant="contained" className={classes.button}>
+      <Button onClick={dataSelection} disabled={state.loading} color={url === 'dare_questions' ? 'primary' : 'secondary'} variant="contained" className={classes.button}>
         Show {url === 'dare_questions' ? 'truth' : 'dare'} questions
       </Button>
       <CategoriesPage label="Categories" category={category} setCategory={setCategory} select={true} />
@@ -86,7 +88,7 @@ function QuestionsPage() {
           snapshot && snapshot.docs.map((doc) => {
             const d = doc.data();
             return (
-              <ListItem key={doc.id}>
+              <ListItem button key={doc.id} onClick={() => history.push(`/create/${doc.id}/${url}`)}>
                 <ListItemText primary={d.question} secondary={format(d.createdAt.toDate(), 'd MMMM yyyy')} />
                 <ListItemSecondaryAction>
                   <IconButton edge="end" aria-label="delete" onClick={() => deleteQuestion(doc.id)}>

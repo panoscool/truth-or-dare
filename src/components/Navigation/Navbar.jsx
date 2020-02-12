@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 function Navbar() {
   const classes = useStyles();
-  const { authenticated, displayName, photoURL, setModal } = useContext(AuthContext);
+  const { admin, authenticated, displayName, photoURL, setModal } = useContext(AuthContext);
   const { playerName } = useContext(OptionsContext);
 
   return (
@@ -52,7 +52,7 @@ function Navbar() {
                 <BubbleChart />
               </IconButton>
             </Tooltip> : null}
-          <AuthMenu authenticated={authenticated} displayName={displayName} photoURL={photoURL} setModal={setModal} />
+          <AuthMenu admin={admin} authenticated={authenticated} displayName={displayName} photoURL={photoURL} setModal={setModal} />
         </Toolbar>
       </AppBar>
     </div>

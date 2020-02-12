@@ -5,7 +5,6 @@ import HomePage from './components/HomePage';
 import GamePage from './components/GamePage';
 import QuestionsPage from './components/Questions/QuestionsPage';
 import QuestionsForm from './components/Questions/QuestionsForm';
-import AdminForm from './components/AdminForm';
 import InformationPage from './components/InformationPage';
 import NotFoundPage from './components/NotFoundPage';
 import ModalManager from './components/Authentication/ModalManager';
@@ -34,12 +33,12 @@ function App() {
       <ModalManager />
       <Navbar />
       <Switch>
-        <Route path="/privacy-policy" component={PrivacyPolicy} />
-        <Route path="/admin" component={AdminForm} />
-        <Route path="/questions" component={QuestionsPage} />
         <Route path="/game" component={GamePage} />
+        <Route path="/create/:id/:url" component={QuestionsForm} />
         <Route path="/create" component={QuestionsForm} />
+        <Route path="/questions" component={QuestionsPage} />
         <Route path="/information" component={InformationPage} />
+        <Route path="/privacy-policy" component={PrivacyPolicy} />
         <Route exact path="/" component={HomePage} />
         <Route component={NotFoundPage} />
       </Switch>

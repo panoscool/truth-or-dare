@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import cuid from 'cuid';
+import { useParams, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Paper, Typography } from '@material-ui/core';
 import TextInput from '../Shared/TextInput';
@@ -33,6 +34,8 @@ const useStyles = makeStyles(theme => ({
 
 function QuestionsForm() {
   const classes = useStyles();
+  const history = useHistory();
+  const { id, url } = useParams();
   const { width } = useWindowDimensions();
   const { userId } = useContext(AuthContext);
   const [questionType, setQuestionType] = useState(null);
@@ -45,9 +48,31 @@ function QuestionsForm() {
     error: null
   });
 
-  function handleQuestionType(event) {
-    setQuestionType(event.target.value);
-  }
+  useEffect(() => {
+    async function fetchQuestion() {
+      if (!id) return;
+
+      setState({ loading: true, error: null });
+      try {
+        const doc = await firebase.firestore().collection(url).doc(id).get();
+
+        setState({ loading: false, error: null });
+        if (doc.exists) {
+          const d = doc.data();
+          setQuestionType(url);
+          setValues({ category: d.category, question: d.question });
+        } else {
+          // doc.data() will be undefined in this case
+          setState({ loading: false, error: "No such document!" });
+        }
+      } catch (err) {
+        console.error("Error getting document:", err);
+        setState({ loading: false, error: err.message });
+      }
+    }
+
+    fetchQuestion();
+  }, [id, url]);
 
   function handleChange(event) {
     setValues({
@@ -56,11 +81,13 @@ function QuestionsForm() {
     });
   }
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+  function handleQuestionType(event) {
+    setQuestionType(event.target.value);
+  }
 
+  async function handleQuestionCreate() {
     try {
-      setState({ loading: true, error: false });
+      setState({ loading: true, error: null });
 
       const newQuestion = {
         ...values,
@@ -70,7 +97,7 @@ function QuestionsForm() {
 
       await firebase.firestore().collection(questionType).add(newQuestion);
 
-      setState({ loading: false, error: false });
+      setState({ loading: false, error: null });
       setQuestionType(null);
       setValues({ category: '', question: '' });
     } catch (err) {
@@ -79,17 +106,45 @@ function QuestionsForm() {
     }
   }
 
+  async function handleQuestionUpdate() {
+    try {
+      setState({ loading: true, error: null });
+
+      const updatedQuestion = {
+        ...values,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+
+      await firebase.firestore().collection(url).doc(id).update(updatedQuestion);
+
+      setState({ loading: false, error: null });
+      history.push('/questions');
+    } catch (err) {
+      console.error(err.message);
+      setState({ loading: false, error: err.message });
+    }
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    if (!id) {
+      handleQuestionCreate();
+    } else {
+      handleQuestionUpdate();
+    }
+  }
+
   return (
     <Paper className={classes.paper}>
       <div className={classes.root}>
-        <Typography variant="h6" className={classes.title}>
-          Add your own questions!
-        </Typography>
+        <Typography variant="h6" className={classes.title}>Add your own questions!</Typography>
         <form onSubmit={handleSubmit}>
           <RadioInput
             required
             name="questionType"
             label="Question Type"
+            disabled={Boolean(id)}
             value={questionType || ''}
             handleChange={handleQuestionType}
             optionsArray={[
@@ -132,7 +187,7 @@ function QuestionsForm() {
             </Button>
             )}
         </form>
-        <Typography gutterBottom className={classes.error}>{`${state.error} Please login or register.`}</Typography>
+        <Typography gutterBottom className={classes.error}>{state.error && `${state.error} Please login or register.`}</Typography>
       </div>
     </Paper>
   );

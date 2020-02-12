@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AuthContext } from '../../context/AuthContext';
+import AdminForm from './AdminForm';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
 import LeaderboardModal from '../LeaderboardModal';
@@ -14,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const modals = {
+  AdminForm,
   SignInForm,
   SignUpForm,
   LeaderboardModal
