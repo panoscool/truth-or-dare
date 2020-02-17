@@ -10,9 +10,11 @@ import NotFoundPage from './components/NotFoundPage';
 import ModalManager from './components/Authentication/ModalManager';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import { AuthContext } from './context/AuthContext';
+import { ThemeContext } from './context/ThemeContext';
 import firebase from './config/firebase';
 
 function App() {
+  const { theme } = useContext(ThemeContext);
   const { setAuthenticated, setAdmin, setUserId, setDisplayName, setPhotoURL } = useContext(AuthContext);
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
@@ -28,14 +30,16 @@ function App() {
     }
   });
 
+  // Change theme color when user switches on/off dark mode
+  document.querySelector('meta[name=theme-color]').setAttribute('content', theme === 'light' ? '#009688' : '#424242');
+
   return (
     <div>
       <ModalManager />
       <Navbar />
       <Switch>
         <Route path="/game" component={GamePage} />
-        <Route path="/create/:id/:url" component={QuestionsForm} />
-        <Route path="/create" component={QuestionsForm} />
+        <Route path={["/create/:id/:url", "/create"]} component={QuestionsForm} />
         <Route path="/questions" component={QuestionsPage} />
         <Route path="/information" component={InformationPage} />
         <Route path="/privacy-policy" component={PrivacyPolicy} />

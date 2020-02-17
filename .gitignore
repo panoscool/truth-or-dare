@@ -24,6 +24,3 @@ yarn-error.log*
 
 # functions
 functions/node_modules/**
-
-# file to be deleted
-questions.js
