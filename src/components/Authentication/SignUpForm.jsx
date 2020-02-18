@@ -59,47 +59,45 @@ function SignUpForm() {
   };
 
   return (
-    <div>
-      <Dialog open={Boolean(modal)} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">
-          Register
+    <Dialog open={Boolean(modal)} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <DialogTitle id="form-dialog-title">
+        Register
           <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
-            <Close />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent>
-          <span className={classes.error}>{error && error}</span>
-          <form onSubmit={handleUserRegister}>
-            <TextInput
-              required
-              type="text"
-              name='displayName'
-              label="Name"
-              value={values.displayName}
-              handleChange={handleChange}
-            />
-            <TextInput
-              required
-              type="email"
-              name='email'
-              label="Email"
-              value={values.email}
-              handleChange={handleChange}
-            />
-            <TextInput
-              required
-              type="password"
-              name='password'
-              label="Password"
-              value={values.password}
-              handleChange={handleChange}
-            />
-            <Button fullWidth type='submit' color='primary' variant='contained'>Register</Button>
-          </form>
-          <SocialLogin />
-        </DialogContent>
-      </Dialog>
-    </div>
+          <Close />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent>
+        <span className={classes.error}>{error && error}</span>
+        <form onSubmit={handleUserRegister}>
+          <TextInput
+            required
+            type="text"
+            name='displayName'
+            label="Name"
+            value={values.displayName}
+            handleChange={handleChange}
+          />
+          <TextInput
+            required
+            type="email"
+            name='email'
+            label="Email"
+            value={values.email}
+            handleChange={handleChange}
+          />
+          <TextInput
+            required
+            type="password"
+            name='password'
+            label="Password"
+            value={values.password}
+            handleChange={handleChange}
+          />
+          <Button fullWidth type='submit' color='primary' variant='contained'>Register</Button>
+        </form>
+        <SocialLogin />
+      </DialogContent>
+    </Dialog>
   );
 }
 

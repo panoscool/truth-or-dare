@@ -1,18 +1,9 @@
 import React, { useContext } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { AuthContext } from '../../context/AuthContext';
 import AdminForm from './AdminForm';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
 import LeaderboardModal from '../LeaderboardModal';
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    width: '100%',
-    maxHeight: 435,
-    margin: theme.spacing(2)
-  },
-}));
 
 const modals = {
   AdminForm,
@@ -22,12 +13,11 @@ const modals = {
 };
 
 function ModalManager() {
-  const classes = useStyles();
   const { modal } = useContext(AuthContext);
 
   if (modal && modals[modal]) {
     const ModalComponent = modals[modal];
-    return <ModalComponent classes={{ paper: classes.paper }} />;
+    return <ModalComponent />;
   }
 
   return null;

@@ -57,39 +57,37 @@ function SignInForm() {
   }
 
   return (
-    <div>
-      <Dialog open={Boolean(modal)} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">
-          Login
+    <Dialog open={Boolean(modal)} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <DialogTitle id="form-dialog-title">
+        Login
           <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
-            <Close />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent>
-          <span className={classes.error}>{error && error}</span>
-          <form onSubmit={handleUserLogin}>
-            <TextInput
-              required
-              type="email"
-              name='email'
-              label="Email"
-              value={values.email}
-              handleChange={handleChange}
-            />
-            <TextInput
-              required
-              type="password"
-              name='password'
-              label="Password"
-              value={values.password}
-              handleChange={handleChange}
-            />
-            <Button fullWidth type='submit' color='primary' variant='contained'>Login</Button>
-          </form>
-          <SocialLogin />
-        </DialogContent>
-      </Dialog>
-    </div>
+          <Close />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent>
+        <span className={classes.error}>{error && error}</span>
+        <form onSubmit={handleUserLogin}>
+          <TextInput
+            required
+            type="email"
+            name='email'
+            label="Email"
+            value={values.email}
+            handleChange={handleChange}
+          />
+          <TextInput
+            required
+            type="password"
+            name='password'
+            label="Password"
+            value={values.password}
+            handleChange={handleChange}
+          />
+          <Button fullWidth type='submit' color='primary' variant='contained'>Login</Button>
+        </form>
+        <SocialLogin />
+      </DialogContent>
+    </Dialog>
   );
 }
 
