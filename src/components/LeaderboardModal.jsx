@@ -11,7 +11,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { AuthContext } from '../context/AuthContext';
+import { ThemeContext } from '../context/ThemeContext';
 import { OptionsContext } from '../context/OptionsContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 function LeaderboardModal({ ...other }) {
   const classes = useStyles();
   const { players } = useContext(OptionsContext);
-  const { modal, setModal } = useContext(AuthContext);
+  const { modal, setModal } = useContext(ThemeContext);
 
   function handleClose() {
     setModal(null);

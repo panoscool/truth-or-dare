@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
-import { AuthContext } from '../../context/AuthContext';
+import { ThemeContext } from '../../context/ThemeContext';
 import firebase from '../../config/firebase';
 
 const useStyles = makeStyles(theme => ({
@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 
 function SocialLogin() {
   const classes = useStyles();
-  const { setModal } = useContext(AuthContext);
+  const { setModal } = useContext(ThemeContext);
 
   async function handleSocialLogin(selectedProvider) {
     try {

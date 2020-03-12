@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button, IconButton, Dialog, DialogTitle, DialogContent, Typography } from '@material-ui/core';
 import Close from '@material-ui//icons/Close';
 import TextInput from '../Shared/TextInput';
-import { AuthContext } from '../../context/AuthContext';
+import { ThemeContext } from '../../context/ThemeContext';
 import firebase from '../../config/firebase';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 function AdminForm({ ...other }) {
   const classes = useStyles();
-  const { modal, setModal } = useContext(AuthContext);
+  const { modal, setModal } = useContext(ThemeContext);
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState({
     type: "",

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import { ThemeContext } from '../../context/ThemeContext';
 import AdminForm from './AdminForm';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
@@ -13,7 +13,7 @@ const modals = {
 };
 
 function ModalManager() {
-  const { modal } = useContext(AuthContext);
+  const { modal } = useContext(ThemeContext);
 
   if (modal && modals[modal]) {
     const ModalComponent = modals[modal];

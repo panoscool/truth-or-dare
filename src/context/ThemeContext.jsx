@@ -4,10 +4,12 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { teal, amber } from '@material-ui/core/colors';
 
 export const ThemeContext = createContext({
-  setTheme: () => { }
+  setTheme: () => { },
+  setModal: () => { }
 });
 
 export default ({ children }) => {
+  const [modal, setModal] = useState(null);
   const [theme, setTheme] = useState(
     localStorage.getItem('tord_theme') || 'light'
   );
@@ -27,7 +29,9 @@ export default ({ children }) => {
     <ThemeContext.Provider
       value={{
         theme: theme,
-        setTheme: setTheme
+        setTheme: setTheme,
+        modal: modal,
+        setModal: setModal
       }}
     >
       <ThemeProvider theme={muiTheme}>{children}</ThemeProvider>

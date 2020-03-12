@@ -11,6 +11,7 @@ import BubbleChart from '@material-ui/icons/BubbleChart';
 import AuthMenu from './AuthMenu';
 import { AuthContext } from '../../context/AuthContext';
 import { OptionsContext } from '../../context/OptionsContext';
+import { ThemeContext } from '../../context/ThemeContext';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,7 +27,8 @@ const useStyles = makeStyles(theme => ({
 
 function Navbar() {
   const classes = useStyles();
-  const { admin, authenticated, displayName, photoURL, setModal } = useContext(AuthContext);
+  const { admin, authenticated, displayName, photoURL } = useContext(AuthContext);
+  const { setModal } = useContext(ThemeContext)
   const { playerName } = useContext(OptionsContext);
 
   return (
