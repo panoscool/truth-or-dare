@@ -77,7 +77,7 @@ function PlayersPage({ players, setPlayers }) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className={classes.formGroup}>
+      <form autoComplete='off' onSubmit={handleSubmit} className={classes.formGroup}>
         <TextInput
           name="name"
           label="Add names"

@@ -139,7 +139,7 @@ function QuestionsForm() {
     <Paper className={classes.paper}>
       <div className={classes.root}>
         <Typography variant="h6" className={classes.title}>Add your own questions!</Typography>
-        <form onSubmit={handleSubmit}>
+        <form autoComplete='off' onSubmit={handleSubmit}>
           <RadioInput
             required
             name="questionType"
@@ -184,7 +184,7 @@ function QuestionsForm() {
                 className={classes.button}
               >
                 Save
-            </Button>
+              </Button>
             )}
         </form>
         <Typography gutterBottom className={classes.error}>{state.error && `${state.error} Please login or register.`}</Typography>
