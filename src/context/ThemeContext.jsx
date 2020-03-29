@@ -2,6 +2,7 @@ import React, { useState, createContext } from 'react';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { teal, amber } from '@material-ui/core/colors';
+import { storeGetTheme } from '../config/store';
 
 export const ThemeContext = createContext({
   setTheme: () => { },
@@ -11,7 +12,8 @@ export const ThemeContext = createContext({
 export default ({ children }) => {
   const [modal, setModal] = useState(null);
   const [theme, setTheme] = useState(
-    localStorage.getItem('tord_theme') || 'light'
+    storeGetTheme() || 'light'
+    // localStorage.getItem('tord_theme') || 'light'
   );
 
   const muiTheme = createMuiTheme({
