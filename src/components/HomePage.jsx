@@ -1,13 +1,27 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Button, Paper, Divider, List, ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction } from '@material-ui/core';
-import { PlayArrow, ArrowDownward, AddCircleOutline, InfoOutlined, WbSunnyOutlined, ListAltOutlined } from '@material-ui/icons';
+import {
+  Typography,
+  Button,
+  Paper,
+  Divider,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon
+} from '@material-ui/core';
+import {
+  PlayArrow,
+  ArrowDownward,
+  AddCircleOutline,
+  InfoOutlined,
+  ListAltOutlined
+} from '@material-ui/icons';
 import { AuthContext } from '../context/AuthContext';
 import { OptionsContext } from '../context/OptionsContext';
 import CategoriesPage from './CategoriesPage';
 import PlayersPage from './Players/PlayersPage';
-import ThemeToggle from './Shared/ThemeToggle';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,7 +52,11 @@ function HomePage() {
   return (
     <Paper className={classes.paper}>
       <div className={classes.root}>
-        <CategoriesPage label="Game Mode" category={category} setCategory={setCategory} />
+        <CategoriesPage
+          label="Game Mode"
+          category={category}
+          setCategory={setCategory}
+        />
         {!players.length && (
           <>
             <Button
@@ -85,27 +103,19 @@ function HomePage() {
                 </ListItemIcon>
                 <ListItemText primary="Add Questions" />
               </ListItem>
-              {authenticated && admin &&
+              {authenticated && admin && (
                 <ListItem button component={Link} to="/questions">
                   <ListItemIcon>
                     <ListAltOutlined />
                   </ListItemIcon>
                   <ListItemText primary="Questions List" />
-                </ListItem>}
+                </ListItem>
+              )}
               <ListItem button component={Link} to="/information">
                 <ListItemIcon>
                   <InfoOutlined />
                 </ListItemIcon>
                 <ListItemText primary="Information" />
-              </ListItem>
-              <ListItem >
-                <ListItemIcon>
-                  <WbSunnyOutlined />
-                </ListItemIcon>
-                <ListItemText primary="Dark mode" />
-                <ListItemSecondaryAction>
-                  <ThemeToggle />
-                </ListItemSecondaryAction>
               </ListItem>
             </List>
           </>

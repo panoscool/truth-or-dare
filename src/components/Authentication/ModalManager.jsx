@@ -3,13 +3,11 @@ import { ThemeContext } from '../../context/ThemeContext';
 import AdminForm from './AdminForm';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
-import LeaderboardModal from '../LeaderboardModal';
 
 const modals = {
   AdminForm,
   SignInForm,
-  SignUpForm,
-  LeaderboardModal
+  SignUpForm
 };
 
 function ModalManager() {
@@ -21,6 +19,6 @@ function ModalManager() {
   }
 
   return null;
-};
+}
 
 export default ModalManager;
