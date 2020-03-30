@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { OptionsContext } from '../../context/OptionsContext';
 import { Paper } from '@material-ui/core';
+import { ThemeContext } from '../../context/ThemeContext';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,15 +16,15 @@ const useStyles = makeStyles(theme => ({
   },
   table: {
     width: '100%'
-  },
-  currentPlayer: {
-    color: 'green'
   }
 }));
 
 function PlayersScore() {
   const classes = useStyles();
+  const { theme } = useContext(ThemeContext);
   const { players, playerName } = useContext(OptionsContext);
+
+  const style = { color: theme === 'light' ? 'green' : 'yellow' };
 
   return (
     <div className={classes.root}>
@@ -45,11 +46,7 @@ function PlayersScore() {
               players.map(row => (
                 <TableRow key={row.id}>
                   <TableCell component="th" scope="row">
-                    <span
-                      className={
-                        playerName === row.name ? classes.currentPlayer : null
-                      }
-                    >
+                    <span style={playerName === row.name ? style : null}>
                       {row.name}
                     </span>
                   </TableCell>
