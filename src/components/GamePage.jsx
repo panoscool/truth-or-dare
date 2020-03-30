@@ -57,6 +57,7 @@ function GamePage() {
   useEffect(() => {
     async function fetchData() {
       setState({ loading: true, error: null });
+      
       try {
         const t = await firebase.firestore().collection('truth_questions').get();
         const d = await firebase.firestore().collection('dare_questions').get();
@@ -79,7 +80,6 @@ function GamePage() {
   function handlePlayerTurn(update) {
     if (update === 'update') {
       scoreUpdate(questionType);
-      storeSetQuestionType(questionType);
     } else {
       nextPlayer();
     }
@@ -99,6 +99,7 @@ function GamePage() {
       const question = remainingTruth[randomNum].question;
 
       setQuestionType('truth');
+      storeSetQuestionType('truth');
       setCurrentQuestion(question);
       storeSetCurrentQuestion(question);
       remainingTruth[randomNum].appeared = true;
@@ -116,6 +117,7 @@ function GamePage() {
       const question = remainingDare[randomNum].question;
 
       setQuestionType('dare');
+      storeSetQuestionType('dare');
       setCurrentQuestion(question);
       storeSetCurrentQuestion(question);
       remainingDare[randomNum].appeared = true;
