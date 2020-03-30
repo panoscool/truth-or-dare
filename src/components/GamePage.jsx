@@ -13,7 +13,9 @@ import { storeSetTruthQuestions,
   storeGetQuestionType,
   storeSetQuestionType,
   storeGetCurrentQuestion,
-  storeSetCurrentQuestion 
+  storeSetCurrentQuestion,
+  storeRemoveQuestionType,
+  storeRemoveCurrentQuestion 
 } from '../config/store';
 
 const useStyles = makeStyles(theme => ({
@@ -85,6 +87,8 @@ function GamePage() {
     }
     setQuestionType(null);
     setCurrentQuestion(null);
+    storeRemoveQuestionType();
+    storeRemoveCurrentQuestion();
   }
 
   function getRandomInt(max) {

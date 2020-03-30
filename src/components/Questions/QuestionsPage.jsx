@@ -37,7 +37,7 @@ function QuestionsPage() {
   const [snapshot, setSnapshot] = useState([]);
   const [url, setUrl] = useState('truth_questions');
   const [state, setState] = useState({
-    loading: true,
+    loading: false,
     error: null
   });
 
