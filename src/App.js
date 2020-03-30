@@ -15,7 +15,13 @@ import firebase from './config/firebase';
 
 function App() {
   const { theme } = useContext(ThemeContext);
-  const { setAuthenticated, setAdmin, setUserId, setDisplayName, setPhotoURL } = useContext(AuthContext);
+  const {
+    setAuthenticated,
+    setAdmin,
+    setUserId,
+    setDisplayName,
+    setPhotoURL
+  } = useContext(AuthContext);
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
       user.getIdTokenResult().then(idTokenResult => {
@@ -31,7 +37,9 @@ function App() {
   });
 
   // Change theme color when user switches on/off dark mode
-  document.querySelector('meta[name=theme-color]').setAttribute('content', theme === 'light' ? '#009688' : '#424242');
+  document
+    .querySelector('meta[name=theme-color]')
+    .setAttribute('content', theme === 'light' ? '#ffffff' : '#000000');
 
   return (
     <div>
@@ -39,7 +47,10 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/game" component={GamePage} />
-        <Route path={["/create/:id/:url", "/create"]} component={QuestionsForm} />
+        <Route
+          path={['/create/:id/:url', '/create']}
+          component={QuestionsForm}
+        />
         <Route path="/questions" component={QuestionsPage} />
         <Route path="/information" component={InformationPage} />
         <Route path="/privacy-policy" component={PrivacyPolicy} />
