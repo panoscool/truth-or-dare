@@ -48,4 +48,6 @@ export const storeRemoveAll = () => {
   storeRemoveQuestionCategory();
   storeRemoveQuestionType();
   storeRemoveCurrentQuestion();
+  storeRemoveTruthQuestions();
+  storeRemoveDareQuestions();
 };

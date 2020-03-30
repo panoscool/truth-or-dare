@@ -3,11 +3,13 @@ import { ThemeContext } from '../../context/ThemeContext';
 import AdminForm from './AdminForm';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
+import ConfirmationDialog from '../Shared/ConfirmationDialog';
 
 const modals = {
   AdminForm,
   SignInForm,
-  SignUpForm
+  SignUpForm,
+  ConfirmationDialog
 };
 
 function ModalManager() {

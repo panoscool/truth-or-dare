@@ -6,6 +6,15 @@ import { OptionsContext } from '../context/OptionsContext';
 import Spinner from './Shared/Spinner';
 import firebase from '../config/firebase';
 import PlayersScore from './Players/PlayersScore';
+import { storeSetTruthQuestions, 
+  storeGetTruthQuestions, 
+  storeSetDareQuestions, 
+  storeGetDareQuestions,
+  storeGetQuestionType,
+  storeSetQuestionType,
+  storeGetCurrentQuestion,
+  storeSetCurrentQuestion 
+} from '../config/store';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,19 +43,20 @@ function GamePage() {
   const { category, playerName, nextPlayer, scoreUpdate } = useContext(
     OptionsContext
   );
-  const [questionType, setQuestionType] = useState(null);
-  const [currentQuestion, setCurrentQuestion] = useState(null);
   const [isTruthOver, setTruthOver] = useState(false);
   const [isDareOver, setDareOver] = useState(false);
-  const [truth, setTruth] = useState([]);
-  const [dare, setDare] = useState([]);
+  const [questionType, setQuestionType] = useState(storeGetQuestionType() || null);
+  const [currentQuestion, setCurrentQuestion] = useState(storeGetCurrentQuestion() || null);
+  const [truth, setTruth] = useState(storeGetTruthQuestions() || []);
+  const [dare, setDare] = useState(storeGetDareQuestions() || []);
   const [state, setState] = useState({
-    loading: true,
+    loading: false,
     error: null
   });
 
   useEffect(() => {
     async function fetchData() {
+      setState({ loading: true, error: null });
       try {
         const t = await firebase.firestore().collection('truth_questions').get();
         const d = await firebase.firestore().collection('dare_questions').get();
@@ -54,19 +64,22 @@ function GamePage() {
         setTruth(t.docs.map(doc => doc.data()).filter(t => t.category === category));
         setDare(d.docs.map(doc => doc.data()).filter(d => d.category === category));
 
-        setState({ loading: false });
+        setState({ loading: false, error: null });
       } catch (err) {
         console.error(err.message);
         setState({ loading: false, error: err.message });
       }
     }
-
-    fetchData();
-  }, [category]);
+    
+    if (truth.length <= 0 || dare.length <= 0) {
+      fetchData();
+    }
+  }, [category, truth, dare]);
 
   function handlePlayerTurn(update) {
     if (update === 'update') {
       scoreUpdate(questionType);
+      storeSetQuestionType(questionType);
     } else {
       nextPlayer();
     }
@@ -83,9 +96,13 @@ function GamePage() {
     const randomNum = getRandomInt(remainingTruth);
 
     if (remainingTruth.length > 0) {
+      const question = remainingTruth[randomNum].question;
+
       setQuestionType('truth');
-      setCurrentQuestion(remainingTruth[randomNum].question);
+      setCurrentQuestion(question);
+      storeSetCurrentQuestion(question);
       remainingTruth[randomNum].appeared = true;
+      storeSetTruthQuestions(truth);
     } else {
       setTruthOver(true);
     }
@@ -96,9 +113,13 @@ function GamePage() {
     const randomNum = getRandomInt(remainingDare);
 
     if (remainingDare.length > 0) {
+      const question = remainingDare[randomNum].question;
+
       setQuestionType('dare');
-      setCurrentQuestion(remainingDare[randomNum].question);
+      setCurrentQuestion(question);
+      storeSetCurrentQuestion(question);
       remainingDare[randomNum].appeared = true;
+      storeSetDareQuestions(dare);
     } else {
       setDareOver(true);
     }

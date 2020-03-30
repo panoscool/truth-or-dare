@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -26,11 +26,18 @@ const useStyles = makeStyles(theme => ({
 
 function Navbar() {
   const classes = useStyles();
+  const {pathname} = useLocation();
   const { admin, authenticated, displayName, photoURL } = useContext(
     AuthContext
   );
   const { setModal } = useContext(ThemeContext);
   const { playerName } = useContext(OptionsContext);
+
+  function handleRedirect() {
+    if (pathname === '/') return;
+
+    setModal('ConfirmationDialog');
+  }
 
   return (
     <div className={classes.root}>
@@ -40,9 +47,8 @@ function Navbar() {
             edge="start"
             color="inherit"
             aria-label="menu"
+            onClick={handleRedirect}
             className={classes.menuButton}
-            component={Link}
-            to="/"
           >
             <HomeIcon />
           </IconButton>
