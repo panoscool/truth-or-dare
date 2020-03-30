@@ -17,9 +17,7 @@ function ThemeToggle({ btnType }) {
   }
 
   if (btnType === 'switch') {
-    return (
-      <Switch edge="end" onClick={toggleThemeMode} checked={theme === 'dark'} />
-    );
+    return <Switch edge="end" onClick={toggleThemeMode} checked={theme === 'dark'} />;
   }
 
   return (

@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Typography, Button } from '@material-ui/core';
-import {
-  SubdirectoryArrowLeft,
-  SubdirectoryArrowRight
-} from '@material-ui/icons';
+import { SubdirectoryArrowLeft, SubdirectoryArrowRight } from '@material-ui/icons';
 import { OptionsContext } from '../context/OptionsContext';
 import Spinner from './Shared/Spinner';
 import firebase from '../config/firebase';
@@ -51,21 +48,11 @@ function GamePage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const t = await firebase
-          .firestore()
-          .collection('truth_questions')
-          .get();
-        const d = await firebase
-          .firestore()
-          .collection('dare_questions')
-          .get();
+        const t = await firebase.firestore().collection('truth_questions').get();
+        const d = await firebase.firestore().collection('dare_questions').get();
 
-        setTruth(
-          t.docs.map(doc => doc.data()).filter(t => t.category === category)
-        );
-        setDare(
-          d.docs.map(doc => doc.data()).filter(d => d.category === category)
-        );
+        setTruth(t.docs.map(doc => doc.data()).filter(t => t.category === category));
+        setDare(d.docs.map(doc => doc.data()).filter(d => d.category === category));
 
         setState({ loading: false });
       } catch (err) {
@@ -177,29 +164,29 @@ function GamePage() {
             </Button>
           </>
         ) : (
-          <>
-            <Button
-              size="large"
-              color="primary"
-              variant="contained"
-              disabled={isTruthOver}
-              className={classes.button}
-              onClick={handleRandomTruth}
-            >
-              Truth
+            <>
+              <Button
+                size="large"
+                color="primary"
+                variant="contained"
+                disabled={isTruthOver}
+                className={classes.button}
+                onClick={handleRandomTruth}
+              >
+                Truth
             </Button>
-            <Button
-              size="large"
-              color="secondary"
-              variant="contained"
-              disabled={isDareOver}
-              className={classes.button}
-              onClick={handleRandomDare}
-            >
-              Dare
+              <Button
+                size="large"
+                color="secondary"
+                variant="contained"
+                disabled={isDareOver}
+                className={classes.button}
+                onClick={handleRandomDare}
+              >
+                Dare
             </Button>
-          </>
-        )}
+            </>
+          )}
       </Paper>
       {playerName ? <PlayersScore /> : null}
     </div>

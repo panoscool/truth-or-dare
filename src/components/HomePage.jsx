@@ -1,23 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Typography,
-  Button,
-  Paper,
-  Divider,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon
-} from '@material-ui/core';
-import {
-  PlayArrow,
-  ArrowDownward,
-  AddCircleOutline,
-  InfoOutlined,
-  ListAltOutlined
-} from '@material-ui/icons';
+import { Typography, Button, Paper, Divider, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
+import { PlayArrow, ArrowDownward, AddCircleOutline, InfoOutlined, ListAltOutlined } from '@material-ui/icons';
 import { AuthContext } from '../context/AuthContext';
 import { OptionsContext } from '../context/OptionsContext';
 import CategoriesPage from './CategoriesPage';
