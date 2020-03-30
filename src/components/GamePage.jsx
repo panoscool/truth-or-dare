@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Typography, Button, ButtonGroup } from '@material-ui/core';
+import { Paper, Typography, Button } from '@material-ui/core';
 import {
   SubdirectoryArrowLeft,
   SubdirectoryArrowRight
@@ -154,22 +154,28 @@ function GamePage() {
         {whatRender()}
 
         {currentQuestion && playerName ? (
-          <ButtonGroup aria-label="outlined primary button group">
+          <>
             <Button
+              size="large"
               color="secondary"
+              variant="outlined"
               onClick={handlePlayerTurn}
+              className={classes.button}
               startIcon={<SubdirectoryArrowLeft />}
             >
-              Skip Question
+              Skip
             </Button>
             <Button
+              size="large"
               color="primary"
+              variant="outlined"
+              className={classes.button}
               onClick={() => handlePlayerTurn('update')}
               endIcon={<SubdirectoryArrowRight />}
             >
-              Next Player
+              Next
             </Button>
-          </ButtonGroup>
+          </>
         ) : (
           <>
             <Button

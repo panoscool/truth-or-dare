@@ -34,7 +34,7 @@ function Navbar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar color="transparent" position="static">
         <Toolbar variant="dense">
           <IconButton
             edge="start"
