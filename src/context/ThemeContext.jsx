@@ -12,7 +12,7 @@ export const ThemeContext = createContext({
 export default ({ children }) => {
   const [modal, setModal] = useState(null);
   const [theme, setTheme] = useState(
-    storeGetTheme() || 'light'
+    storeGetTheme() || 'dark'
     // localStorage.getItem('tord_theme') || 'light'
   );
 
