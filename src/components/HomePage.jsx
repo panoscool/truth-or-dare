@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Paper, Divider, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
-import { PlayArrow, ArrowDownward, AddCircleOutline, InfoOutlined, ListAltOutlined } from '@material-ui/icons';
+import { Details, AddCircleOutline, InfoOutlined, ListAltOutlined } from '@material-ui/icons';
 import { AuthContext } from '../context/AuthContext';
 import { OptionsContext } from '../context/OptionsContext';
 import CategoriesPage from './CategoriesPage';
@@ -35,11 +35,7 @@ function HomePage() {
   return (
     <Paper className={classes.paper}>
       <div className={classes.root}>
-        <CategoriesPage
-          label="Game Mode"
-          category={category}
-          setCategory={setCategory}
-        />
+        <CategoriesPage label="Game Mode" category={category} setCategory={setCategory} />
         {!players.length && (
           <>
             <Button
@@ -47,7 +43,6 @@ function HomePage() {
               color="primary"
               size="large"
               className={classes.button}
-              startIcon={<PlayArrow />}
               component={Link}
               to="/game"
             >
@@ -60,19 +55,16 @@ function HomePage() {
           <>
             <Button
               disabled={players.length <= 0}
-              variant="outlined"
+              variant="contained"
               color="primary"
               size="large"
               className={classes.button}
-              startIcon={<PlayArrow />}
               component={Link}
               to="/game"
             >
               Play
             </Button>
-            <Typography>
-              <ArrowDownward className={classes.icon} />
-            </Typography>
+            <Typography><Details className={classes.icon} /></Typography>
           </>
         )}
         <PlayersPage players={players} setPlayers={setPlayers} />

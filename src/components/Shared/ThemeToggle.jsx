@@ -22,10 +22,7 @@ function ThemeToggle({ btnType }) {
 
   return (
     <Tooltip title="Toggle light/dark theme">
-      <IconButton
-        onClick={toggleThemeMode}
-        aria-label="Toggle light/dark theme"
-      >
+      <IconButton onClick={toggleThemeMode} aria-label="Toggle light/dark theme">
         <WBSunny />
       </IconButton>
     </Tooltip>

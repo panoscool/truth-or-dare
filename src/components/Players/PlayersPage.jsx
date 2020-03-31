@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import PlayersList from './PlayersList';
 import TextInput from '../Shared/TextInput';
-import { storeSetPlayers } from '../../config/store';
+import { storeSetPlayers, storeRemovePlayers } from '../../config/store';
 
 const useStyles = makeStyles(theme => ({
   formGroup: {
@@ -32,6 +32,11 @@ function PlayersPage({ players, setPlayers }) {
       ...values,
       [event.target.name]: event.target.value
     });
+  }
+
+  function handleClearList() {
+    setPlayers([]);
+    storeRemovePlayers();
   }
 
   function handleFormReset() {
@@ -103,6 +108,7 @@ function PlayersPage({ players, setPlayers }) {
         hnandleSelect={hnandleSelect}
         handleDelete={handleDelete}
         handleUpdate={handleUpdate}
+        handleClearList={handleClearList}
       />
     </div>
   );
