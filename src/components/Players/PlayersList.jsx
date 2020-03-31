@@ -12,7 +12,7 @@ function PlayersList({ data, hnandleSelect, handleDelete }) {
       {data &&
         data.map(p => (
           <ListItem button key={p.id} onClick={() => hnandleSelect(p)}>
-            <ListItemText primary={p.name} />
+            <ListItemText primary={p.name.charAt(0).toUpperCase() + p.name.slice(1)} />
             <ListItemSecondaryAction>
               <IconButton
                 edge="end"

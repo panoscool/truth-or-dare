@@ -54,7 +54,7 @@ function Navbar() {
             <HomeIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            {playerName ? playerName : null}
+            {playerName ? playerName.charAt(0).toUpperCase() + playerName.slice(1) : null}
           </Typography>
           <ThemeToggle />
           <AuthMenu

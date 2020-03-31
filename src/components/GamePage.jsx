@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Typography, Button } from '@material-ui/core';
-import { SubdirectoryArrowLeft, SubdirectoryArrowRight } from '@material-ui/icons';
 import { OptionsContext } from '../context/OptionsContext';
 import Spinner from './Shared/Spinner';
 import firebase from '../config/firebase';
@@ -154,7 +153,7 @@ function GamePage() {
       return (
         <Typography gutterBottom>
           {playerName
-            ? `${playerName} select a question type!`
+            ? `${playerName.charAt(0).toUpperCase() + playerName.slice(1)} is playing...`
             : 'Select a question type!'}
         </Typography>
       );
@@ -174,7 +173,6 @@ function GamePage() {
               variant="outlined"
               onClick={handlePlayerTurn}
               className={classes.button}
-              startIcon={<SubdirectoryArrowLeft />}
             >
               Skip
             </Button>
@@ -184,9 +182,8 @@ function GamePage() {
               variant="outlined"
               className={classes.button}
               onClick={() => handlePlayerTurn('update')}
-              endIcon={<SubdirectoryArrowRight />}
             >
-              Next
+              Done
             </Button>
           </>
         ) : (

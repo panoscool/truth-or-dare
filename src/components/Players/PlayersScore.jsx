@@ -8,7 +8,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { OptionsContext } from '../../context/OptionsContext';
-import { ThemeContext } from '../../context/ThemeContext';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,39 +20,38 @@ const useStyles = makeStyles(theme => ({
 
 function PlayersScore() {
   const classes = useStyles();
-  const { theme } = useContext(ThemeContext);
-  const { players, playerName } = useContext(OptionsContext);
+  const { players } = useContext(OptionsContext);
 
-  const style = { color: theme === 'light' ? 'green' : 'yellow' };
+  const transformedScore = players && players.map(obj => {
+    return {
+      ...obj,
+      total: obj.score.truth + obj.score.dare
+    };
+  });
+
+  const sortedScore = transformedScore.sort((a, b) => b.total - a.total);
 
   return (
     <div className={classes.root}>
       <TableContainer component={Paper}>
-        <Table
-          size="small"
-          aria-label="a dense table"
-          className={classes.table}
-        >
+        <Table size="small" aria-label="a dense table" className={classes.table}>
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
               <TableCell align="right">Truth</TableCell>
               <TableCell align="right">Dare</TableCell>
+              <TableCell align="right">Total</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {players &&
-              players.map(row => (
-                <TableRow key={row.id}>
-                  <TableCell component="th" scope="row">
-                    <span style={playerName === row.name ? style : null}>
-                      {row.name}
-                    </span>
-                  </TableCell>
-                  <TableCell align="right">{row.score.truth}</TableCell>
-                  <TableCell align="right">{row.score.dare}</TableCell>
-                </TableRow>
-              ))}
+            {sortedScore.map(row => (
+              <TableRow key={row.id}>
+                <TableCell component="th" scope="row">{row.name.charAt(0).toUpperCase() + row.name.slice(1)}</TableCell>
+                <TableCell align="right">{row.score.truth}</TableCell>
+                <TableCell align="right">{row.score.dare}</TableCell>
+                <TableCell align="right">{row.total}</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
