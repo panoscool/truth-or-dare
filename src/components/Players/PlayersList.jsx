@@ -4,7 +4,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
+import ClearIcon from "@material-ui/icons/Clear";
 
 function PlayersList({ data, hnandleSelect, handleDelete }) {
   return (
@@ -19,7 +19,7 @@ function PlayersList({ data, hnandleSelect, handleDelete }) {
                 aria-label="delete"
                 onClick={() => handleDelete(p.id)}
               >
-                <DeleteIcon />
+                <ClearIcon />
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>

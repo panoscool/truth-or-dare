@@ -32,11 +32,12 @@ function SignInForm() {
     password: ''
   });
 
+  function handleClose() {
+    setModal(null);
+  }
+
   function handleChange(event) {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
+    setValues({ ...values, [event.target.name]: event.target.value });
   }
 
   async function handleUserLogin(event) {
@@ -50,10 +51,6 @@ function SignInForm() {
       console.error(err.message);
       setError(err.message);
     }
-  }
-
-  function handleClose() {
-    setModal(null);
   }
 
   return (

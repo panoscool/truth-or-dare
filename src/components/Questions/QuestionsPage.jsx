@@ -37,13 +37,11 @@ function QuestionsPage() {
   const [snapshot, setSnapshot] = useState([]);
   const [url, setUrl] = useState('truth_questions');
   const [state, setState] = useState({
-    loading: false,
+    loading: true,
     error: null
   });
 
   useEffect(() => {
-    setState({ loading: true, error: null });
-
     let unsubscribe = firebase.firestore().collection(url)
       .where('category', '==', category)
       .orderBy('createdAt', 'desc')

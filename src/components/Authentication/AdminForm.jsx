@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function AdminForm({ ...other }) {
+function AdminForm() {
   const classes = useStyles();
   const { modal, setModal } = useContext(ThemeContext);
   const [email, setEmail] = useState("");
@@ -30,12 +30,12 @@ function AdminForm({ ...other }) {
     text: ""
   });
 
-  function handleChange(event) {
-    setEmail(event.target.value);
-  }
-
   function handleClose() {
     setModal(null);
+  }
+
+  function handleChange(event) {
+    setEmail(event.target.value);
   }
 
   async function handleSubmit(event) {
@@ -54,23 +54,21 @@ function AdminForm({ ...other }) {
   }
 
   return (
-    <div>
-      <Dialog open={Boolean(modal)} onClose={handleClose} {...other}>
-        <DialogTitle id="form-dialog-title">
-          Make admin
+    <Dialog open={Boolean(modal)} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <DialogTitle id="form-dialog-title">
+        Make admin
           <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
-            <Close />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent>
-          <form onSubmit={handleSubmit}>
-            <Typography className={message.type === "success" ? classes.success : classes.error}>{message.text}</Typography>
-            <TextInput required name="email" label="Add email" placeholder="Add email" value={email || ''} handleChange={handleChange} />
-            <Button fullWidth type="submit" color="primary" variant="contained" className={classes.button}>Make admin</Button>
-          </form>
-        </DialogContent>
-      </Dialog>
-    </div>
+          <Close />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent>
+        <form onSubmit={handleSubmit}>
+          <Typography className={message.type === "success" ? classes.success : classes.error}>{message.text}</Typography>
+          <TextInput required name="email" label="Add email" placeholder="Add email" value={email || ''} handleChange={handleChange} />
+          <Button fullWidth type="submit" color="primary" variant="contained" className={classes.button}>Make admin</Button>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }
 

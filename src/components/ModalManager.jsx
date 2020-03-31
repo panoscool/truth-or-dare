@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
-import { ThemeContext } from '../../context/ThemeContext';
-import AdminForm from './AdminForm';
-import SignInForm from './SignInForm';
-import SignUpForm from './SignUpForm';
-import ConfirmationDialog from '../Shared/ConfirmationDialog';
+import { ThemeContext } from '../context/ThemeContext';
+import AdminForm from './Authentication/AdminForm';
+import SignInForm from './Authentication/SignInForm';
+import SignUpForm from './Authentication/SignUpForm';
+import ConfirmExitDialog from './Shared/ConfirmExitDialog';
 
 const modals = {
   AdminForm,
   SignInForm,
   SignUpForm,
-  ConfirmationDialog
+  ConfirmExitDialog
 };
 
 function ModalManager() {

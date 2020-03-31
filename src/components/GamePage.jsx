@@ -6,16 +6,17 @@ import { OptionsContext } from '../context/OptionsContext';
 import Spinner from './Shared/Spinner';
 import firebase from '../config/firebase';
 import PlayersScore from './Players/PlayersScore';
-import { storeSetTruthQuestions, 
-  storeGetTruthQuestions, 
-  storeSetDareQuestions, 
+import {
+  storeSetTruthQuestions,
+  storeGetTruthQuestions,
+  storeSetDareQuestions,
   storeGetDareQuestions,
   storeGetQuestionType,
   storeSetQuestionType,
   storeGetCurrentQuestion,
   storeSetCurrentQuestion,
   storeRemoveQuestionType,
-  storeRemoveCurrentQuestion 
+  storeRemoveCurrentQuestion
 } from '../config/store';
 
 const useStyles = makeStyles(theme => ({
@@ -42,9 +43,7 @@ const useStyles = makeStyles(theme => ({
 
 function GamePage() {
   const classes = useStyles();
-  const { category, playerName, nextPlayer, scoreUpdate } = useContext(
-    OptionsContext
-  );
+  const { category, playerName, nextPlayer, scoreUpdate } = useContext(OptionsContext);
   const [isTruthOver, setTruthOver] = useState(false);
   const [isDareOver, setDareOver] = useState(false);
   const [questionType, setQuestionType] = useState(storeGetQuestionType() || null);
@@ -59,7 +58,7 @@ function GamePage() {
   useEffect(() => {
     async function fetchData() {
       setState({ loading: true, error: null });
-      
+
       try {
         const t = await firebase.firestore().collection('truth_questions').get();
         const d = await firebase.firestore().collection('dare_questions').get();
@@ -73,7 +72,7 @@ function GamePage() {
         setState({ loading: false, error: err.message });
       }
     }
-    
+
     if (truth.length <= 0 || dare.length <= 0) {
       fetchData();
     }

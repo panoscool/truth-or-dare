@@ -33,11 +33,12 @@ function SignUpForm() {
     password: ''
   });
 
+  function handleClose() {
+    setModal(null);
+  };
+
   function handleChange(event) {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
+    setValues({ ...values, [event.target.name]: event.target.value });
   }
 
   async function handleUserRegister(event) {
@@ -53,10 +54,6 @@ function SignUpForm() {
       setError(err.message);
     }
   }
-
-  function handleClose() {
-    setModal(false);
-  };
 
   return (
     <Dialog open={Boolean(modal)} onClose={handleClose} aria-labelledby="form-dialog-title">

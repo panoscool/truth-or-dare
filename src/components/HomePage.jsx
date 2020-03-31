@@ -30,9 +30,7 @@ const useStyles = makeStyles(theme => ({
 function HomePage() {
   const classes = useStyles();
   const { authenticated, admin } = useContext(AuthContext);
-  const { players, setPlayers, category, setCategory } = useContext(
-    OptionsContext
-  );
+  const { players, setPlayers, category, setCategory } = useContext(OptionsContext);
 
   return (
     <Paper className={classes.paper}>

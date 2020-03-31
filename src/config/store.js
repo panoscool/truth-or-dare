@@ -42,7 +42,7 @@ export const storeGetDareQuestions = () => store.get(KEYS.DARE_QUESTIONS);
 export const storeSetDareQuestions = (questions) => store.set(KEYS.DARE_QUESTIONS, questions);
 export const storeRemoveDareQuestions = () => store.remove(KEYS.DARE_QUESTIONS);
 
-export const storeRemoveAll = () => {
+export const storeClearAll = () => {
   storeRemovePlayerTurn();
   storeRemovePlayers();
   storeRemoveQuestionCategory();
