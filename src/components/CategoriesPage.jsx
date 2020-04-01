@@ -3,14 +3,14 @@ import cuid from 'cuid';
 import RadioInput from './Shared/RadioInput';
 import SelectInput from './Shared/SelectInput';
 import useWindowDimensions from '../hooks/useWindowDimensions';
-import { storeSetQuestionCategory } from '../config/store';
+import { storeSetItem, KEYS } from '../config/store';
 
 function CategoriesPage({ label, select, category, setCategory }) {
   const { width } = useWindowDimensions();
 
   function handleChange(event) {
     setCategory(event.target.value);
-    storeSetQuestionCategory(event.target.value);
+    storeSetItem(KEYS.QUESTION_CATEGORY, event.target.value);
   }
 
   const categories = [

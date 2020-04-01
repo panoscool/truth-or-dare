@@ -5,18 +5,7 @@ import { OptionsContext } from '../context/OptionsContext';
 import Spinner from './Shared/Spinner';
 import firebase from '../config/firebase';
 import PlayersScore from './Players/PlayersScore';
-import {
-  storeSetTruthQuestions,
-  storeGetTruthQuestions,
-  storeSetDareQuestions,
-  storeGetDareQuestions,
-  storeGetQuestionType,
-  storeSetQuestionType,
-  storeGetCurrentQuestion,
-  storeSetCurrentQuestion,
-  storeRemoveQuestionType,
-  storeRemoveCurrentQuestion
-} from '../config/store';
+import { storeSetItem, storeGetItem, storeRemoveItem, KEYS } from '../config/store';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,10 +34,10 @@ function GamePage() {
   const { category, playerName, nextPlayer, scoreUpdate } = useContext(OptionsContext);
   const [isTruthOver, setTruthOver] = useState(false);
   const [isDareOver, setDareOver] = useState(false);
-  const [questionType, setQuestionType] = useState(storeGetQuestionType() || null);
-  const [currentQuestion, setCurrentQuestion] = useState(storeGetCurrentQuestion() || null);
-  const [truth, setTruth] = useState(storeGetTruthQuestions() || []);
-  const [dare, setDare] = useState(storeGetDareQuestions() || []);
+  const [questionType, setQuestionType] = useState(storeGetItem(KEYS.QUESTION_TYPE) || null);
+  const [currentQuestion, setCurrentQuestion] = useState(storeGetItem(KEYS.CURRENT_QUESTION) || null);
+  const [truth, setTruth] = useState(storeGetItem(KEYS.TRUTH_QUESTIONS) || []);
+  const [dare, setDare] = useState(storeGetItem(KEYS.DARE_QUESTIONS) || []);
   const [state, setState] = useState({
     loading: false,
     error: null
@@ -85,8 +74,8 @@ function GamePage() {
     }
     setQuestionType(null);
     setCurrentQuestion(null);
-    storeRemoveQuestionType();
-    storeRemoveCurrentQuestion();
+    storeRemoveItem(KEYS.QUESTION_TYPE);
+    storeRemoveItem(KEYS.CURRENT_QUESTION);
   }
 
   function getRandomInt(max) {
@@ -101,11 +90,11 @@ function GamePage() {
       const question = remainingTruth[randomNum].question;
 
       setQuestionType('truth');
-      storeSetQuestionType('truth');
+      storeSetItem(KEYS.QUESTION_TYPE, 'truth');
       setCurrentQuestion(question);
-      storeSetCurrentQuestion(question);
+      storeSetItem(KEYS.CURRENT_QUESTION, question);
       remainingTruth[randomNum].appeared = true;
-      storeSetTruthQuestions(truth);
+      storeSetItem(KEYS.TRUTH_QUESTIONS, truth);
     } else {
       setTruthOver(true);
     }
@@ -119,11 +108,11 @@ function GamePage() {
       const question = remainingDare[randomNum].question;
 
       setQuestionType('dare');
-      storeSetQuestionType('dare');
+      storeSetItem(KEYS.QUESTION_TYPE, 'dare');
       setCurrentQuestion(question);
-      storeSetCurrentQuestion(question);
+      storeSetItem(KEYS.CURRENT_QUESTION, question);
       remainingDare[randomNum].appeared = true;
-      storeSetDareQuestions(dare);
+      storeSetItem(KEYS.DARE_QUESTIONS, dare);
     } else {
       setDareOver(true);
     }

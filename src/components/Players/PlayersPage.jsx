@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import PlayersList from './PlayersList';
 import TextInput from '../Shared/TextInput';
-import { storeSetPlayers, storeRemovePlayers } from '../../config/store';
+import { storeSetItem, storeRemoveItem, KEYS } from '../../config/store';
 
 const useStyles = makeStyles(theme => ({
   formGroup: {
@@ -36,7 +36,7 @@ function PlayersPage({ players, setPlayers }) {
 
   function handleClearList() {
     setPlayers([]);
-    storeRemovePlayers();
+    storeRemoveItem(KEYS.PLAYERS_LIST);
   }
 
   function handleFormReset() {
@@ -56,7 +56,7 @@ function PlayersPage({ players, setPlayers }) {
       return p;
     });
     setPlayers(newPlayers);
-    storeSetPlayers(newPlayers);
+    storeSetItem(KEYS.PLAYERS_LIST, newPlayers);
     handleFormReset();
     setIsEdit(false);
   }
@@ -64,7 +64,7 @@ function PlayersPage({ players, setPlayers }) {
   function handleDelete(id) {
     const newPlayers = players.filter(p => p.id !== id);
     setPlayers(newPlayers);
-    storeSetPlayers(newPlayers);
+    storeSetItem(KEYS.PLAYERS_LIST, newPlayers);
   }
 
   function handleSubmit(event) {
@@ -76,7 +76,7 @@ function PlayersPage({ players, setPlayers }) {
     } else {
       values.id = cuid();
       setPlayers([...players, values]);
-      storeSetPlayers([...players, values]);
+      storeSetItem(KEYS.PLAYERS_LIST, [...players, values]);
       handleFormReset();
     }
   }

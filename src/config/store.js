@@ -1,4 +1,5 @@
-import store from 'store';
+const LOCAL = localStorage;
+const SESSION = sessionStorage;
 
 export const KEYS = {
   TORD_THEME: 'tord_theme',
@@ -11,43 +12,16 @@ export const KEYS = {
   QUESTION_CATEGORY: 'question_category'
 };
 
-export const storeGetTheme = () => store.get(KEYS.TORD_THEME);
-export const storeSetTheme = (themeMode) => store.set(KEYS.TORD_THEME, themeMode);
+export const CLEAR_KEYS = Object.values(KEYS).slice(1);
 
-export const storeGetPlayerTurn = () => store.get(KEYS.PLAYER_TURN);
-export const storeSetPlayerTurn = (playerTurn) => store.set(KEYS.PLAYER_TURN, playerTurn);
-export const storeRemovePlayerTurn = () => store.remove(KEYS.PLAYER_TURN);
+export const storeGetTheme = () => LOCAL.getItem(KEYS.TORD_THEME);
 
-export const storeGetPlayers = () => store.get(KEYS.PLAYERS_LIST);
-export const storeSetPlayers = (players) => store.set(KEYS.PLAYERS_LIST, players);
-export const storeRemovePlayers = () => store.remove(KEYS.PLAYERS_LIST);
+export const storeSetTheme = (themeMode) => LOCAL.setItem(KEYS.TORD_THEME, themeMode);
 
-export const storeGetQuestionCategory = () => store.get(KEYS.QUESTION_CATEGORY);
-export const storeSetQuestionCategory = (questionCategory) => store.set(KEYS.QUESTION_CATEGORY, questionCategory);
-export const storeRemoveQuestionCategory = () => store.remove(KEYS.QUESTION_CATEGORY);
+export const storeSetItem = (key, data) => SESSION.setItem(key, JSON.stringify(data));
 
-export const storeGetQuestionType = () => store.get(KEYS.QUESTION_TYPE);
-export const storeSetQuestionType = (questionType) => store.set(KEYS.QUESTION_TYPE, questionType);
-export const storeRemoveQuestionType = () => store.remove(KEYS.QUESTION_TYPE);
+export const storeGetItem = (key) => JSON.parse(SESSION.getItem(key));
 
-export const storeGetCurrentQuestion = () => store.get(KEYS.CURRENT_QUESTION);
-export const storeSetCurrentQuestion = (currentQuestion) => store.set(KEYS.CURRENT_QUESTION, currentQuestion);
-export const storeRemoveCurrentQuestion = () => store.remove(KEYS.CURRENT_QUESTION);
+export const storeRemoveItem = (key) => SESSION.removeItem(key);
 
-export const storeGetTruthQuestions = () => store.get(KEYS.TRUTH_QUESTIONS);
-export const storeSetTruthQuestions = (questions) => store.set(KEYS.TRUTH_QUESTIONS, questions);
-export const storeRemoveTruthQuestions = () => store.remove(KEYS.TRUTH_QUESTIONS);
-
-export const storeGetDareQuestions = () => store.get(KEYS.DARE_QUESTIONS);
-export const storeSetDareQuestions = (questions) => store.set(KEYS.DARE_QUESTIONS, questions);
-export const storeRemoveDareQuestions = () => store.remove(KEYS.DARE_QUESTIONS);
-
-export const storeClearAll = () => {
-  storeRemovePlayerTurn();
-  storeRemovePlayers();
-  storeRemoveQuestionCategory();
-  storeRemoveQuestionType();
-  storeRemoveCurrentQuestion();
-  storeRemoveTruthQuestions();
-  storeRemoveDareQuestions();
-};
+export const storeClearAll = (clearKeys) => clearKeys.forEach(key => SESSION.removeItem(key));

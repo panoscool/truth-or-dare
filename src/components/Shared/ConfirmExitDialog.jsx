@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { ThemeContext } from '../../context/ThemeContext';
 import { OptionsContext } from '../../context/OptionsContext';
-import { storeClearAll } from '../../config/store';
+import { storeClearAll, CLEAR_KEYS } from '../../config/store';
 
 function ConfirmExitDialog() {
   const history = useHistory();
@@ -17,7 +17,7 @@ function ConfirmExitDialog() {
 
   function handleClose(redirect) {
     if (redirect === 'game') {
-      storeClearAll();
+      storeClearAll(CLEAR_KEYS);
       setCategory('funny');
       setPlayers([]);
       history.push('/');
