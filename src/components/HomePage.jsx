@@ -11,13 +11,18 @@ import PlayersPage from './Players/PlayersPage';
 const useStyles = makeStyles(theme => ({
   root: {
     width: 620,
+    height: '83vh',
     textAlign: 'center'
   },
   paper: {
     display: 'flex',
     justifyContent: 'center',
     margin: theme.spacing(2),
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url(/tord.jpg)'
   },
   button: {
     margin: theme.spacing(2)
