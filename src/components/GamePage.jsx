@@ -23,9 +23,6 @@ const useStyles = makeStyles(theme => ({
   },
   question: {
     margin: theme.spacing(2, 0)
-  },
-  error: {
-    color: 'red'
   }
 }));
 
@@ -133,11 +130,7 @@ function GamePage() {
         </>
       );
     } else if (state.error) {
-      return (
-        <Typography gutterBottom className={classes.error}>
-          {state.error}
-        </Typography>
-      );
+      return <Typography gutterBottom color='error'>{state.error}</Typography>;
     } else {
       return (
         <Typography gutterBottom>
@@ -186,7 +179,7 @@ function GamePage() {
                 onClick={handleRandomTruth}
               >
                 Truth
-            </Button>
+              </Button>
               <Button
                 size="large"
                 color="secondary"
@@ -196,7 +189,7 @@ function GamePage() {
                 onClick={handleRandomDare}
               >
                 Dare
-            </Button>
+              </Button>
             </>
           )}
       </Paper>

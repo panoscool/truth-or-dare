@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex'
   },
   button: {
-    margin: theme.spacing(1, 0, 1, 0)
+    margin: theme.spacing(2, 0, 2, 1)
   }
 }));
 
@@ -96,7 +96,7 @@ function PlayersPage({ players, setPlayers }) {
         <Button
           type="submit"
           color="primary"
-          variant="outlined"
+          variant="contained"
           disabled={disabled}
           className={classes.button}
         >

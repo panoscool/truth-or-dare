@@ -23,10 +23,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2)
   },
   button: {
-    marginBottom: theme.spacing(2)
-  },
-  error: {
-    color: 'red'
+    margin: theme.spacing(2, 0)
   }
 }));
 
@@ -80,7 +77,7 @@ function QuestionsPage() {
         Show {url === 'dare_questions' ? 'truth' : 'dare'} questions
       </Button>
       <CategoriesPage label="Categories" category={category} setCategory={setCategory} select={true} />
-      <Typography className={classes.error}>{state.error}</Typography>
+      <Typography gutterBottom color='error'>{state.error}</Typography>
       <List dense>
         {state.loading ? <Spinner /> :
           snapshot && snapshot.docs.map((doc) => {

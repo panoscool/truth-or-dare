@@ -11,24 +11,21 @@ import Spinner from '../Shared/Spinner';
 import firebase from '../../config/firebase';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: 620,
-    textAlign: 'center'
-  },
-  button: {
-    margin: theme.spacing(2, 0)
-  },
   paper: {
     display: 'flex',
     justifyContent: 'center',
     margin: theme.spacing(2),
     padding: theme.spacing(2)
   },
+  innerBlock: {
+    width: 620,
+    textAlign: 'center'
+  },
+  button: {
+    margin: theme.spacing(2, 0)
+  },
   title: {
     marginBottom: theme.spacing(2)
-  },
-  error: {
-    color: 'red'
   }
 }));
 
@@ -137,7 +134,7 @@ function QuestionsForm() {
 
   return (
     <Paper className={classes.paper}>
-      <div className={classes.root}>
+      <div className={classes.innerBlock}>
         <Typography variant="h6" className={classes.title}>Add your own questions!</Typography>
         <form autoComplete='off' onSubmit={handleSubmit}>
           <RadioInput
@@ -187,7 +184,7 @@ function QuestionsForm() {
               </Button>
             )}
         </form>
-        <Typography gutterBottom className={classes.error}>{state.error && `${state.error} Please login or register.`}</Typography>
+        <Typography gutterBottom color='error'>{state.error && `${state.error} Please login or register.`}</Typography>
       </div>
     </Paper>
   );

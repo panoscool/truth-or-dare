@@ -59,7 +59,7 @@ function SignUpForm() {
     <Dialog open={Boolean(modal)} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">
         Register
-          <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+        <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
           <Close />
         </IconButton>
       </DialogTitle>

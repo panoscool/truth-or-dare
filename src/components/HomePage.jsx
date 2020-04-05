@@ -3,26 +3,37 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Paper, Divider, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import { Details, AddCircleOutline, InfoOutlined, ListAltOutlined } from '@material-ui/icons';
+import { ThemeContext } from '../context/ThemeContext';
 import { AuthContext } from '../context/AuthContext';
 import { OptionsContext } from '../context/OptionsContext';
 import CategoriesPage from './CategoriesPage';
 import PlayersPage from './Players/PlayersPage';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: 620,
-    height: '83vh',
-    textAlign: 'center'
-  },
-  paper: {
+  paperLight: {
     display: 'flex',
     justifyContent: 'center',
     margin: theme.spacing(2),
     padding: theme.spacing(2),
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
-    backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url(/tord.jpg)'
+    backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url(/tord.png)'
+  },
+  paperDark: {
+    display: 'flex',
+    justifyContent: 'center',
+    margin: theme.spacing(2),
+    padding: theme.spacing(2),
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(/tord.png)'
+  },
+  innerBlock: {
+    width: 620,
+    height: 'calc(100vh - 112px)',
+    textAlign: 'center'
   },
   button: {
     margin: theme.spacing(2)
@@ -34,17 +45,18 @@ const useStyles = makeStyles(theme => ({
 
 function HomePage() {
   const classes = useStyles();
+  const { theme } = useContext(ThemeContext);
   const { authenticated, admin } = useContext(AuthContext);
   const { players, setPlayers, category, setCategory } = useContext(OptionsContext);
 
   return (
-    <Paper className={classes.paper}>
-      <div className={classes.root}>
+    <Paper className={theme === 'light' ? classes.paperLight : classes.paperDark}>
+      <div className={classes.innerBlock}>
         <CategoriesPage label="Game Mode" category={category} setCategory={setCategory} />
         {!players.length && (
           <>
             <Button
-              variant="outlined"
+              variant="contained"
               color="primary"
               size="large"
               className={classes.button}

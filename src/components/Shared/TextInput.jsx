@@ -6,7 +6,7 @@ const useStyles = makeStyles(theme => ({
   textField: {
     minWidth: 120,
     width: '100%',
-    margin: theme.spacing(1, 0)
+    margin: theme.spacing(2, 0)
   }
 }));
 
