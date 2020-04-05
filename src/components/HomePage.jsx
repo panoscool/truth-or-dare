@@ -12,6 +12,7 @@ import PlayersPage from './Players/PlayersPage';
 const useStyles = makeStyles(theme => ({
   paperLight: {
     display: 'flex',
+    overflowY: 'auto',
     justifyContent: 'center',
     margin: theme.spacing(2),
     padding: theme.spacing(2),
@@ -22,13 +23,14 @@ const useStyles = makeStyles(theme => ({
   },
   paperDark: {
     display: 'flex',
+    overflowY: 'auto',
     justifyContent: 'center',
     margin: theme.spacing(2),
     padding: theme.spacing(2),
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
-    backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(/tord.png)'
+    backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/tord.png)'
   },
   innerBlock: {
     width: 620,
