@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
 import { ThemeContext } from '../../context/ThemeContext';
 import firebase from '../../config/firebase';
+import Facebook from '../Icons/Facebook';
+import Google from '../Icons/Google';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,8 +38,8 @@ function SocialLogin() {
   return (
     <div className={classes.root}>
       <Typography>- OR -</Typography>
-      <Button onClick={() => handleSocialLogin('facebook')} className={classes.button} fullWidth color="primary" variant="outlined">Continue with Facebook</Button>
-      <Button onClick={() => handleSocialLogin('google')} className={classes.button} fullWidth color="default" variant="outlined">Continue with Google</Button>
+      <Button onClick={() => handleSocialLogin('facebook')} startIcon={<Facebook />} className={classes.button} fullWidth color="primary" variant="outlined">Continue with Facebook</Button>
+      <Button onClick={() => handleSocialLogin('google')} startIcon={<Google />} className={classes.button} fullWidth color="default" variant="outlined">Continue with Google</Button>
     </div>
   );
 }
