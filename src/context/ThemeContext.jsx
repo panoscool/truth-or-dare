@@ -5,16 +5,13 @@ import { blue, red } from '@material-ui/core/colors';
 import { storeGetTheme } from '../config/store';
 
 export const ThemeContext = createContext({
-  setTheme: () => {},
-  setModal: () => {}
+  setTheme: () => { },
+  setModal: () => { }
 });
 
 export default ({ children }) => {
   const [modal, setModal] = useState(null);
-  const [theme, setTheme] = useState(
-    storeGetTheme() || 'dark'
-    // localStorage.getItem('tord_theme') || 'light'
-  );
+  const [theme, setTheme] = useState(storeGetTheme() || 'dark');
 
   const muiTheme = createMuiTheme({
     palette: {

@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Switch, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navigation/Navbar';
 import HomePage from './components/HomePage';
 import GamePage from './components/GamePage';
@@ -14,6 +14,7 @@ import { ThemeContext } from './context/ThemeContext';
 import firebase from './config/firebase';
 
 function App() {
+  const { pathname } = useLocation();
   const { theme } = useContext(ThemeContext);
   const { setAuthenticated, setAdmin, setUserId, setDisplayName, setPhotoURL } = useContext(AuthContext);
   firebase.auth().onAuthStateChanged(user => {
@@ -28,6 +29,13 @@ function App() {
     } else {
       setAuthenticated(false);
     }
+  });
+
+  useEffect(() => {
+    firebase.analytics().logEvent('navigation', {
+      content_type: 'page_view',
+      content_id: pathname
+    });
   });
 
   // Change theme color when user switches on/off dark mode

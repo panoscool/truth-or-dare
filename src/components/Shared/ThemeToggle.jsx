@@ -13,7 +13,6 @@ function ThemeToggle({ btnType }) {
     const themeMode = theme === 'light' ? 'dark' : 'light';
     setTheme(themeMode);
     storeSetTheme(themeMode);
-    // localStorage.setItem('tord_theme', themeMode);
   }
 
   if (btnType === 'switch') {
