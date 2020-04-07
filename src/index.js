@@ -7,6 +7,7 @@ import AuthProvider from './context/AuthContext';
 import OptionsProvider from './context/OptionsContext';
 import ThemeProvider from './context/ThemeContext';
 import * as serviceWorker from './serviceWorker';
+import './index.css';
 
 const app = (
   <BrowserRouter>
