@@ -44,9 +44,12 @@ function SignInForm() {
     event.preventDefault();
 
     try {
-      await firebase.auth().signInWithEmailAndPassword(values.email, values.password);
+      const user = await firebase.auth().signInWithEmailAndPassword(values.email, values.password);
+      const method = user.credential.signInMethod;
 
-      handleClose(null);
+      firebase.analytics().logEvent('login', { method });
+
+      handleClose();
     } catch (err) {
       console.error(err.message);
       setError(err.message);

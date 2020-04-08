@@ -48,7 +48,11 @@ function SignUpForm() {
       const createdUser = await firebase.auth().createUserWithEmailAndPassword(values.email, values.password);
       await createdUser.user.updateProfile({ displayName: values.displayName });
 
-      handleClose(false);
+      const method = createdUser.credential.signInMethod;
+
+      firebase.analytics().logEvent('sign_up', { method });
+
+      handleClose();
     } catch (err) {
       console.error(err.message);
       setError(err.message);

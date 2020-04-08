@@ -32,11 +32,8 @@ function App() {
   });
 
   useEffect(() => {
-    firebase.analytics().logEvent('navigation', {
-      content_type: 'page_view',
-      content_id: pathname
-    });
-  });
+    firebase.analytics().logEvent('page_view', { page_location: pathname });
+  }, [pathname]);
 
   // Change theme color when user switches on/off dark mode
   document.querySelector('meta[name=theme-color]').setAttribute('content', theme === 'light' ? '#ffffff' : '#000000');
