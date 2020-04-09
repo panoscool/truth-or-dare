@@ -32,7 +32,10 @@ function App() {
   });
 
   useEffect(() => {
-    firebase.analytics().logEvent('page_view', { page_location: pathname });
+    let page_location = pathname;
+    let page_referrer = document.referrer;
+
+    firebase.analytics().logEvent('page_view', { page_location, page_referrer });
   }, [pathname]);
 
   // Change theme color when user switches on/off dark mode
