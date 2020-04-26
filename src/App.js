@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, Fragment } from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navigation/Navbar';
 import HomePage from './components/HomePage';
@@ -42,7 +42,7 @@ function App() {
   document.querySelector('meta[name=theme-color]').setAttribute('content', theme === 'light' ? '#ffffff' : '#000000');
 
   return (
-    <div>
+    <Fragment>
       <ModalManager />
       <Navbar />
       <Switch>
@@ -54,7 +54,7 @@ function App() {
         <Route exact path="/" component={HomePage} />
         <Route component={NotFoundPage} />
       </Switch>
-    </div>
+    </Fragment>
   );
 }
 
