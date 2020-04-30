@@ -1,33 +1,30 @@
 import React, { useState, createContext } from 'react';
 
 export const AuthContext = createContext({
-  setUserId: () => { },
-  setDisplayName: () => { },
-  setPhotoURL: () => { },
+  setUser: () => { },
   setAdmin: () => { },
   setAuthenticated: () => { }
 });
 
 export default ({ children }) => {
-  const [authenticated, setAuthenticated] = useState(null);
+  const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(null);
-  const [userId, setUserId] = useState(null);
-  const [displayName, setDisplayName] = useState(null);
-  const [photoURL, setPhotoURL] = useState(null);
+  const [authenticated, setAuthenticated] = useState(null);
+
+  const { uid, displayName, photoURL } = user || {};
 
   return (
     <AuthContext.Provider
       value={{
-        authenticated: authenticated,
-        setAuthenticated: setAuthenticated,
+        user: user,
         admin: admin,
-        setAdmin: setAdmin,
-        userId: userId,
-        setUserId: setUserId,
+        userId: uid,
         displayName: displayName,
-        setDisplayName: setDisplayName,
         photoURL: photoURL,
-        setPhotoURL: setPhotoURL
+        authenticated: authenticated,
+        setUser: setUser,
+        setAdmin: setAdmin,
+        setAuthenticated: setAuthenticated,
       }}
     >
       {children}

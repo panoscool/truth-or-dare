@@ -44,8 +44,8 @@ export default ({ children }) => {
       value={{
         playerName: currentPlayer,
         players: players,
-        setPlayers: setPlayers,
         category: category,
+        setPlayers: setPlayers,
         setCategory: setCategory,
         nextPlayer: nextPlayer,
         scoreUpdate: scoreUpdate
