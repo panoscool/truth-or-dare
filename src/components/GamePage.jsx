@@ -18,8 +18,11 @@ const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(2)
   },
-  qType: {
+  pName: {
     textTransform: 'capitalize'
+  },
+  qType: {
+    textTransform: 'uppercase'
   },
   question: {
     margin: theme.spacing(2, 0)
@@ -123,7 +126,9 @@ function GamePage() {
     } else if (questionType && currentQuestion) {
       return (
         <>
-          <Typography className={classes.qType}>{questionType}</Typography>
+          <Typography variant='caption' color='textSecondary' className={classes.qType}>
+            {questionType}
+          </Typography>
           <Typography variant="h6" className={classes.question}>
             {currentQuestion}
           </Typography>
@@ -135,7 +140,7 @@ function GamePage() {
       return (
         <Typography gutterBottom>
           {playerName
-            ? `${playerName.charAt(0).toUpperCase() + playerName.slice(1)} is playing...`
+            ? <div><span className={classes.pName}>{playerName}</span> is playing...</div>
             : 'Select a question type!'}
         </Typography>
       );

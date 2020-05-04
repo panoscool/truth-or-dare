@@ -18,6 +18,9 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     flexGrow: 1
+  },
+  pName: {
+    textTransform: 'capitalize'
   }
 }));
 
@@ -50,7 +53,7 @@ function Navbar() {
             <HomeIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            {playerName ? playerName.charAt(0).toUpperCase() + playerName.slice(1) : null}
+            {playerName ? <Typography className={classes.pName}>{playerName}</Typography> : null}
           </Typography>
           <ThemeToggle />
           <AuthMenu

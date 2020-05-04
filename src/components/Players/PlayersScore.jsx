@@ -15,6 +15,9 @@ const useStyles = makeStyles(theme => ({
   },
   table: {
     width: '100%'
+  },
+  pName: {
+    textTransform: 'capitalize'
   }
 }));
 
@@ -46,7 +49,7 @@ function PlayersScore() {
           <TableBody>
             {sortedList.map(row => (
               <TableRow key={row.id}>
-                <TableCell component="th" scope="row">{row.name.charAt(0).toUpperCase() + row.name.slice(1)}</TableCell>
+                <TableCell component="th" scope="row" className={classes.pName}>{row.name}</TableCell>
                 <TableCell align="right">{row.score.truth}</TableCell>
                 <TableCell align="right">{row.score.dare}</TableCell>
                 <TableCell align="right">{row.total}</TableCell>
