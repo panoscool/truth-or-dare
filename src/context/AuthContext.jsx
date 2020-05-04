@@ -2,16 +2,16 @@ import React, { useState, createContext } from 'react';
 
 export const AuthContext = createContext({
   setUser: () => { },
-  setAdmin: () => { },
-  setAuthenticated: () => { }
+  setAdmin: () => { }
 });
 
 export default ({ children }) => {
   const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(null);
-  const [authenticated, setAuthenticated] = useState(null);
 
   const { uid, displayName, photoURL } = user || {};
+
+  const authenticated = user !== null;
 
   return (
     <AuthContext.Provider
@@ -23,8 +23,7 @@ export default ({ children }) => {
         photoURL: photoURL,
         authenticated: authenticated,
         setUser: setUser,
-        setAdmin: setAdmin,
-        setAuthenticated: setAuthenticated,
+        setAdmin: setAdmin
       }}
     >
       {children}

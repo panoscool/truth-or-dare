@@ -16,16 +16,17 @@ import firebase from './config/firebase';
 function App() {
   const { pathname } = useLocation();
   const { theme } = useContext(ThemeContext);
-  const { setUser, setAdmin, setAuthenticated } = useContext(AuthContext);
+  const { setUser, setAdmin } = useContext(AuthContext);
+
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
       user.getIdTokenResult().then(idTokenResult => {
         setAdmin(idTokenResult.claims.admin);
       });
       setUser(user);
-      setAuthenticated(true);
     } else {
-      setAuthenticated(false);
+      setUser(null);
+      setAdmin(false);
     }
   });
 

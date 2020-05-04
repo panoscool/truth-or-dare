@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
+import Divider from '@material-ui/core/Divider';
+import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Person from '@material-ui/icons/Person';
-import Avatar from '@material-ui/core/Avatar';
 import firebase from '../../config/firebase';
 
 const useStyles = makeStyles(theme => ({
@@ -33,7 +33,7 @@ function AuthMenu({ admin, authenticated, displayName, photoURL, setModal }) {
     if (authenticated && photoURL) {
       return <Avatar className={classes.small} alt={displayName} src={photoURL} />;
     } else if (authenticated && !photoURL) {
-      return <Person />;
+      return <Avatar className={classes.small} alt={displayName} src='/images/user.png' />;
     } else {
       return <AccountCircle />;
     }
@@ -68,6 +68,7 @@ function AuthMenu({ admin, authenticated, displayName, photoURL, setModal }) {
         {authenticated ?
           <span>
             <MenuItem disabled>{displayName}</MenuItem>
+            <Divider variant='fullWidth' />
             {admin && <MenuItem onClick={() => handleClose('AdminForm')}>Admin</MenuItem>}
             <MenuItem onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
           </span>

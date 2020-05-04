@@ -13,6 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CategoriesPage from '../CategoriesPage';
 import Spinner from '../Shared/Spinner';
+import { AuthContext } from '../../context/AuthContext';
 import { OptionsContext } from '../../context/OptionsContext';
 import firebase from '../../config/firebase';
 
@@ -30,6 +31,7 @@ const useStyles = makeStyles(theme => ({
 function QuestionsPage() {
   const classes = useStyles();
   const history = useHistory();
+  const { authenticated, admin } = useContext(AuthContext);
   const { category, setCategory } = useContext(OptionsContext);
   const [snapshot, setSnapshot] = useState([]);
   const [url, setUrl] = useState('truth_questions');
@@ -71,6 +73,8 @@ function QuestionsPage() {
     setUrl(newUrl);
   }
 
+  const disabledBtn = !authenticated && !admin;
+
   return (
     <Paper className={classes.paper}>
       <Button onClick={dataSelection} disabled={state.loading} color={url === 'dare_questions' ? 'primary' : 'secondary'} variant="contained" className={classes.button}>
@@ -86,7 +90,7 @@ function QuestionsPage() {
               <ListItem button key={doc.id} onClick={() => history.push(`/create/${doc.id}/${url}`)}>
                 <ListItemText primary={d.question} secondary={format(d.createdAt.toDate(), 'd MMMM yyyy')} />
                 <ListItemSecondaryAction>
-                  <IconButton edge="end" aria-label="delete" onClick={() => deleteQuestion(doc.id)}>
+                  <IconButton disabled={disabledBtn} edge="end" aria-label="delete" onClick={() => deleteQuestion(doc.id)}>
                     <DeleteIcon />
                   </IconButton>
                 </ListItemSecondaryAction>

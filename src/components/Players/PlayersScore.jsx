@@ -22,14 +22,14 @@ function PlayersScore() {
   const classes = useStyles();
   const { players } = useContext(OptionsContext);
 
-  const transformedScore = players && players.map(obj => {
+  const transformedList = players && players.map(obj => {
     return {
       ...obj,
       total: obj.score.truth + obj.score.dare
     };
   });
 
-  const sortedScore = transformedScore.sort((a, b) => b.total - a.total);
+  const sortedList = transformedList.sort((a, b) => b.total - a.total);
 
   return (
     <div className={classes.root}>
@@ -44,7 +44,7 @@ function PlayersScore() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {sortedScore.map(row => (
+            {sortedList.map(row => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">{row.name.charAt(0).toUpperCase() + row.name.slice(1)}</TableCell>
                 <TableCell align="right">{row.score.truth}</TableCell>
