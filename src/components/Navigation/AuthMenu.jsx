@@ -29,6 +29,11 @@ function AuthMenu({ admin, authenticated, displayName, photoURL, setModal }) {
     setAnchorEl(null);
   };
 
+  function handleLogout() {
+    firebase.auth().signOut();
+    setAnchorEl(null);
+  }
+
   function renderAvatar() {
     if (authenticated && photoURL) {
       return <Avatar className={classes.small} alt={displayName} src={photoURL} />;
@@ -57,11 +62,11 @@ function AuthMenu({ admin, authenticated, displayName, photoURL, setModal }) {
           vertical: 'top',
           horizontal: 'right',
         }}
-        keepMounted
         transformOrigin={{
           vertical: 'top',
           horizontal: 'right',
         }}
+        keepMounted
         open={open}
         onClose={handleClose}
       >
@@ -70,7 +75,7 @@ function AuthMenu({ admin, authenticated, displayName, photoURL, setModal }) {
             <MenuItem disabled>{displayName}</MenuItem>
             <Divider variant='fullWidth' />
             {admin && <MenuItem onClick={() => handleClose('AdminForm')}>Admin</MenuItem>}
-            <MenuItem onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </span>
           :
           <span>
