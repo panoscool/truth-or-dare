@@ -96,6 +96,8 @@ function HomePage() {
             </List>
           </>
         )}
+        {!authenticated &&
+          <Typography variant='caption' color='textSecondary'>* Login to access all categories *</Typography>}
       </div>
     </Paper>
   );
