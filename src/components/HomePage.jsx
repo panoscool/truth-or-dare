@@ -35,6 +35,7 @@ function HomePage() {
   return (
     <Paper className={classes.paper}>
       <div className={classes.innerBlock}>
+        <div className="title">Truth or Dare</div>
         <CategoriesPage label="Game Mode" category={category} setCategory={setCategory} />
         {!players.length && (
           <>

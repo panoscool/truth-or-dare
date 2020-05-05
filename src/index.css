@@ -7,3 +7,21 @@ html, body {
 ::-webkit-scrollbar {
   display: none;
 }
+
+.title {
+	background-image: url('/images/giphy.gif');
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: transparent;
+  background-position: center;
+	background-clip: text;
+  -webkit-background-clip: text;
+	text-transform: uppercase;
+	font-size: 2rem;
+	line-height: .75;
+  font-family: "Montserrat";
+  letter-spacing: 1px;
+  padding-bottom: 16px;
+  padding-top: 8px;
+}
+
