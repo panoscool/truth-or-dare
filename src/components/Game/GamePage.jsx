@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Typography, Button } from '@material-ui/core';
-import { OptionsContext } from '../context/OptionsContext';
-import Spinner from './Shared/Spinner';
-import firebase from '../config/firebase';
-import PlayersScore from './Players/PlayersScore';
-import { storeSetItem, storeGetItem, storeRemoveItem, KEYS } from '../config/store';
+import { Paper, Button } from '@material-ui/core';
+import { OptionsContext } from '../../context/OptionsContext';
+import GameDisplay from './GameDisplay';
+import PlayersScore from '../Players/PlayersScore';
+import { storeSetItem, storeGetItem, storeRemoveItem, KEYS } from '../../config/store';
+import firebase from '../../config/firebase';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,15 +17,6 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     margin: theme.spacing(2)
-  },
-  pName: {
-    textTransform: 'capitalize'
-  },
-  qType: {
-    textTransform: 'uppercase'
-  },
-  question: {
-    margin: theme.spacing(2, 0)
   }
 }));
 
@@ -118,39 +109,17 @@ function GamePage() {
     }
   }
 
-  function whatRender() {
-    if (state.loading) {
-      return <Spinner />;
-    } else if (isTruthOver && isDareOver) {
-      return <Typography variant="h4">Game over</Typography>;
-    } else if (questionType && currentQuestion) {
-      return (
-        <>
-          <Typography variant='caption' color='textSecondary' className={classes.qType}>
-            {questionType}
-          </Typography>
-          <Typography variant="h6" className={classes.question}>
-            {currentQuestion}
-          </Typography>
-        </>
-      );
-    } else if (state.error) {
-      return <Typography gutterBottom color='error'>{state.error}</Typography>;
-    } else {
-      return (
-        <Typography gutterBottom>
-          {playerName
-            ? <div><span className={classes.pName}>{playerName}</span> is playing...</div>
-            : 'Select a question type!'}
-        </Typography>
-      );
-    }
-  }
-
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        {whatRender()}
+        <GameDisplay
+          state={state}
+          isTruthOver={isTruthOver}
+          isDareOver={isDareOver}
+          questionType={questionType}
+          currentQuestion={currentQuestion}
+          playerName={playerName}
+        />
 
         {currentQuestion && playerName ? (
           <>
