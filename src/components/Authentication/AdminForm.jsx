@@ -62,7 +62,7 @@ function AdminForm() {
         </IconButton>
       </DialogTitle>
       <DialogContent>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete='off'>
           <Typography className={message.type === 'success' ? classes.success : classes.error}>{message.text}</Typography>
           <TextInput required name="email" label="Add email" placeholder="Add email" value={email || ''} handleChange={handleChange} />
           <Button fullWidth type="submit" color="primary" variant="contained" className={classes.button}>Make admin</Button>

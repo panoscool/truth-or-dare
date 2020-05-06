@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
   small: {
     width: theme.spacing(3),
     height: theme.spacing(3),
+  },
+  userName: {
+    textTransform: 'capitalize'
   }
 }));
 
@@ -72,7 +75,7 @@ function AuthMenu({ admin, authenticated, displayName, photoURL, setModal }) {
       >
         {authenticated ?
           <span>
-            <MenuItem disabled>{displayName}</MenuItem>
+            <MenuItem disabled className={classes.userName}>{displayName}</MenuItem>
             <Divider variant='fullWidth' />
             {admin && <MenuItem onClick={() => handleClose('AdminForm')}>Admin</MenuItem>}
             <MenuItem onClick={handleLogout}>Logout</MenuItem>

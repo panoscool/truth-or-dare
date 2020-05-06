@@ -44,10 +44,7 @@ function SignInForm() {
     event.preventDefault();
 
     try {
-      const user = await firebase.auth().signInWithEmailAndPassword(values.email, values.password);
-      const method = user.credential.signInMethod;
-
-      firebase.analytics().logEvent('login', { method });
+      await firebase.auth().signInWithEmailAndPassword(values.email, values.password);
 
       handleClose();
     } catch (err) {
@@ -66,7 +63,7 @@ function SignInForm() {
       </DialogTitle>
       <DialogContent>
         <span className={classes.error}>{error && error}</span>
-        <form onSubmit={handleUserLogin}>
+        <form onSubmit={handleUserLogin} autoComplete='off'>
           <TextInput
             required
             type="email"

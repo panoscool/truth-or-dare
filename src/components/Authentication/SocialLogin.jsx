@@ -29,12 +29,10 @@ function SocialLogin() {
         google: new firebase.auth.GoogleAuthProvider()
       };
 
-      const user = await firebase.auth().signInWithPopup(provider[selectedProvider]);
-      const method = user.credential.signInMethod;
+      await firebase.auth().signInWithPopup(provider[selectedProvider]);
 
-      firebase.analytics().logEvent('login', { method });
-    } catch (error) {
-      console.error(error.message);
+    } catch (err) {
+      console.error(err.message);
     }
   }
 

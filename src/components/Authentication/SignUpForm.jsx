@@ -48,10 +48,6 @@ function SignUpForm() {
       const createdUser = await firebase.auth().createUserWithEmailAndPassword(values.email, values.password);
       await createdUser.user.updateProfile({ displayName: values.displayName });
 
-      const method = createdUser.credential.signInMethod;
-
-      firebase.analytics().logEvent('sign_up', { method });
-
       handleClose();
     } catch (err) {
       console.error(err.message);
@@ -69,7 +65,7 @@ function SignUpForm() {
       </DialogTitle>
       <DialogContent>
         <span className={classes.error}>{error && error}</span>
-        <form onSubmit={handleUserRegister}>
+        <form onSubmit={handleUserRegister} autoComplete='off'>
           <TextInput
             required
             type="text"
