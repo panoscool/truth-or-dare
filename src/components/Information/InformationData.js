@@ -11,12 +11,12 @@ export const rules_list = [
 ];
 
 export const categories_breakdown = [
-  { id: cuid(), category: "Funny: Casual questions to relax and laugh with friends, schoolmates or colleagues. 🙂" },
-  { id: cuid(), category: "Challenging: A list of funny and embarrassing questions to challenge each other. 😬" },
-  { id: cuid(), category: "Uncensored: For hardcore players only, that can face any question or challenge assigned to them. 😈" }
+  { id: cuid(), category: 'Funny: Casual questions to relax and laugh with friends, schoolmates or colleagues. 🙂' },
+  { id: cuid(), category: 'Challenging: A list of funny and embarrassing questions to challenge each other. 😬' },
+  { id: cuid(), category: 'Uncensored: For hardcore players only, that can face any question or challenge assigned to them. 😈' }
 ];
 
 export const questions_disclaimer = [
-  { id: cuid(), disclaimer: "All questions, preexisting or created by users are public to everyone with or without account." },
-  { id: cuid(), disclaimer: "To add your own questions, you should have an account and be logged in with one of the three available options." }
+  { id: cuid(), disclaimer: 'All questions, preexisting or created by users are public to everyone with or without account.' },
+  { id: cuid(), disclaimer: 'To add your own questions, you should have an account and be logged in with one of the three available options.' }
 ];

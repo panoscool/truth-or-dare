@@ -9,7 +9,7 @@ import CategoriesPage from '../Shared/CategoriesPage';
 import PlayersPage from '../Players/PlayersPage';
 import NavList from './NavList';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     display: 'flex',
     justifyContent: 'center',

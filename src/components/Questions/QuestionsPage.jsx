@@ -17,7 +17,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { OptionsContext } from '../../context/OptionsContext';
 import firebase from '../../config/firebase';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     textAlign: 'center',
     margin: theme.spacing(2),
@@ -45,7 +45,7 @@ function QuestionsPage() {
     let unsubscribe = firebase.firestore().collection(url)
       .where('category', '==', category)
       .orderBy('createdAt', 'desc')
-      .onSnapshot(snapshot => {
+      .onSnapshot((snapshot) => {
 
         setSnapshot(snapshot);
         setState({ loading: false, error: null });

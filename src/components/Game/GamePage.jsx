@@ -7,7 +7,7 @@ import PlayersScore from '../Players/PlayersScore';
 import { storeSetItem, storeGetItem, storeRemoveItem, KEYS } from '../../config/store';
 import firebase from '../../config/firebase';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     textAlign: 'center'
   },
