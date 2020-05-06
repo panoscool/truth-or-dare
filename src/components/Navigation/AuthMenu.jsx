@@ -8,7 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import firebase from '../../config/firebase';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   small: {
     width: theme.spacing(3),
     height: theme.spacing(3),

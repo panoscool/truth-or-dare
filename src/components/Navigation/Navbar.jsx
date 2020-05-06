@@ -12,7 +12,7 @@ import { OptionsContext } from '../../context/OptionsContext';
 import { ThemeContext } from '../../context/ThemeContext';
 import ThemeToggle from '../Shared/ThemeToggle';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1
   },

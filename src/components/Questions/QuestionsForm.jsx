@@ -10,7 +10,7 @@ import { AuthContext } from '../../context/AuthContext';
 import Spinner from '../Shared/Spinner';
 import firebase from '../../config/firebase';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     display: 'flex',
     justifyContent: 'center',
@@ -60,10 +60,10 @@ function QuestionsForm() {
           setValues({ category: d.category, question: d.question });
         } else {
           // doc.data() will be undefined in this case
-          setState({ loading: false, error: "No such document!" });
+          setState({ loading: false, error: 'No such document!' });
         }
       } catch (err) {
-        console.error("Error getting document:", err);
+        console.error('Error getting document:', err);
         setState({ loading: false, error: err.message });
       }
     }

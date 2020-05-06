@@ -24,4 +24,4 @@ export const storeGetItem = (key) => JSON.parse(SESSION.getItem(key));
 
 export const storeRemoveItem = (key) => SESSION.removeItem(key);
 
-export const storeClearAll = (clearKeys) => clearKeys.forEach(key => SESSION.removeItem(key));
+export const storeClearAll = (clearKeys) => clearKeys.forEach((key) => SESSION.removeItem(key));

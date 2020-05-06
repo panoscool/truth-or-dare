@@ -42,8 +42,8 @@ function GamePage() {
         const t = await firebase.firestore().collection('truth_questions').get();
         const d = await firebase.firestore().collection('dare_questions').get();
 
-        setTruth(t.docs.map(doc => doc.data()).filter(t => t.category === category));
-        setDare(d.docs.map(doc => doc.data()).filter(d => d.category === category));
+        setTruth(t.docs.map((doc) => doc.data()).filter((t) => t.category === category));
+        setDare(d.docs.map((doc) => doc.data()).filter((d) => d.category === category));
 
         setState({ loading: false, error: null });
       } catch (err) {
@@ -74,7 +74,7 @@ function GamePage() {
   }
 
   function handleRandomTruth() {
-    const remainingTruth = truth.filter(t => !t.appeared);
+    const remainingTruth = truth.filter((t) => !t.appeared);
     const randomNum = getRandomInt(remainingTruth);
 
     if (remainingTruth.length > 0) {
@@ -92,7 +92,7 @@ function GamePage() {
   }
 
   function handleRandomDare() {
-    const remainingDare = dare.filter(d => !d.appeared);
+    const remainingDare = dare.filter((d) => !d.appeared);
     const randomNum = getRandomInt(remainingDare);
 
     if (remainingDare.length > 0) {

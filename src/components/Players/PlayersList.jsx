@@ -1,13 +1,13 @@
-import React from "react";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import IconButton from "@material-ui/core/IconButton";
-import Divider from "@material-ui/core/Divider";
-import Tooltip from "@material-ui/core/Tooltip";
-import ClearAll from "@material-ui/icons/ClearAll";
-import ClearIcon from "@material-ui/icons/Clear";
+import React from 'react';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
+import Divider from '@material-ui/core/Divider';
+import Tooltip from '@material-ui/core/Tooltip';
+import ClearAll from '@material-ui/icons/ClearAll';
+import ClearIcon from '@material-ui/icons/Clear';
 
 function PlayersList({ data, hnandleSelect, handleDelete, handleClearList }) {
   return (
@@ -26,7 +26,7 @@ function PlayersList({ data, hnandleSelect, handleDelete, handleClearList }) {
         <Divider />
       </>}
       {data &&
-        data.map(p => (
+        data.map((p) => (
           <ListItem button key={p.id} onClick={() => hnandleSelect(p)}>
             <ListItemText primary={<span style={{ textTransform: 'capitalize' }}>{p.name}</span>} />
             <ListItemSecondaryAction>

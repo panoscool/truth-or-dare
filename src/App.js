@@ -18,9 +18,9 @@ function App() {
   const { theme } = useContext(ThemeContext);
   const { setUser, setAdmin } = useContext(AuthContext);
 
-  firebase.auth().onAuthStateChanged(user => {
+  firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      user.getIdTokenResult().then(idTokenResult => {
+      user.getIdTokenResult().then((idTokenResult) => {
         setAdmin(idTokenResult.claims.admin);
       });
       setUser(user);

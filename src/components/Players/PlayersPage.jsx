@@ -6,7 +6,7 @@ import PlayersList from './PlayersList';
 import TextInput from '../Shared/TextInput';
 import { storeSetItem, storeRemoveItem, KEYS } from '../../config/store';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   formGroup: {
     display: 'flex'
   },
@@ -49,7 +49,7 @@ function PlayersPage({ players, setPlayers }) {
   }
 
   function handleUpdate(player) {
-    const newPlayers = players.map(p => {
+    const newPlayers = players.map((p) => {
       if (p.id === player.id) {
         return { ...player };
       }
@@ -62,7 +62,7 @@ function PlayersPage({ players, setPlayers }) {
   }
 
   function handleDelete(id) {
-    const newPlayers = players.filter(p => p.id !== id);
+    const newPlayers = players.filter((p) => p.id !== id);
     setPlayers(newPlayers);
     storeSetItem(KEYS.PLAYERS_LIST, newPlayers);
   }

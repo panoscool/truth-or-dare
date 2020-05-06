@@ -6,7 +6,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     justifyContent: 'center',
@@ -37,7 +37,7 @@ function RadioInput(props) {
           onChange={handleChange}
           className={vertical ? classes.radioGroupVertical : classes.radioGroup}
         >
-          {optionsArray.map(option => (
+          {optionsArray.map((option) => (
             <FormControlLabel
               key={option.id}
               disabled={option.disabled}

@@ -4,7 +4,7 @@ import { Typography, Paper, List, ListItem, ListItemText, ListItemIcon } from '@
 import ArroRight from '@material-ui/icons/ArrowRight';
 import { rules_list, categories_breakdown, questions_disclaimer } from './InformationData';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     margin: theme.spacing(2),
     padding: theme.spacing(2)
@@ -18,7 +18,7 @@ function InformationPage() {
     <Paper className={classes.paper}>
       <Typography variant="h6">Don’t Break The Rules</Typography>
       <List dense>
-        {rules_list.map(r => (
+        {rules_list.map((r) => (
           <ListItem key={r.id}>
             <ListItemIcon>
               <ArroRight />
@@ -29,7 +29,7 @@ function InformationPage() {
       </List>
       <Typography variant="h6">Categories Breakdown</Typography>
       <List dense>
-        {categories_breakdown.map(c => (
+        {categories_breakdown.map((c) => (
           <ListItem key={c.id}>
             <ListItemIcon>
               <ArroRight />
@@ -40,7 +40,7 @@ function InformationPage() {
       </List>
       <Typography variant="h6">Questions Disclaimer</Typography>
       <List dense>
-        {questions_disclaimer.map(d => (
+        {questions_disclaimer.map((d) => (
           <ListItem key={d.id}>
             <ListItemIcon>
               <ArroRight />

@@ -7,11 +7,11 @@
   "rules": {
     "object-shorthand": 0,
     "arrow-body-style": 0,
-    "semi": "error"
-    // "arrow-parens": "error",
-    // "quotes": [
-    //   2,
-    //   "single"
-    // ]
+    "arrow-parens": "error",
+    "semi": "error",
+    "quotes": [
+      2,
+      "single"
+    ]
   }
 }

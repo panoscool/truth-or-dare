@@ -6,7 +6,7 @@ import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { useEffect, useRef, useState } from 'react';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   formControl: {
     minWidth: 120,
     width: '100%',

@@ -6,7 +6,7 @@ import firebase from '../../config/firebase';
 import Facebook from '../Icons/Facebook';
 import Google from '../Icons/Google';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     textAlign: 'center',
     margin: theme.spacing(2, 0)

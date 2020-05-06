@@ -9,7 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { OptionsContext } from '../../context/OptionsContext';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(2)
   },
@@ -25,7 +25,7 @@ function PlayersScore() {
   const classes = useStyles();
   const { players } = useContext(OptionsContext);
 
-  const transformedList = players && players.map(obj => {
+  const transformedList = players && players.map((obj) => {
     return {
       ...obj,
       total: obj.score.truth + obj.score.dare
@@ -47,7 +47,7 @@ function PlayersScore() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {sortedList.map(row => (
+            {sortedList.map((row) => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row" className={classes.pName}>{row.name}</TableCell>
                 <TableCell align="right">{row.score.truth}</TableCell>

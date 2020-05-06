@@ -24,10 +24,10 @@ const useStyles = makeStyles((theme) => ({
 function AdminForm() {
   const classes = useStyles();
   const { modal, setModal } = useContext(ThemeContext);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [message, setMessage] = useState({
-    type: "",
-    text: ""
+    type: '',
+    text: ''
   });
 
   function handleClose() {
@@ -44,10 +44,10 @@ function AdminForm() {
     if (email !== undefined && !email.trim()) return;
 
     try {
-      const addAdminRole = firebase.functions().httpsCallable("addAdminRole");
+      const addAdminRole = firebase.functions().httpsCallable('addAdminRole');
       const response = await addAdminRole({ email });
-      setMessage({ type: "success", text: response.data.message });
-      setEmail("");
+      setMessage({ type: 'success', text: response.data.message });
+      setEmail('');
     } catch (err) {
       console.error(err);
     }
@@ -63,7 +63,7 @@ function AdminForm() {
       </DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit}>
-          <Typography className={message.type === "success" ? classes.success : classes.error}>{message.text}</Typography>
+          <Typography className={message.type === 'success' ? classes.success : classes.error}>{message.text}</Typography>
           <TextInput required name="email" label="Add email" placeholder="Add email" value={email || ''} handleChange={handleChange} />
           <Button fullWidth type="submit" color="primary" variant="contained" className={classes.button}>Make admin</Button>
         </form>
