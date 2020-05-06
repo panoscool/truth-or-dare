@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import cuid from 'cuid';
-import RadioInput from './Shared/RadioInput';
-import SelectInput from './Shared/SelectInput';
-import useWindowDimensions from '../hooks/useWindowDimensions';
-import { AuthContext } from '../context/AuthContext';
-import { storeSetItem, KEYS } from '../config/store';
+import RadioInput from './RadioInput';
+import SelectInput from './SelectInput';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
+import { AuthContext } from '../../context/AuthContext';
+import { storeSetItem, KEYS } from '../../config/store';
 
 function CategoriesPage({ label, select, category, setCategory }) {
   const { width } = useWindowDimensions();

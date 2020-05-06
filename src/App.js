@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, Fragment } from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navigation/Navbar';
-import HomePage from './components/HomePage';
+import HomePage from './components/Home/HomePage';
 import GamePage from './components/Game/GamePage';
 import QuestionsPage from './components/Questions/QuestionsPage';
 import QuestionsForm from './components/Questions/QuestionsForm';

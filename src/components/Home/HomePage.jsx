@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Button, Paper, Divider, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
-import { Details, AddCircleOutline, InfoOutlined, ListAltOutlined } from '@material-ui/icons';
-import { AuthContext } from '../context/AuthContext';
-import { OptionsContext } from '../context/OptionsContext';
-import CategoriesPage from './CategoriesPage';
-import PlayersPage from './Players/PlayersPage';
+import { Typography, Button, Paper } from '@material-ui/core';
+import Details from '@material-ui/icons/Details';
+import { AuthContext } from '../../context/AuthContext';
+import { OptionsContext } from '../../context/OptionsContext';
+import CategoriesPage from '../Shared/CategoriesPage';
+import PlayersPage from '../Players/PlayersPage';
+import NavList from './NavList';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -70,31 +71,7 @@ function HomePage() {
         )}
         <PlayersPage players={players} setPlayers={setPlayers} />
         {!players.length && (
-          <>
-            <Divider />
-            <List component="nav" aria-label="main mailbox folders">
-              <ListItem button component={Link} to="/create">
-                <ListItemIcon>
-                  <AddCircleOutline />
-                </ListItemIcon>
-                <ListItemText primary="Add Questions" />
-              </ListItem>
-              {authenticated && admin && (
-                <ListItem button component={Link} to="/questions">
-                  <ListItemIcon>
-                    <ListAltOutlined />
-                  </ListItemIcon>
-                  <ListItemText primary="Questions List" />
-                </ListItem>
-              )}
-              <ListItem button component={Link} to="/information">
-                <ListItemIcon>
-                  <InfoOutlined />
-                </ListItemIcon>
-                <ListItemText primary="Information" />
-              </ListItem>
-            </List>
-          </>
+          <NavList authenticated={authenticated} admin={admin} />
         )}
         {!authenticated &&
           <Typography variant='caption' color='textSecondary'>* Login to access all categories *</Typography>}

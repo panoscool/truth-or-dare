@@ -37,7 +37,7 @@ function PlayersScore() {
   return (
     <div className={classes.root}>
       <TableContainer component={Paper}>
-        <Table size="small" aria-label="a dense table" className={classes.table}>
+        <Table size="small" className={classes.table}>
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
