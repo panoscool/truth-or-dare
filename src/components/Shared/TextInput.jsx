@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function TextInput({ handleChange, handleShowPassword, inputProps, icon, showPassword, ...props }) {
+function TextInput({ handleChange, handleMouseDown, handleShowPassword, inputProps, icon, showPassword, ...props }) {
   const classes = useStyles();
   const { theme } = useContext(ThemeContext);
 
@@ -26,7 +26,7 @@ function TextInput({ handleChange, handleShowPassword, inputProps, icon, showPas
 
   const InputProps = {
     endAdornment: <InputAdornment position="end">
-      <IconButton onClick={handleShowPassword} edge="end">
+      <IconButton onClick={handleShowPassword} onMouseDown={handleMouseDown} edge="end">
         {!showPassword ? <Visibility className={iconStyle} /> : <VisibilityOff className={iconStyle} />}
       </IconButton>
     </InputAdornment>

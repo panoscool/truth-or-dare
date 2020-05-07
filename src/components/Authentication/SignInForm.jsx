@@ -41,6 +41,10 @@ function SignInForm() {
     setValues({ ...values, [event.target.name]: event.target.value });
   }
 
+  function handleMouseDown(event) {
+    event.preventDefault();
+  };
+
   function handleShowPassword() {
     setShowPassword(!showPassword);
   }
@@ -86,6 +90,7 @@ function SignInForm() {
             value={values.password}
             showPassword={showPassword}
             handleChange={handleChange}
+            handleMouseDown={handleMouseDown}
             handleShowPassword={handleShowPassword}
           />
           <Button fullWidth type='submit' color='primary' variant='contained'>Login</Button>
