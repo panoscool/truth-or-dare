@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Paper } from '@material-ui/core';
 import Details from '@material-ui/icons/Details';
+import { ThemeContext } from '../../context/ThemeContext';
 import { AuthContext } from '../../context/AuthContext';
 import { OptionsContext } from '../../context/OptionsContext';
 import CategoriesPage from '../Shared/CategoriesPage';
@@ -23,15 +24,21 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(2)
   },
-  icon: {
-    color: 'grey'
+  iconLight: {
+    color: theme.palette.grey[400]
+  },
+  iconDark: {
+    color: theme.palette.grey[600]
   }
 }));
 
 function HomePage() {
   const classes = useStyles();
+  const { theme } = useContext(ThemeContext);
   const { authenticated, admin } = useContext(AuthContext);
   const { players, setPlayers, category, setCategory } = useContext(OptionsContext);
+
+  const iconStyle = theme === 'dark' ? classes.iconDark : classes.iconLight;
 
   return (
     <Paper className={classes.paper}>
@@ -66,7 +73,7 @@ function HomePage() {
             >
               Play
             </Button>
-            <Typography><Details className={classes.icon} /></Typography>
+            <Typography><Details className={iconStyle} /></Typography>
           </>
         )}
         <PlayersPage players={players} setPlayers={setPlayers} />

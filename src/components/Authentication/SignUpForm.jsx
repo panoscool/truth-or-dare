@@ -27,6 +27,7 @@ function SignUpForm() {
   const classes = useStyles();
   const { modal, setModal } = useContext(ThemeContext);
   const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
   const [values, setValues] = useState({
     displayName: '',
     email: '',
@@ -39,6 +40,10 @@ function SignUpForm() {
 
   function handleChange(event) {
     setValues({ ...values, [event.target.name]: event.target.value });
+  }
+
+  function handleShowPassword() {
+    setShowPassword(!showPassword);
   }
 
   async function handleUserRegister(event) {
@@ -84,11 +89,14 @@ function SignUpForm() {
           />
           <TextInput
             required
-            type="password"
+            icon={true}
+            type={showPassword ? 'text' : 'password'}
             name='password'
             label="Password"
             value={values.password}
+            showPassword={showPassword}
             handleChange={handleChange}
+            handleShowPassword={handleShowPassword}
           />
           <Button fullWidth type='submit' color='primary' variant='contained'>Register</Button>
         </form>
