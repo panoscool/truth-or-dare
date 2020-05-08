@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center'
   },
   button: {
-    margin: theme.spacing(2, 0)
+    marginBottom: theme.spacing(2)
   },
   title: {
     marginBottom: theme.spacing(2)

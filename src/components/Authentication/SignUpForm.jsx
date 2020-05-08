@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -19,15 +20,15 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[500]
   },
   error: {
-    color: 'red'
+    color: theme.palette.error.main
   }
 }));
 
 function SignUpForm() {
   const classes = useStyles();
+  const history = useHistory();
   const { modal, setModal } = useContext(ThemeContext);
   const [error, setError] = useState(null);
-  const [showPassword, setShowPassword] = useState(false);
   const [values, setValues] = useState({
     displayName: '',
     email: '',
@@ -42,14 +43,6 @@ function SignUpForm() {
     setValues({ ...values, [event.target.name]: event.target.value });
   }
 
-  function handleMouseDown(event) {
-    event.preventDefault();
-  };
-
-  function handleShowPassword() {
-    setShowPassword(!showPassword);
-  }
-
   async function handleUserRegister(event) {
     event.preventDefault();
 
@@ -58,6 +51,7 @@ function SignUpForm() {
       await createdUser.user.updateProfile({ displayName: values.displayName });
 
       handleClose();
+      history.push('/');
     } catch (err) {
       console.error(err.message);
       setError(err.message);
@@ -93,15 +87,11 @@ function SignUpForm() {
           />
           <TextInput
             required
-            icon={true}
-            type={showPassword ? 'text' : 'password'}
+            type='password'
             name='password'
             label="Password"
             value={values.password}
-            showPassword={showPassword}
             handleChange={handleChange}
-            handleMouseDown={handleMouseDown}
-            handleShowPassword={handleShowPassword}
           />
           <Button fullWidth type='submit' color='primary' variant='contained'>Register</Button>
         </form>

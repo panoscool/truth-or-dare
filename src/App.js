@@ -7,6 +7,7 @@ import QuestionsPage from './components/Questions/QuestionsPage';
 import QuestionsForm from './components/Questions/QuestionsForm';
 import InformationPage from './components/Information/InformationPage';
 import PrivacyPolicy from './components/Information/PrivacyPolicy';
+import RecoveryPage from './components/Authentication/RecoveryPage';
 import NotFoundPage from './components/NotFoundPage';
 import ModalManager from './components/ModalManager';
 import { AuthContext } from './context/AuthContext';
@@ -50,6 +51,7 @@ function App() {
         <Route path="/questions" component={QuestionsPage} />
         <Route path="/information" component={InformationPage} />
         <Route path="/privacy-policy" component={PrivacyPolicy} />
+        <Route path='/recovery' component={RecoveryPage} />
         <Route exact path="/" component={HomePage} />
         <Route component={NotFoundPage} />
       </Switch>

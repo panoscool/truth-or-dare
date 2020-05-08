@@ -16,8 +16,11 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(2, 0)
   },
+  success: {
+    color: theme.palette.success.main
+  },
   error: {
-    color: 'red'
+    color: theme.palette.error.main
   }
 }));
 
@@ -50,6 +53,7 @@ function AdminForm() {
       setEmail('');
     } catch (err) {
       console.error(err);
+      setMessage({ type: 'error', text: 'Something went wrong or you dont have permission to access this resources.' });
     }
   }
 
