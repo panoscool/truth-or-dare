@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import format from 'date-fns/format';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -78,6 +78,7 @@ function QuestionsPage() {
 
   return (
     <Paper className={classes.paper}>
+      {!authenticated && <Redirect to='/' />}
       <Button onClick={dataSelection} disabled={state.loading} color={url === 'dare_questions' ? 'primary' : 'secondary'} variant="contained" className={classes.button}>
         Show {url === 'dare_questions' ? 'truth' : 'dare'} questions
       </Button>

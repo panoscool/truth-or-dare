@@ -6,7 +6,7 @@ import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { AuthContext } from '../../context/AuthContext';
 import { storeSetItem, KEYS } from '../../config/store';
 
-function CategoriesPage({ label, select, category, setCategory }) {
+function CategoriesPage({ select, category, setCategory, ...rest }) {
   const { width } = useWindowDimensions();
   const { authenticated } = useContext(AuthContext);
 
@@ -24,8 +24,8 @@ function CategoriesPage({ label, select, category, setCategory }) {
   if (select && width < 460) {
     return (
       <SelectInput
+        {...rest}
         name="category"
-        label={label}
         value={category || ''}
         optionsArray={categories}
         handleChange={handleChange}
@@ -35,8 +35,8 @@ function CategoriesPage({ label, select, category, setCategory }) {
 
   return (
     <RadioInput
+      {...rest}
       name="category"
-      label={label}
       vertical={width < 460}
       value={category || ''}
       optionsArray={categories}

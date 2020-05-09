@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -26,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 
 function SignUpForm() {
   const classes = useStyles();
-  const history = useHistory();
   const { modal, setModal } = useContext(ThemeContext);
   const [error, setError] = useState(null);
   const [values, setValues] = useState({
@@ -51,7 +49,6 @@ function SignUpForm() {
       await createdUser.user.updateProfile({ displayName: values.displayName });
 
       handleClose();
-      history.push('/');
     } catch (err) {
       console.error(err.message);
       setError(err.message);

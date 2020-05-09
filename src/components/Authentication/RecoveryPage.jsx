@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Paper } from '@material-ui/core';
 import { AuthContext } from '../../context/AuthContext';
-import firebase from '../../config/firebase';
 import TextInput from '../Shared/TextInput';
-import { Redirect } from 'react-router-dom';
+import firebase from '../../config/firebase';
 
 const useStyles = makeStyles((theme) => ({
   paper: {

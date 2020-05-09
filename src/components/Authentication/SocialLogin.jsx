@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
 import { ThemeContext } from '../../context/ThemeContext';
@@ -19,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 
 function SocialLogin() {
   const classes = useStyles();
-  const history = useHistory();
   const { setModal } = useContext(ThemeContext);
 
   async function handleSocialLogin(selectedProvider) {
@@ -33,7 +31,6 @@ function SocialLogin() {
 
       await firebase.auth().signInWithPopup(provider[selectedProvider]);
 
-      history.push('/');
     } catch (err) {
       console.error(err.message);
     }

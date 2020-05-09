@@ -57,7 +57,6 @@ function SignInForm() {
       await firebase.auth().signInWithEmailAndPassword(values.email, values.password);
 
       handleClose();
-      history.push('/');
     } catch (err) {
       console.error(err.message);
       setError(err.message);

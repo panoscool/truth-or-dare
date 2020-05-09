@@ -34,7 +34,7 @@ function QuestionsForm() {
   const history = useHistory();
   const { id, url } = useParams();
   const { width } = useWindowDimensions();
-  const { userId } = useContext(AuthContext);
+  const { userId, authenticated } = useContext(AuthContext);
   const [questionType, setQuestionType] = useState(null);
   const [values, setValues] = useState({
     category: '',
@@ -178,6 +178,7 @@ function QuestionsForm() {
                 type="submit"
                 color="primary"
                 variant="contained"
+                disabled={!authenticated}
                 className={classes.button}
               >
                 Save
@@ -185,6 +186,8 @@ function QuestionsForm() {
             )}
         </form>
         <Typography gutterBottom color='error'>{state.error && `${state.error} Please login or register.`}</Typography>
+        {!authenticated &&
+          <Typography variant='caption' color='textSecondary'>* Login to submit your questions *</Typography>}
       </div>
     </Paper>
   );

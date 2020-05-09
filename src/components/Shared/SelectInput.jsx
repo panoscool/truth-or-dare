@@ -30,9 +30,9 @@ function SelectForm(props) {
       <InputLabel ref={inputLabel}>{label}</InputLabel>
       <Select value={value} onChange={handleChange} input={<OutlinedInput labelWidth={labelWidth} name={name} />}>
         {optionsArray &&
-          optionsArray.map(({ value, label }) => (
-            <MenuItem key={value} value={value}>
-              {label}
+          optionsArray.map((option) => (
+            <MenuItem key={option.id} value={option.value} disabled={option.disabled}>
+              {option.label}
             </MenuItem>
           ))}
       </Select>
