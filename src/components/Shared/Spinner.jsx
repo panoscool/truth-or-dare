@@ -4,17 +4,15 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   progress: {
+    textAlign: 'center',
     margin: theme.spacing(2)
-  },
-  center: {
-    textAlign: 'center'
   }
 }));
 
-function Spinner() {
+function Spinner({ thickness }) {
   const classes = useStyles();
 
-  return <div className={classes.center}><CircularProgress className={classes.progress} /></div>;
+  return <div className={classes.progress}><CircularProgress color='inherit' thickness={thickness} /></div>;
 }
 
 export default Spinner;

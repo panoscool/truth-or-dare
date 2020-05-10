@@ -171,7 +171,7 @@ function QuestionsForm() {
             handleChange={handleChange}
           />
           {state.loading ? (
-            <Spinner />
+            <Spinner thickness={2} />
           ) : (
               <Button
                 fullWidth

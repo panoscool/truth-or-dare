@@ -84,7 +84,7 @@ function QuestionsPage() {
       <CategoriesPage label="Categories" category={category} setCategory={setCategory} select={true} />
       <Typography gutterBottom color='error'>{state.error}</Typography>
       <List dense>
-        {state.loading ? <Spinner /> :
+        {state.loading ? <Spinner thickness={2} /> :
           snapshot && snapshot.docs.map((doc) => {
             const d = doc.data();
             return (

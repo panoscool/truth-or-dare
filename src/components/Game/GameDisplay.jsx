@@ -19,7 +19,7 @@ function GameDisplay({ state, isTruthOver, isDareOver, questionType, currentQues
   const classes = useStyles();
 
   if (state.loading) {
-    return <Spinner />;
+    return <Spinner thickness={2} />;
   } else if (isTruthOver && isDareOver) {
     return <Typography variant="h4">Game over</Typography>;
   } else if (questionType && currentQuestion) {

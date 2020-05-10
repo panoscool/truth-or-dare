@@ -12,7 +12,7 @@ import NotFoundPage from './components/NotFoundPage';
 import ModalManager from './components/ModalManager';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
-import LoadingSkeleton from './components/Shared/LoadingSkeleton';
+import Spinner from './components/Shared/Spinner';
 import { AuthContext } from './context/AuthContext';
 import { ThemeContext } from './context/ThemeContext';
 import firebase from './config/firebase';
@@ -62,7 +62,7 @@ function App() {
           <Route exact path="/" component={HomePage} />
           <Route component={NotFoundPage} />
         </Switch>
-        : <LoadingSkeleton height={500} />}
+        : <Spinner thickness={1} />}
     </Fragment>
   );
 }
