@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, Fragment } from 'react';
+import React, { useState, useContext, useEffect, Fragment } from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navigation/Navbar';
 import HomePage from './components/Home/HomePage';
@@ -10,6 +10,9 @@ import PrivacyPolicy from './components/Information/PrivacyPolicy';
 import RecoveryPage from './components/Authentication/RecoveryPage';
 import NotFoundPage from './components/NotFoundPage';
 import ModalManager from './components/ModalManager';
+import PrivateRoute from './routes/PrivateRoute';
+import PublicRoute from './routes/PublicRoute';
+import LoadingSkeleton from './components/Shared/LoadingSkeleton';
 import { AuthContext } from './context/AuthContext';
 import { ThemeContext } from './context/ThemeContext';
 import firebase from './config/firebase';
@@ -17,6 +20,7 @@ import firebase from './config/firebase';
 function App() {
   const { pathname } = useLocation();
   const { theme } = useContext(ThemeContext);
+  const [loading, setLoading] = useState(true);
   const { setUser, setAdmin } = useContext(AuthContext);
 
   firebase.auth().onAuthStateChanged((user) => {
@@ -25,9 +29,11 @@ function App() {
         setAdmin(idTokenResult.claims.admin);
       });
       setUser(user);
+      setLoading(false);
     } else {
       setUser(null);
       setAdmin(false);
+      setLoading(false);
     }
   });
 
@@ -45,16 +51,18 @@ function App() {
     <Fragment>
       <ModalManager />
       <Navbar />
-      <Switch>
-        <Route path="/game" component={GamePage} />
-        <Route path={['/create/:id/:url', '/create']} component={QuestionsForm} />
-        <Route path="/questions" component={QuestionsPage} />
-        <Route path="/information" component={InformationPage} />
-        <Route path="/privacy-policy" component={PrivacyPolicy} />
-        <Route path='/recovery' component={RecoveryPage} />
-        <Route exact path="/" component={HomePage} />
-        <Route component={NotFoundPage} />
-      </Switch>
+      {!loading ?
+        <Switch>
+          <Route path="/game" component={GamePage} />
+          <Route path={['/create/:id/:url', '/create']} component={QuestionsForm} />
+          <PrivateRoute path="/questions" component={QuestionsPage} />
+          <Route path="/information" component={InformationPage} />
+          <Route path="/privacy-policy" component={PrivacyPolicy} />
+          <PublicRoute path='/recovery' component={RecoveryPage} />
+          <Route exact path="/" component={HomePage} />
+          <Route component={NotFoundPage} />
+        </Switch>
+        : <LoadingSkeleton height={500} />}
     </Fragment>
   );
 }

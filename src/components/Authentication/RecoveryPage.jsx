@@ -1,8 +1,6 @@
-import React, { useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Paper } from '@material-ui/core';
-import { AuthContext } from '../../context/AuthContext';
 import TextInput from '../Shared/TextInput';
 import firebase from '../../config/firebase';
 
@@ -33,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
 
 function RecoveryPage() {
   const classes = useStyles();
-  const { authenticated } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState({
     type: '',
@@ -60,7 +57,6 @@ function RecoveryPage() {
 
   return (
     <Paper className={classes.paper}>
-      {authenticated && <Redirect to='/' />}
       <div className={classes.innerBlock}>
         <div className="title">Truth or Dare</div>
         <div className={classes.typography}>
