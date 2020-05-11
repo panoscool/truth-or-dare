@@ -53,7 +53,7 @@ function AdminForm() {
       setEmail('');
     } catch (err) {
       console.error(err);
-      setMessage({ type: 'error', text: 'Something went wrong or you dont have permission to access this resources.' });
+      setMessage({ type: 'error', text: 'Missing or insufficient permissions.' });
     }
   }
 

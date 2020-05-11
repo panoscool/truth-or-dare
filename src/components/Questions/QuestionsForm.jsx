@@ -185,7 +185,7 @@ function QuestionsForm() {
               </Button>
             )}
         </form>
-        <Typography gutterBottom color='error'>{state.error && `${state.error} Please login or register.`}</Typography>
+        <Typography gutterBottom color='error'>{state.error && state.error}</Typography>
         {!authenticated &&
           <Typography variant='caption' color='textSecondary'>* Login to submit your questions *</Typography>}
       </div>

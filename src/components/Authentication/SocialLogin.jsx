@@ -32,7 +32,7 @@ function SocialLogin() {
       await firebase.auth().signInWithPopup(provider[selectedProvider]);
 
     } catch (err) {
-      console.error(err.message);
+      console.error(err);
     }
   }
 
