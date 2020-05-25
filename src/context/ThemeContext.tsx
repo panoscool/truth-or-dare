@@ -1,17 +1,23 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, ReactNode } from 'react';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { blue, red } from '@material-ui/core/colors';
 import { storeGetTheme } from '../config/store';
 
+interface Props {
+  children: ReactNode;
+}
+
 export const ThemeContext = createContext({
-  setTheme: () => { },
-  setModal: () => { }
+  modal: null,
+  theme: 'dark',
+  setTheme: (e: any) => { },
+  setModal: (e: any) => { }
 });
 
-export default ({ children }) => {
-  const [modal, setModal] = useState(null);
-  const [theme, setTheme] = useState(storeGetTheme() || 'dark');
+export default ({ children }: Props) => {
+  const [modal, setModal] = useState<any>(null);
+  const [theme, setTheme] = useState<any>(storeGetTheme() || 'dark');
 
   const muiTheme = createMuiTheme({
     palette: {

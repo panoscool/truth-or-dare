@@ -44,7 +44,7 @@ function App() {
     firebase.analytics().logEvent('page_view', { page_location, page_referrer });
   }, [pathname]);
 
-  // Change theme color when user switches on/off dark mode
+  // @ts-ignore - Change theme color when user switches on/off dark mode
   document.querySelector('meta[name=theme-color]').setAttribute('content', theme === 'light' ? '#ffffff' : '#000000');
 
   return (

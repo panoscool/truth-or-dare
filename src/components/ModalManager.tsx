@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import AdminForm from './Authentication/AdminForm';

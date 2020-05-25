@@ -1,14 +1,21 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, ReactNode } from 'react';
+
+interface Props {
+  children: ReactNode;
+}
 
 export const AuthContext = createContext({
-  setUser: () => { },
-  setAdmin: () => { }
+  user: null,
+  admin: null,
+  setUser: (e: any) => { },
+  setAdmin: (e: any) => { }
 });
 
-export default ({ children }) => {
+export default ({ children }: Props) => {
   const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(null);
 
+  // @ts-ignore
   const { uid, displayName, photoURL } = user || {};
 
   const authenticated = user !== null;
@@ -18,6 +25,7 @@ export default ({ children }) => {
       value={{
         user: user,
         admin: admin,
+        // @ts-ignore
         userId: uid,
         displayName: displayName,
         photoURL: photoURL,
