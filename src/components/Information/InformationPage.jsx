@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Paper, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import ArroRight from '@material-ui/icons/ArrowRight';
-import { rules_list, categories_breakdown, questions_disclaimer } from './InformationData';
+import { rules, categories, questions } from './InformationData';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -18,7 +18,7 @@ function InformationPage() {
     <Paper className={classes.paper}>
       <Typography variant="h6">Don’t Break The Rules</Typography>
       <List dense>
-        {rules_list.map((r) => (
+        {rules.map((r) => (
           <ListItem key={r.id}>
             <ListItemIcon>
               <ArroRight />
@@ -29,7 +29,7 @@ function InformationPage() {
       </List>
       <Typography variant="h6">Categories Breakdown</Typography>
       <List dense>
-        {categories_breakdown.map((c) => (
+        {categories.map((c) => (
           <ListItem key={c.id}>
             <ListItemIcon>
               <ArroRight />
@@ -38,14 +38,14 @@ function InformationPage() {
           </ListItem>
         ))}
       </List>
-      <Typography variant="h6">Questions Disclaimer</Typography>
+      <Typography variant="h6">Questions Info</Typography>
       <List dense>
-        {questions_disclaimer.map((d) => (
+        {questions.map((d) => (
           <ListItem key={d.id}>
             <ListItemIcon>
               <ArroRight />
             </ListItemIcon>
-            <ListItemText primary={d.disclaimer} />
+            <ListItemText primary={d.info} />
           </ListItem>
         ))}
       </List>
