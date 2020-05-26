@@ -37,11 +37,11 @@ function RecoveryPage() {
     text: ''
   });
 
-  function handleChange(event) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setEmail(event.target.value);
   }
 
-  async function handlePasswordReset(event) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     try {
@@ -64,7 +64,7 @@ function RecoveryPage() {
           <Typography color='textSecondary'>Add your registered email to reset you password.</Typography>
         </div>
         <Typography className={message.type === 'success' ? classes.success : classes.error}>{message.text}</Typography>
-        <form onSubmit={handlePasswordReset} autoComplete='off'>
+        <form onSubmit={handleSubmit} autoComplete='off'>
           <TextInput required name="email" label="Add email" placeholder="Add email" value={email || ''} handleChange={handleChange} />
           <Button className={classes.button} fullWidth type='submit' variant='contained' color='primary'>Submit</Button>
         </form>

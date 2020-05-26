@@ -18,16 +18,25 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function AuthMenu({ admin, authenticated, displayName, photoURL, setModal }) {
+interface Props {
+  admin: boolean | null;
+  authenticated: boolean | null;
+  displayName: any;
+  photoURL: string | null;
+  setModal: (e: any) => void;
+}
+
+function AuthMenu({ admin, authenticated, displayName, photoURL, setModal }: Props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  function handleMenu(event) {
+  function handleMenu(event: any) {
     setAnchorEl(event.currentTarget);
   };
 
-  function handleClose(modal) {
+  function handleClose(modal: string) {
+    // @ts-ignore
     setModal(modal);
     setAnchorEl(null);
   };

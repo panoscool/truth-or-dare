@@ -20,7 +20,7 @@ function SocialLogin() {
   const classes = useStyles();
   const { setModal } = useContext(ThemeContext);
 
-  async function handleSocialLogin(selectedProvider) {
+  async function handleSocialLogin(selectedProvider: any) {
     try {
       setModal(null);
 
@@ -28,7 +28,7 @@ function SocialLogin() {
         facebook: new firebase.auth.FacebookAuthProvider(),
         google: new firebase.auth.GoogleAuthProvider()
       };
-
+      // @ts-ignore
       await firebase.auth().signInWithPopup(provider[selectedProvider]);
 
     } catch (err) {

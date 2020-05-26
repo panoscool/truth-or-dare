@@ -7,6 +7,9 @@ interface Props {
 export const AuthContext = createContext({
   user: null,
   admin: null,
+  userId: null,
+  displayName: null,
+  photoURL: null,
   authenticated: null,
   setUser: (e: any) => { },
   setAdmin: (e: any) => { }

@@ -9,7 +9,7 @@ import { storeSetItem, KEYS } from '../../config/store';
 interface Props {
   name?: string;
   label: string;
-  select: boolean;
+  select?: boolean;
   category: any;
   setCategory: (e: any) => void;
 }

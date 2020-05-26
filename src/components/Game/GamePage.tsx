@@ -57,10 +57,11 @@ function GamePage() {
     }
   }, [category, truth, dare]);
 
-  function handlePlayerTurn(update) {
+  function handlePlayerTurn(update: any) {
     if (update === 'update') {
       scoreUpdate(questionType);
     } else {
+      // @ts-ignore
       nextPlayer();
     }
     setQuestionType(null);
@@ -69,12 +70,12 @@ function GamePage() {
     storeRemoveItem(KEYS.CURRENT_QUESTION);
   }
 
-  function getRandomInt(max) {
+  function getRandomInt(max: any) {
     return Math.floor(Math.random() * max.length);
   }
 
   function handleRandomTruth() {
-    const remainingTruth = truth.filter((t) => !t.appeared);
+    const remainingTruth = truth.filter((t: any) => !t.appeared);
     const randomNum = getRandomInt(remainingTruth);
 
     if (remainingTruth.length > 0) {
@@ -92,7 +93,7 @@ function GamePage() {
   }
 
   function handleRandomDare() {
-    const remainingDare = dare.filter((d) => !d.appeared);
+    const remainingDare = dare.filter((d: any) => !d.appeared);
     const randomNum = getRandomInt(remainingDare);
 
     if (remainingDare.length > 0) {

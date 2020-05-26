@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface Props {
+  type?: string;
   name: string;
   label: string;
   value: string;
@@ -18,6 +19,7 @@ interface Props {
   disabled?: boolean;
   placeholder?: string;
   inputProps?: any;
+  helperText?: any;
   handleChange: (e: any) => void;
 }
 

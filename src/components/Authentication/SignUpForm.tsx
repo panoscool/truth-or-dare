@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -19,42 +18,36 @@ const useStyles = makeStyles((theme) => ({
     top: theme.spacing(1),
     color: theme.palette.grey[500]
   },
-  link: {
-    cursor: 'pointer'
-  },
   error: {
     color: theme.palette.error.main
   }
 }));
 
-function SignInForm() {
+function SignUpForm() {
   const classes = useStyles();
-  const history = useHistory();
   const { modal, setModal } = useContext(ThemeContext);
   const [error, setError] = useState(null);
   const [values, setValues] = useState({
+    displayName: '',
     email: '',
     password: ''
   });
 
   function handleClose() {
     setModal(null);
-  }
+  };
 
-  function handleChange(event) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setValues({ ...values, [event.target.name]: event.target.value });
   }
 
-  function hanndleForgotPassword() {
-    history.push('/recovery');
-    handleClose();
-  }
-
-  async function handleUserLogin(event) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     try {
-      await firebase.auth().signInWithEmailAndPassword(values.email, values.password);
+      const createdUser = await firebase.auth().createUserWithEmailAndPassword(values.email, values.password);
+      // @ts-ignore
+      await createdUser.user.updateProfile({ displayName: values.displayName });
 
       handleClose();
     } catch (err) {
@@ -66,14 +59,22 @@ function SignInForm() {
   return (
     <Dialog open={Boolean(modal)} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">
-        Login
+        Register
         <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
           <Close />
         </IconButton>
       </DialogTitle>
       <DialogContent>
         <span className={classes.error}>{error && error}</span>
-        <form onSubmit={handleUserLogin} autoComplete='off'>
+        <form onSubmit={handleSubmit} autoComplete='off'>
+          <TextInput
+            required
+            type="text"
+            name='displayName'
+            label="Name"
+            value={values.displayName}
+            handleChange={handleChange}
+          />
           <TextInput
             required
             type="email"
@@ -89,9 +90,8 @@ function SignInForm() {
             label="Password"
             value={values.password}
             handleChange={handleChange}
-            helperText={<span onClick={hanndleForgotPassword} className={classes.link}>Forgot password?</span>}
           />
-          <Button fullWidth type='submit' color='primary' variant='contained'>Login</Button>
+          <Button fullWidth type='submit' color='primary' variant='contained'>Register</Button>
         </form>
         <SocialLogin />
       </DialogContent>
@@ -99,4 +99,4 @@ function SignInForm() {
   );
 }
 
-export default SignInForm;
+export default SignUpForm;

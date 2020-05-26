@@ -15,7 +15,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function GameDisplay({ state, isTruthOver, isDareOver, questionType, currentQuestion, playerName }) {
+interface Props {
+  state: any;
+  isTruthOver: boolean;
+  isDareOver: boolean;
+  questionType: string;
+  currentQuestion: string;
+  playerName: string | null;
+}
+
+function GameDisplay({ state, isTruthOver, isDareOver, questionType, currentQuestion, playerName }: Props) {
   const classes = useStyles();
 
   if (state.loading) {
