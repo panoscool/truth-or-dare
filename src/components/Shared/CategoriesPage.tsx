@@ -6,12 +6,20 @@ import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { AuthContext } from '../../context/AuthContext';
 import { storeSetItem, KEYS } from '../../config/store';
 
-function CategoriesPage({ select, category, setCategory, ...rest }) {
+interface Props {
+  name?: string;
+  label: string;
+  select: boolean;
+  category: any;
+  setCategory: (e: any) => void;
+}
+
+function CategoriesPage({ select, category, setCategory, ...rest }: Props) {
   const { width } = useWindowDimensions();
   const { authenticated } = useContext(AuthContext);
 
-  function handleChange(event) {
-    setCategory(event.target.value);
+  function handleChange(event: React.ChangeEvent<{ value: unknown }>) {
+    setCategory(event.target.value as string);
     storeSetItem(KEYS.QUESTION_CATEGORY, event.target.value);
   }
 

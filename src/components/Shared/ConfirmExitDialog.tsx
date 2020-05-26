@@ -15,7 +15,7 @@ function ConfirmExitDialog() {
   const { modal, setModal } = useContext(ThemeContext);
   const { setCategory, setPlayers } = useContext(OptionsContext);
 
-  function handleClose(redirect) {
+  function handleClose(redirect: any) {
     if (redirect === 'game') {
       storeClearAll(CLEAR_KEYS);
       setCategory('funny');

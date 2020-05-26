@@ -27,7 +27,8 @@ function PlayersScore() {
 
   const transformedList = players && players.map((obj) => {
     return {
-      ...obj,
+      ...(obj as any),
+      // @ts-ignore
       total: obj.score.truth + obj.score.dare
     };
   });

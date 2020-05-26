@@ -9,7 +9,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function Spinner({ thickness }) {
+interface Props {
+  thickness: number;
+}
+
+function Spinner({ thickness }: Props) {
   const classes = useStyles();
 
   return <div className={classes.progress}><CircularProgress color='inherit' thickness={thickness} /></div>;

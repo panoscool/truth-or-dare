@@ -7,6 +7,7 @@ interface Props {
 export const AuthContext = createContext({
   user: null,
   admin: null,
+  authenticated: null,
   setUser: (e: any) => { },
   setAdmin: (e: any) => { }
 });
@@ -25,10 +26,10 @@ export default ({ children }: Props) => {
       value={{
         user: user,
         admin: admin,
-        // @ts-ignore
         userId: uid,
         displayName: displayName,
         photoURL: photoURL,
+        // @ts-ignore
         authenticated: authenticated,
         setUser: setUser,
         setAdmin: setAdmin

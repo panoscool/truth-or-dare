@@ -38,17 +38,17 @@ function QuestionsPage() {
   const [url, setUrl] = useState('truth_questions');
   const [state, setState] = useState({
     loading: true,
-    error: null
+    error: ''
   });
 
   useEffect(() => {
     let unsubscribe = firebase.firestore().collection(url)
       .where('category', '==', category)
       .orderBy('createdAt', 'desc')
-      .onSnapshot((snapshot) => {
+      .onSnapshot((snapshot: any) => {
 
         setSnapshot(snapshot);
-        setState({ loading: false, error: null });
+        setState({ loading: false, error: '' });
 
       }, (err) => {
         console.error(err.message);
@@ -60,7 +60,7 @@ function QuestionsPage() {
     };
   }, [category, url]);
 
-  async function deleteQuestion(id) {
+  async function deleteQuestion(id: string) {
     try {
       await firebase.firestore().collection(url).doc(id).delete();
     } catch (err) {
@@ -85,7 +85,8 @@ function QuestionsPage() {
       <Typography gutterBottom color='error'>{state.error}</Typography>
       <List dense>
         {state.loading ? <Spinner thickness={2} /> :
-          snapshot && snapshot.docs.map((doc) => {
+          // @ts-ignore
+          snapshot && snapshot.docs.map((doc: any) => {
             const d = doc.data();
             return (
               <ListItem button key={doc.id} onClick={() => history.push(`/create/${doc.id}/${url}`)}>

@@ -22,10 +22,19 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function RadioInput(props) {
-  const classes = useStyles();
+interface Props {
+  name: string;
+  label: string
+  value: string
+  required?: boolean;
+  disabled?: boolean;
+  vertical?: boolean;
+  optionsArray: Array<object>
+  handleChange: (e: any) => void;
+}
 
-  const { required, name, value, label, disabled, vertical, optionsArray, handleChange } = props;
+function RadioInput({ name, label, value, required, disabled, vertical, optionsArray, handleChange }: Props) {
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
@@ -37,7 +46,7 @@ function RadioInput(props) {
           onChange={handleChange}
           className={vertical ? classes.radioGroupVertical : classes.radioGroup}
         >
-          {optionsArray.map((option) => (
+          {optionsArray.map((option: any) => (
             <FormControlLabel
               key={option.id}
               label={option.label}

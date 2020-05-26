@@ -34,30 +34,31 @@ function QuestionsForm() {
   const history = useHistory();
   const { id, url } = useParams();
   const { width } = useWindowDimensions();
+  // @ts-ignore
   const { userId, authenticated } = useContext(AuthContext);
-  const [questionType, setQuestionType] = useState(null);
+  const [questionType, setQuestionType] = useState('');
   const [values, setValues] = useState({
     category: '',
     question: ''
   });
   const [state, setState] = useState({
     loading: false,
-    error: null
+    error: ''
   });
 
   useEffect(() => {
     async function fetchQuestion() {
       if (!id) return;
 
-      setState({ loading: true, error: null });
+      setState({ loading: true, error: '' });
       try {
         const doc = await firebase.firestore().collection(url).doc(id).get();
 
-        setState({ loading: false, error: null });
+        setState({ loading: false, error: '' });
         if (doc.exists) {
           const d = doc.data();
           setQuestionType(url);
-          setValues({ category: d.category, question: d.question });
+          setValues({ category: d?.category, question: d?.question });
         } else {
           // doc.data() will be undefined in this case
           setState({ loading: false, error: 'No such document!' });
@@ -71,20 +72,20 @@ function QuestionsForm() {
     fetchQuestion();
   }, [id, url]);
 
-  function handleChange(event) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setValues({
       ...values,
       [event.target.name]: event.target.value
     });
   }
 
-  function handleQuestionType(event) {
+  function handleQuestionType(event: any) {
     setQuestionType(event.target.value);
   }
 
   async function handleQuestionCreate() {
     try {
-      setState({ loading: true, error: null });
+      setState({ loading: true, error: '' });
 
       const newQuestion = {
         ...values,
@@ -94,8 +95,8 @@ function QuestionsForm() {
 
       await firebase.firestore().collection(questionType).add(newQuestion);
 
-      setState({ loading: false, error: null });
-      setQuestionType(null);
+      setState({ loading: false, error: '' });
+      setQuestionType('');
       setValues({ category: '', question: '' });
     } catch (err) {
       console.error(err.message);
@@ -105,7 +106,7 @@ function QuestionsForm() {
 
   async function handleQuestionUpdate() {
     try {
-      setState({ loading: true, error: null });
+      setState({ loading: true, error: '' });
 
       const updatedQuestion = {
         ...values,
@@ -114,7 +115,7 @@ function QuestionsForm() {
 
       await firebase.firestore().collection(url).doc(id).update(updatedQuestion);
 
-      setState({ loading: false, error: null });
+      setState({ loading: false, error: '' });
       history.push('/questions');
     } catch (err) {
       console.error(err.message);
@@ -122,7 +123,7 @@ function QuestionsForm() {
     }
   }
 
-  function handleSubmit(event) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!id) {

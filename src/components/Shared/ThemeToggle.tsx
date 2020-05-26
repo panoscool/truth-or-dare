@@ -6,7 +6,11 @@ import WBSunny from '@material-ui/icons/WbSunny';
 import { ThemeContext } from '../../context/ThemeContext';
 import { storeSetTheme } from '../../config/store';
 
-function ThemeToggle({ btnType }) {
+interface Props {
+  btnType?: string;
+}
+
+function ThemeToggle({ btnType }: Props) {
   const { theme, setTheme } = useContext(ThemeContext);
 
   function toggleThemeMode() {

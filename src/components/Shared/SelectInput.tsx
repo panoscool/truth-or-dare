@@ -1,10 +1,9 @@
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Select from '@material-ui/core/Select';
-import { makeStyles } from '@material-ui/core/styles';
-import React, { useEffect, useRef, useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -14,23 +13,25 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function SelectForm(props) {
+interface Props {
+  name: string;
+  label: string;
+  value: string;
+  required?: boolean;
+  disabled?: boolean;
+  optionsArray: Array<object>
+  handleChange: (e: any) => void;
+}
+
+function SelectForm({ name, label, value, required, disabled, optionsArray, handleChange }: Props) {
   const classes = useStyles();
-  const inputLabel = useRef(null);
-  const [labelWidth, setLabelWidth] = useState(0);
-
-  useEffect(() => {
-    setLabelWidth(inputLabel.current.offsetWidth);
-  }, []);
-
-  const { name, value, optionsArray, label, required, disabled, handleChange } = props;
 
   return (
     <FormControl required={required} disabled={disabled} variant="outlined" margin="dense" className={classes.formControl}>
-      <InputLabel ref={inputLabel}>{label}</InputLabel>
-      <Select value={value} onChange={handleChange} input={<OutlinedInput labelWidth={labelWidth} name={name} />}>
+      <InputLabel >{label}</InputLabel>
+      <Select label={label} name={name} value={value} onChange={handleChange}>
         {optionsArray &&
-          optionsArray.map((option) => (
+          optionsArray.map((option: any) => (
             <MenuItem key={option.id} value={option.value} disabled={option.disabled}>
               {option.label}
             </MenuItem>

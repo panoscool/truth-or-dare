@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function PlayersPage({ players, setPlayers }) {
+function PlayersPage({ players, setPlayers }: any) {
   const classes = useStyles();
   const [isEdit, setIsEdit] = useState(false);
   const [values, setValues] = useState({
@@ -27,7 +27,7 @@ function PlayersPage({ players, setPlayers }) {
     }
   });
 
-  function handleChange(event) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setValues({
       ...values,
       [event.target.name]: event.target.value
@@ -43,13 +43,13 @@ function PlayersPage({ players, setPlayers }) {
     setValues({ id: '', name: '', score: { truth: 0, dare: 0 } });
   }
 
-  function hnandleSelect(player) {
+  function handleSelect(player: any) {
     setValues(player);
     setIsEdit(true);
   }
 
-  function handleUpdate(player) {
-    const newPlayers = players.map((p) => {
+  function handleUpdate(player: any) {
+    const newPlayers = players.map((p: any) => {
       if (p.id === player.id) {
         return { ...player };
       }
@@ -61,13 +61,13 @@ function PlayersPage({ players, setPlayers }) {
     setIsEdit(false);
   }
 
-  function handleDelete(id) {
-    const newPlayers = players.filter((p) => p.id !== id);
+  function handleDelete(id: string) {
+    const newPlayers = players.filter((p: any) => p.id !== id);
     setPlayers(newPlayers);
     storeSetItem(KEYS.PLAYERS_LIST, newPlayers);
   }
 
-  function handleSubmit(event) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (values.name !== undefined && !values.name.trim()) return;
 
@@ -105,9 +105,8 @@ function PlayersPage({ players, setPlayers }) {
       </form>
       <PlayersList
         data={players}
-        hnandleSelect={hnandleSelect}
+        handleSelect={handleSelect}
         handleDelete={handleDelete}
-        handleUpdate={handleUpdate}
         handleClearList={handleClearList}
       />
     </div>

@@ -10,7 +10,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function TextInput({ handleChange, inputProps, ...props }) {
+interface Props {
+  name: string;
+  label: string;
+  value: string;
+  required?: boolean;
+  disabled?: boolean;
+  placeholder?: string;
+  inputProps?: any;
+  handleChange: (e: any) => void;
+}
+
+function TextInput({ handleChange, inputProps, ...props }: Props) {
   const classes = useStyles();
 
   return (

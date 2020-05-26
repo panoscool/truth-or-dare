@@ -9,7 +9,14 @@ import Tooltip from '@material-ui/core/Tooltip';
 import ClearAll from '@material-ui/icons/ClearAll';
 import ClearIcon from '@material-ui/icons/Clear';
 
-function PlayersList({ data, hnandleSelect, handleDelete, handleClearList }) {
+interface Props {
+  data: any;
+  handleSelect: (e: any) => void;
+  handleDelete: (e: any) => void;
+  handleClearList: (e: any) => void;
+}
+
+function PlayersList({ data, handleSelect, handleDelete, handleClearList }: Props) {
   return (
     <List>
       {data && data.length > 0 && <>
@@ -26,8 +33,8 @@ function PlayersList({ data, hnandleSelect, handleDelete, handleClearList }) {
         <Divider />
       </>}
       {data &&
-        data.map((p) => (
-          <ListItem button key={p.id} onClick={() => hnandleSelect(p)}>
+        data.map((p: any) => (
+          <ListItem button key={p.id} onClick={() => handleSelect(p)}>
             <ListItemText primary={<span style={{ textTransform: 'capitalize' }}>{p.name}</span>} />
             <ListItemSecondaryAction>
               <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(p.id)} >
