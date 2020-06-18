@@ -28,7 +28,7 @@ function SelectForm({ name, label, value, required, disabled, optionsArray, hand
 
   return (
     <FormControl required={required} disabled={disabled} variant="outlined" margin="dense" className={classes.formControl}>
-      <InputLabel >{label}</InputLabel>
+      <InputLabel>{label}</InputLabel>
       <Select label={label} name={name} value={value} onChange={handleChange}>
         {optionsArray &&
           optionsArray.map((option: any) => (
