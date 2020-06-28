@@ -57,11 +57,10 @@ function GamePage() {
     }
   }, [category, truth, dare]);
 
-  function handlePlayerTurn(update: any) {
+  function handlePlayerTurn(update?: string) {
     if (update === 'update') {
       scoreUpdate(questionType);
     } else {
-      // @ts-ignore
       nextPlayer();
     }
     setQuestionType(null);
@@ -70,7 +69,7 @@ function GamePage() {
     storeRemoveItem(KEYS.CURRENT_QUESTION);
   }
 
-  function getRandomInt(max: any) {
+  function getRandomInt(max: string) {
     return Math.floor(Math.random() * max.length);
   }
 
@@ -128,7 +127,7 @@ function GamePage() {
               size="large"
               color="secondary"
               variant="outlined"
-              onClick={handlePlayerTurn}
+              onClick={() => handlePlayerTurn()}
               className={classes.button}
             >
               Skip

@@ -10,16 +10,16 @@ import ClearAll from '@material-ui/icons/ClearAll';
 import ClearIcon from '@material-ui/icons/Clear';
 
 interface Props {
-  data: any;
+  data: Array<object>;
   handleSelect: (e: any) => void;
-  handleDelete: (e: any) => void;
-  handleClearList: (e: any) => void;
+  handleDelete: (e: string) => void;
+  handleClearList: () => void;
 }
 
 function PlayersList({ data, handleSelect, handleDelete, handleClearList }: Props) {
   return (
     <List>
-      {data && data.length > 0 && <>
+      {data?.length > 0 && <>
         <ListItem>
           <ListItemText primary='Name' />
           <ListItemSecondaryAction>
@@ -32,17 +32,16 @@ function PlayersList({ data, handleSelect, handleDelete, handleClearList }: Prop
         </ListItem>
         <Divider />
       </>}
-      {data &&
-        data.map((p: any) => (
-          <ListItem button key={p.id} onClick={() => handleSelect(p)}>
-            <ListItemText primary={<span style={{ textTransform: 'capitalize' }}>{p.name}</span>} />
-            <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(p.id)} >
-                <ClearIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
+      {data?.map((p: any) => (
+        <ListItem button key={p.id} onClick={() => handleSelect(p)}>
+          <ListItemText primary={<span style={{ textTransform: 'capitalize' }}>{p.name}</span>} />
+          <ListItemSecondaryAction>
+            <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(p.id)} >
+              <ClearIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+      ))}
     </List>
   );
 }

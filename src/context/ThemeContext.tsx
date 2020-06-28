@@ -11,7 +11,7 @@ interface Props {
 export const ThemeContext = createContext({
   modal: null,
   theme: 'dark',
-  setTheme: (e: any) => { },
+  setTheme: (e: string) => { },
   setModal: (e: any) => { }
 });
 

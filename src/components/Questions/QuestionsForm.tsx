@@ -34,7 +34,6 @@ function QuestionsForm() {
   const history = useHistory();
   const { id, url } = useParams();
   const { width } = useWindowDimensions();
-  // @ts-ignore
   const { userId, authenticated } = useContext(AuthContext);
   const [questionType, setQuestionType] = useState('');
   const [values, setValues] = useState({
@@ -79,7 +78,7 @@ function QuestionsForm() {
     });
   }
 
-  function handleQuestionType(event: any) {
+  function handleQuestionType(event: { target: { value: React.SetStateAction<string>; }; }) {
     setQuestionType(event.target.value);
   }
 

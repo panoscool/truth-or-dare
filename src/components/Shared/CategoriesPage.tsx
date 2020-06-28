@@ -11,7 +11,7 @@ interface Props {
   label: string;
   select?: boolean;
   category: any;
-  setCategory: (e: any) => void;
+  setCategory: (e: string) => void;
 }
 
 function CategoriesPage({ select, category, setCategory, ...rest }: Props) {

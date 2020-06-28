@@ -30,12 +30,11 @@ function SelectForm({ name, label, value, required, disabled, optionsArray, hand
     <FormControl required={required} disabled={disabled} variant="outlined" margin="dense" className={classes.formControl}>
       <InputLabel>{label}</InputLabel>
       <Select label={label} name={name} value={value} onChange={handleChange}>
-        {optionsArray &&
-          optionsArray.map((option: any) => (
-            <MenuItem key={option.id} value={option.value} disabled={option.disabled}>
-              {option.label}
-            </MenuItem>
-          ))}
+        {optionsArray?.map((option: any) => (
+          <MenuItem key={option.id} value={option.value} disabled={option.disabled}>
+            {option.label}
+          </MenuItem>
+        ))}
       </Select>
     </FormControl>
   );

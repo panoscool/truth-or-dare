@@ -46,7 +46,7 @@ function RadioInput({ name, label, value, required, disabled, vertical, optionsA
           onChange={handleChange}
           className={vertical ? classes.radioGroupVertical : classes.radioGroup}
         >
-          {optionsArray.map((option: any) => (
+          {optionsArray?.map((option: any) => (
             <FormControlLabel
               key={option.id}
               label={option.label}

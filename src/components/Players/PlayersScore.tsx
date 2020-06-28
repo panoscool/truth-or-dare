@@ -25,7 +25,7 @@ function PlayersScore() {
   const classes = useStyles();
   const { players } = useContext(OptionsContext);
 
-  const transformedList = players && players.map((obj) => {
+  const transformedList = players?.map((obj) => {
     return {
       ...(obj as any),
       // @ts-ignore

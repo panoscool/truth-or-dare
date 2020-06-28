@@ -12,7 +12,7 @@ export const OptionsContext = createContext({
   playerName: null,
   setPlayers: (e: any) => { },
   setCategory: (e: any) => { },
-  nextPlayer: (e: any) => { },
+  nextPlayer: () => { },
   scoreUpdate: (e: any) => { }
 });
 

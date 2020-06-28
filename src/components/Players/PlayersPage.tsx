@@ -15,7 +15,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function PlayersPage({ players, setPlayers }: any) {
+interface Props {
+  players: Array<object>;
+  setPlayers: (e: object) => void;
+}
+
+function PlayersPage({ players, setPlayers }: Props) {
   const classes = useStyles();
   const [isEdit, setIsEdit] = useState(false);
   const [values, setValues] = useState({

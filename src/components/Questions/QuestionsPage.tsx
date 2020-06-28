@@ -86,7 +86,7 @@ function QuestionsPage() {
       <List dense>
         {state.loading ? <Spinner thickness={2} /> :
           // @ts-ignore
-          snapshot && snapshot.docs.map((doc: any) => {
+          snapshot?.docs.map((doc: any) => {
             const d = doc.data();
             return (
               <ListItem button key={doc.id} onClick={() => history.push(`/create/${doc.id}/${url}`)}>
