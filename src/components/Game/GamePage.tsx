@@ -73,39 +73,37 @@ function GamePage() {
     return Math.floor(Math.random() * max.length);
   }
 
-  function handleRandomTruth() {
-    const remainingTruth = truth.filter((t: any) => !t.appeared);
-    const randomNum = getRandomInt(remainingTruth);
-
-    if (remainingTruth.length > 0) {
-      const question = remainingTruth[randomNum].question;
-
-      setQuestionType('truth');
-      storeSetItem(KEYS.QUESTION_TYPE, 'truth');
-      setCurrentQuestion(question);
-      storeSetItem(KEYS.CURRENT_QUESTION, question);
-      remainingTruth[randomNum].appeared = true;
+  function handleStorage(type: string, question: string) {
+    storeSetItem(KEYS.QUESTION_TYPE, type);
+    storeSetItem(KEYS.CURRENT_QUESTION, question);
+    if (type === 'truth') {
       storeSetItem(KEYS.TRUTH_QUESTIONS, truth);
-    } else {
-      setTruthOver(true);
+    } else if (type === 'dare') {
+      storeSetItem(KEYS.DARE_QUESTIONS, dare);
     }
   }
 
-  function handleRandomDare() {
-    const remainingDare = dare.filter((d: any) => !d.appeared);
-    const randomNum = getRandomInt(remainingDare);
+  function handleFilteredQuestions(type: string) {
+    if (type === 'truth') {
+      return truth.filter((t: any) => !t.appeared);
+    } else if (type === 'dare') {
+      return dare.filter((t: any) => !t.appeared);
+    }
+  }
 
-    if (remainingDare.length > 0) {
-      const question = remainingDare[randomNum].question;
+  function handleRandomQuestion(qType: string) {
+    const remainedQuestions = handleFilteredQuestions(qType);
+    const randomNum = getRandomInt(remainedQuestions);
 
-      setQuestionType('dare');
-      storeSetItem(KEYS.QUESTION_TYPE, 'dare');
+    if (remainedQuestions.length > 0) {
+      const question = remainedQuestions[randomNum].question;
+
+      setQuestionType(qType);
       setCurrentQuestion(question);
-      storeSetItem(KEYS.CURRENT_QUESTION, question);
-      remainingDare[randomNum].appeared = true;
-      storeSetItem(KEYS.DARE_QUESTIONS, dare);
+      remainedQuestions[randomNum].appeared = true;
+      handleStorage(qType, question);
     } else {
-      setDareOver(true);
+      qType === 'truth' ? setTruthOver(true) : setDareOver(true);
     }
   }
 
@@ -150,7 +148,7 @@ function GamePage() {
                 variant="contained"
                 disabled={isTruthOver}
                 className={classes.button}
-                onClick={handleRandomTruth}
+                onClick={() => handleRandomQuestion('truth')}
               >
                 Truth
               </Button>
@@ -160,7 +158,7 @@ function GamePage() {
                 variant="contained"
                 disabled={isDareOver}
                 className={classes.button}
-                onClick={handleRandomDare}
+                onClick={() => handleRandomQuestion('dare')}
               >
                 Dare
               </Button>
