@@ -72,10 +72,7 @@ function QuestionsForm() {
   }, [id, url]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
+    setValues({ ...values, [event.target.name]: event.target.value });
   }
 
   function handleQuestionType(event: { target: { value: React.SetStateAction<string>; }; }) {

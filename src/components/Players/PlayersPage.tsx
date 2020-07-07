@@ -33,10 +33,7 @@ function PlayersPage({ players, setPlayers }: Props) {
   });
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
+    setValues({ ...values, [event.target.name]: event.target.value });
   }
 
   function handleClearList() {

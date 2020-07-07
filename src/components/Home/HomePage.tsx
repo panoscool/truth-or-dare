@@ -48,9 +48,9 @@ function HomePage() {
         {!players.length && (
           <>
             <Button
-              variant="contained"
-              color="primary"
               size="large"
+              color="primary"
+              variant="contained"
               className={classes.button}
               component={Link}
               to="/game"
@@ -63,11 +63,11 @@ function HomePage() {
         {players.length > 0 && (
           <>
             <Button
-              disabled={players.length <= 0}
-              variant="contained"
-              color="primary"
               size="large"
+              color="primary"
+              variant="contained"
               className={classes.button}
+              disabled={players.length <= 0}
               component={Link}
               to="/game"
             >

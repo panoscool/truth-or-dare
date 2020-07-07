@@ -78,7 +78,7 @@ function GamePage() {
     storeSetItem(KEYS.CURRENT_QUESTION, question);
     if (type === 'truth') {
       storeSetItem(KEYS.TRUTH_QUESTIONS, truth);
-    } else if (type === 'dare') {
+    } else {
       storeSetItem(KEYS.DARE_QUESTIONS, dare);
     }
   }
@@ -86,7 +86,7 @@ function GamePage() {
   function handleFilteredQuestions(type: string) {
     if (type === 'truth') {
       return truth.filter((t: any) => !t.appeared);
-    } else if (type === 'dare') {
+    } else {
       return dare.filter((t: any) => !t.appeared);
     }
   }
