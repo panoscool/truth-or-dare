@@ -55,7 +55,7 @@ function HomePage() {
               component={Link}
               to="/game"
             >
-              Play as Guest
+              Quick Play
             </Button>
             <Typography gutterBottom>- OR -</Typography>
           </>
