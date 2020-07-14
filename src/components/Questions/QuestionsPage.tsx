@@ -15,7 +15,6 @@ import CategoriesPage from '../Shared/CategoriesPage';
 import Spinner from '../Shared/Spinner';
 import { AuthContext } from '../../context/AuthContext';
 import { OptionsContext } from '../../context/OptionsContext';
-import useQuery from '../../hooks/useQuery';
 import firebase from '../../config/firebase';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
 function QuestionsPage() {
   const classes = useStyles();
   const history = useHistory();
-  const query = useQuery();
   const { authenticated, admin } = useContext(AuthContext);
   const { category, setCategory } = useContext(OptionsContext);
   const [data, setData] = useState([]);
@@ -44,11 +42,6 @@ function QuestionsPage() {
   });
 
   useEffect(() => {
-    const qType = query.get('qType');
-    if (qType) {
-      setType(qType);
-    }
-
     let unsubscribe = firebase.firestore().collection(type)
       .where('category', '==', category)
       .orderBy('createdAt', 'desc')
@@ -72,7 +65,7 @@ function QuestionsPage() {
     return () => {
       unsubscribe();
     };
-  }, [category, query, type]);
+  }, [category, type]);
 
   async function deleteQuestion(id: string) {
     try {
@@ -84,8 +77,8 @@ function QuestionsPage() {
   }
 
   function dataSelection() {
-    const newtype = type === 'truth_questions' ? 'dare_questions' : 'truth_questions';
-    setType(newtype);
+    const newType = type === 'truth_questions' ? 'dare_questions' : 'truth_questions';
+    setType(newType);
   }
 
   const disabledBtn = !authenticated && !admin;
@@ -99,7 +92,7 @@ function QuestionsPage() {
       <Typography gutterBottom color='error'>{state.error}</Typography>
       <List dense>
         {state.loading ? <Spinner thickness={2} /> :
-          data.map((q: any) => {
+          data?.map((q: any) => {
             return (
               <ListItem button key={q.id} onClick={() => history.push(`/update/${type}/${q.id}`)}>
                 <ListItemText primary={q.question} secondary={format(q.createdAt.toDate(), 'd MMMM yyyy')} />

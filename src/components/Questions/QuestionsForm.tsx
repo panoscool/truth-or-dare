@@ -112,7 +112,7 @@ function QuestionsForm() {
       await firebase.firestore().collection(type).doc(id).update(updatedQuestion);
 
       setState({ loading: false, error: '' });
-      history.push(`/questions?qType=${type}`);
+      history.push('/questions');
     } catch (err) {
       console.error(err.message);
       setState({ loading: false, error: err.message });
