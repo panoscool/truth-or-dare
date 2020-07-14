@@ -15,6 +15,7 @@ import CategoriesPage from '../Shared/CategoriesPage';
 import Spinner from '../Shared/Spinner';
 import { AuthContext } from '../../context/AuthContext';
 import { OptionsContext } from '../../context/OptionsContext';
+import useQuery from '../../hooks/useQuery';
 import firebase from '../../config/firebase';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,22 +33,35 @@ const useStyles = makeStyles((theme) => ({
 function QuestionsPage() {
   const classes = useStyles();
   const history = useHistory();
+  const query = useQuery();
   const { authenticated, admin } = useContext(AuthContext);
   const { category, setCategory } = useContext(OptionsContext);
-  const [snapshot, setSnapshot] = useState([]);
-  const [url, setUrl] = useState('truth_questions');
+  const [data, setData] = useState([]);
+  const [type, setType] = useState('truth_questions');
   const [state, setState] = useState({
     loading: true,
     error: ''
   });
 
   useEffect(() => {
-    let unsubscribe = firebase.firestore().collection(url)
+    const qType = query.get('qType');
+    if (qType) {
+      setType(qType);
+    }
+
+    let unsubscribe = firebase.firestore().collection(type)
       .where('category', '==', category)
       .orderBy('createdAt', 'desc')
       .onSnapshot((snapshot: any) => {
 
-        setSnapshot(snapshot);
+        const data = snapshot.docs.map((doc: any) => {
+          return {
+            ...doc.data(),
+            id: doc.id
+          };
+        });
+
+        setData(data);
         setState({ loading: false, error: '' });
 
       }, (err) => {
@@ -58,11 +72,11 @@ function QuestionsPage() {
     return () => {
       unsubscribe();
     };
-  }, [category, url]);
+  }, [category, query, type]);
 
   async function deleteQuestion(id: string) {
     try {
-      await firebase.firestore().collection(url).doc(id).delete();
+      await firebase.firestore().collection(type).doc(id).delete();
     } catch (err) {
       console.error(err.message);
       setState({ loading: false, error: err.message });
@@ -70,29 +84,27 @@ function QuestionsPage() {
   }
 
   function dataSelection() {
-    const newUrl = url === 'truth_questions' ? 'dare_questions' : 'truth_questions';
-    setUrl(newUrl);
+    const newtype = type === 'truth_questions' ? 'dare_questions' : 'truth_questions';
+    setType(newtype);
   }
 
   const disabledBtn = !authenticated && !admin;
 
   return (
     <Paper className={classes.paper}>
-      <Button onClick={dataSelection} disabled={state.loading} color={url === 'dare_questions' ? 'primary' : 'secondary'} variant="contained" className={classes.button}>
-        Show {url === 'dare_questions' ? 'truth' : 'dare'} questions
+      <Button onClick={dataSelection} disabled={state.loading} color={type === 'dare_questions' ? 'primary' : 'secondary'} variant="contained" className={classes.button}>
+        Show {type === 'dare_questions' ? 'truth' : 'dare'} questions
       </Button>
       <CategoriesPage label="Categories" category={category} setCategory={setCategory} select={true} />
       <Typography gutterBottom color='error'>{state.error}</Typography>
       <List dense>
         {state.loading ? <Spinner thickness={2} /> :
-          // @ts-ignore
-          snapshot?.docs.map((doc: any) => {
-            const d = doc.data();
+          data.map((q: any) => {
             return (
-              <ListItem button key={doc.id} onClick={() => history.push(`/create/${doc.id}/${url}`)}>
-                <ListItemText primary={d.question} secondary={format(d.createdAt.toDate(), 'd MMMM yyyy')} />
+              <ListItem button key={q.id} onClick={() => history.push(`/update/${type}/${q.id}`)}>
+                <ListItemText primary={q.question} secondary={format(q.createdAt.toDate(), 'd MMMM yyyy')} />
                 <ListItemSecondaryAction>
-                  <IconButton disabled={disabledBtn} edge="end" aria-label="delete" onClick={() => deleteQuestion(doc.id)}>
+                  <IconButton disabled={disabledBtn} edge="end" aria-label="delete" onClick={() => deleteQuestion(q.id)}>
                     <DeleteIcon />
                   </IconButton>
                 </ListItemSecondaryAction>

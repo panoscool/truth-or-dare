@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 function QuestionsForm() {
   const classes = useStyles();
   const history = useHistory();
-  const { id, url } = useParams();
+  const { id, type } = useParams();
   const { width } = useWindowDimensions();
   const { userId, authenticated } = useContext(AuthContext);
   const [questionType, setQuestionType] = useState('');
@@ -51,12 +51,12 @@ function QuestionsForm() {
 
       setState({ loading: true, error: '' });
       try {
-        const doc = await firebase.firestore().collection(url).doc(id).get();
+        const doc = await firebase.firestore().collection(type).doc(id).get();
 
         setState({ loading: false, error: '' });
         if (doc.exists) {
           const d = doc.data();
-          setQuestionType(url);
+          setQuestionType(type);
           setValues({ category: d?.category, question: d?.question });
         } else {
           // doc.data() will be undefined in this case
@@ -69,7 +69,7 @@ function QuestionsForm() {
     }
 
     fetchQuestion();
-  }, [id, url]);
+  }, [id, type]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -109,10 +109,10 @@ function QuestionsForm() {
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       };
 
-      await firebase.firestore().collection(url).doc(id).update(updatedQuestion);
+      await firebase.firestore().collection(type).doc(id).update(updatedQuestion);
 
       setState({ loading: false, error: '' });
-      history.push('/questions');
+      history.push(`/questions?qType=${type}`);
     } catch (err) {
       console.error(err.message);
       setState({ loading: false, error: err.message });

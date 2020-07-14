@@ -54,7 +54,7 @@ function App() {
       {!loading ?
         <Switch>
           <Route path="/game" component={GamePage} />
-          <Route path={['/create/:id/:url', '/create']} component={QuestionsForm} />
+          <Route path={['/update/:type/:id', '/create']} component={QuestionsForm} />
           <PrivateRoute path="/questions" component={QuestionsPage} />
           <Route path="/information" component={InformationPage} />
           <Route path="/privacy-policy" component={PrivacyPolicy} />
