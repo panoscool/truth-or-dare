@@ -119,51 +119,53 @@ function GamePage() {
           playerName={playerName}
         />
 
-        {currentQuestion && playerName ? (
-          <>
-            <Button
-              size="large"
-              color="secondary"
-              variant="outlined"
-              onClick={() => handlePlayerTurn()}
-              className={classes.button}
-            >
-              Skip
-            </Button>
-            <Button
-              size="large"
-              color="primary"
-              variant="outlined"
-              className={classes.button}
-              onClick={() => handlePlayerTurn('update')}
-            >
-              Done
-            </Button>
-          </>
-        ) : (
+        <div className="animate-btnGroup">
+          {currentQuestion && playerName ? (
             <>
               <Button
                 size="large"
-                color="primary"
-                variant="contained"
-                disabled={isTruthOver}
+                color="secondary"
+                variant="outlined"
+                onClick={() => handlePlayerTurn()}
                 className={classes.button}
-                onClick={() => handleRandomQuestion('truth')}
               >
-                Truth
-              </Button>
+                Skip
+            </Button>
               <Button
                 size="large"
-                color="secondary"
-                variant="contained"
-                disabled={isDareOver}
+                color="primary"
+                variant="outlined"
                 className={classes.button}
-                onClick={() => handleRandomQuestion('dare')}
+                onClick={() => handlePlayerTurn('update')}
               >
-                Dare
-              </Button>
+                Done
+            </Button>
             </>
-          )}
+          ) : (
+              <>
+                <Button
+                  size="large"
+                  color="primary"
+                  variant="contained"
+                  disabled={isTruthOver}
+                  className={classes.button}
+                  onClick={() => handleRandomQuestion('truth')}
+                >
+                  Truth
+              </Button>
+                <Button
+                  size="large"
+                  color="secondary"
+                  variant="contained"
+                  disabled={isDareOver}
+                  className={classes.button}
+                  onClick={() => handleRandomQuestion('dare')}
+                >
+                  Dare
+              </Button>
+              </>
+            )}
+        </div>
       </Paper>
       {playerName ? <PlayersScore /> : null}
     </div>

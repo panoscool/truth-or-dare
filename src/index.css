@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
+:root {
+  --duration: 1s;
+  --timing: ease;
+}
+
 ::-webkit-scrollbar {
   width: 0px;  /* Remove scrollbar space */
   background: transparent;  /* Optional: just make scrollbar invisible */
@@ -22,3 +27,56 @@
   padding-top: 8px;
 }
 
+.animate-categories {
+  opacity: 0;
+  animation-name: categories;
+  animation-duration: var(--duration);
+  animation-fill-mode: forwards;
+  animation-timing-function: var(--timing);
+}
+
+@keyframes categories {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.animate-btnPlay {
+  opacity: 0;
+  animation-name: btnPlay;
+  animation-duration: var(--duration);
+  animation-fill-mode: forwards;
+  animation-timing-function: var(--timing);
+  animation-delay: 0.3s;
+}
+
+@keyframes btnPlay {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.animate-list {
+  opacity: 0;
+  animation-name: list;
+  animation-duration: var(--duration);
+  animation-fill-mode: forwards;
+  animation-timing-function: var(--timing);
+  animation-delay: 0.5s;
+}
+
+@keyframes list {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.animate-btnGroup {
+  opacity: 0;
+  animation-name: question;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: var(--timing);
+}
+
+@keyframes question {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}

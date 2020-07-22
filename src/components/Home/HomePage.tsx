@@ -44,42 +44,46 @@ function HomePage() {
     <Paper className={classes.paper}>
       <div className={classes.innerBlock}>
         <div className="title">Truth or Dare</div>
-        <CategoriesPage label="Game Mode" category={category} setCategory={setCategory} />
-        {!players.length && (
-          <>
-            <Button
-              size="large"
-              color="primary"
-              variant="contained"
-              className={classes.button}
-              component={Link}
-              to="/game"
-            >
-              Quick Play
+        <div className="animate-categories"><CategoriesPage label="Game Mode" category={category} setCategory={setCategory} /></div>
+        <div className="animate-btnPlay">
+          {!players.length && (
+            <>
+              <Button
+                size="large"
+                color="primary"
+                variant="contained"
+                className={classes.button}
+                component={Link}
+                to="/game"
+              >
+                Quick Play
             </Button>
-            <Typography gutterBottom>- OR -</Typography>
-          </>
-        )}
-        {players.length > 0 && (
-          <>
-            <Button
-              size="large"
-              color="primary"
-              variant="contained"
-              className={classes.button}
-              disabled={players.length <= 0}
-              component={Link}
-              to="/game"
-            >
-              Play
+              <Typography gutterBottom>- OR -</Typography>
+            </>
+          )}
+          {players.length > 0 && (
+            <>
+              <Button
+                size="large"
+                color="primary"
+                variant="contained"
+                className={classes.button}
+                disabled={players.length <= 0}
+                component={Link}
+                to="/game"
+              >
+                Play
             </Button>
-            <Typography><Details className={iconStyle} /></Typography>
-          </>
-        )}
-        <PlayersPage players={players} setPlayers={setPlayers} />
-        {!players.length && (
-          <NavList authenticated={authenticated} admin={admin} />
-        )}
+              <Typography><Details className={iconStyle} /></Typography>
+            </>
+          )}
+          <PlayersPage players={players} setPlayers={setPlayers} />
+        </div>
+        <div className="animate-list">
+          {!players.length && (
+            <NavList authenticated={authenticated} admin={admin} />
+          )}
+        </div>
         {!authenticated &&
           <Typography variant='caption' color='textSecondary'>* Login to access all categories *</Typography>}
       </div>
