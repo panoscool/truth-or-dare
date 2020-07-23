@@ -8,6 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import Tooltip from '@material-ui/core/Tooltip';
 import ClearAll from '@material-ui/icons/ClearAll';
 import ClearIcon from '@material-ui/icons/Clear';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 interface Props {
   data: Array<object>;
@@ -32,16 +33,20 @@ function PlayersList({ data, handleSelect, handleDelete, handleClearList }: Prop
         </ListItem>
         <Divider />
       </>}
-      {data?.map((p: any) => (
-        <ListItem button key={p.id} onClick={() => handleSelect(p)}>
-          <ListItemText primary={<span style={{ textTransform: 'capitalize' }}>{p.name}</span>} />
-          <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(p.id)} >
-              <ClearIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-      ))}
+      <TransitionGroup>
+        {data?.map((p: any) => (
+          <CSSTransition key={p.id} timeout={300} classNames="fade">
+            <ListItem button onClick={() => handleSelect(p)}>
+              <ListItemText primary={<span style={{ textTransform: 'capitalize' }}>{p.name}</span>} />
+              <ListItemSecondaryAction>
+                <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(p.id)} >
+                  <ClearIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
     </List>
   );
 }

@@ -33,20 +33,20 @@ function GameDisplay({ state, isTruthOver, isDareOver, questionType, currentQues
     return <Typography variant="h4">Game over</Typography>;
   } else if (questionType && currentQuestion) {
     return (
-      <div className="question">
-        <Typography variant='caption' color='textSecondary' className={classes.qType}>
+      <>
+        <Typography variant="caption" color="textSecondary" className={classes.qType}>
           {questionType}
         </Typography>
         <Typography variant="h6" className={classes.question}>
           {currentQuestion}
         </Typography>
-      </div>
+      </>
     );
   } else if (state.error) {
-    return <Typography gutterBottom color='error'>{state.error}</Typography>;
+    return <Typography gutterBottom color="error">{state.error}</Typography>;
   } else {
     return (
-      <Typography gutterBottom>
+      <Typography gutterBottom variant="h6">
         {playerName
           ? <span><span className={classes.pName}>{playerName}</span> is playing...</span>
           : 'Select a question type!'}

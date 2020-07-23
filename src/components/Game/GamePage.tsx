@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: theme.spacing(2)
+  },
+  text: {
+    minHeight: 100
   }
 }));
 
@@ -110,15 +113,16 @@ function GamePage() {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <GameDisplay
-          state={state}
-          isTruthOver={isTruthOver}
-          isDareOver={isDareOver}
-          questionType={questionType}
-          currentQuestion={currentQuestion}
-          playerName={playerName}
-        />
-
+        <div className={classes.text}>
+          <GameDisplay
+            state={state}
+            isTruthOver={isTruthOver}
+            isDareOver={isDareOver}
+            questionType={questionType}
+            currentQuestion={currentQuestion}
+            playerName={playerName}
+          />
+        </div>
         <div className="animate-btnGroup">
           {currentQuestion && playerName ? (
             <>

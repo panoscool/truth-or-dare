@@ -9,6 +9,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CategoriesPage from '../Shared/CategoriesPage';
@@ -91,19 +92,21 @@ function QuestionsPage() {
       <CategoriesPage label="Categories" category={category} setCategory={setCategory} select={true} />
       <Typography gutterBottom color='error'>{state.error}</Typography>
       <List dense>
-        {state.loading ? <Spinner thickness={2} /> :
-          data?.map((q: any) => {
-            return (
-              <ListItem button key={q.id} onClick={() => history.push(`/update/${type}/${q.id}`)}>
-                <ListItemText primary={q.question} secondary={format(q.createdAt.toDate(), 'd MMMM yyyy')} />
-                <ListItemSecondaryAction>
-                  <IconButton disabled={disabledBtn} edge="end" aria-label="delete" onClick={() => deleteQuestion(q.id)}>
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            );
-          })}
+        <TransitionGroup>
+          {state.loading ? <Spinner thickness={2} /> :
+            data?.map((q: any) => (
+              <CSSTransition key={q.id} timeout={300} classNames="fade">
+                <ListItem button onClick={() => history.push(`/update/${type}/${q.id}`)}>
+                  <ListItemText primary={q.question} secondary={format(q.createdAt.toDate(), 'd MMMM yyyy')} />
+                  <ListItemSecondaryAction>
+                    <IconButton disabled={disabledBtn} edge="end" aria-label="delete" onClick={() => deleteQuestion(q.id)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </CSSTransition>
+            ))}
+        </TransitionGroup>
       </List>
     </Paper>
   );

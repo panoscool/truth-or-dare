@@ -70,13 +70,31 @@
 
 .animate-btnGroup {
   opacity: 0;
-  animation-name: question;
+  animation-name: btnGroup;
   animation-duration: 1.5s;
   animation-fill-mode: forwards;
   animation-timing-function: var(--timing);
 }
 
-@keyframes question {
+@keyframes btnGroup {
   0% {opacity: 0;}
   100% {opacity: 1;}
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-out;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-out;
 }
