@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 
 :root {
   --duration: 1s;
@@ -19,10 +19,10 @@
 	background-clip: text;
   -webkit-background-clip: text;
 	text-transform: uppercase;
-	font-size: 2rem;
+	font-size: 3rem;
 	line-height: .75;
-  font-family: 'Ubuntu', sans-serif;
-  letter-spacing: 1px;
+  font-family: 'Luckiest Guy', cursive, sans-serif;
+  letter-spacing: 0.35rem;
   padding-bottom: 16px;
   padding-top: 8px;
 }
@@ -97,4 +97,11 @@
 .fade-exit-active {
   opacity: 0;
   transition: opacity 300ms ease-out;
+}
+
+@media (max-width: 465px) {
+  .title {
+    font-size: 2rem;
+    letter-spacing: 0.25rem;
+  }
 }
