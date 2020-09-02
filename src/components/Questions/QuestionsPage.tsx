@@ -35,12 +35,12 @@ function QuestionsPage() {
   const history = useHistory();
   const { authenticated, admin } = useContext(AuthContext);
   const { category, setCategory } = useContext(OptionsContext);
-  const [data, setData] = useState([]);
   const [type, setType] = useState('truth_questions');
-  const [state, setState] = useState({
-    loading: true,
-    error: ''
-  });
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  console.log(loading);
 
   useEffect(() => {
     let unsubscribe = firebase.firestore().collection(type)
@@ -56,11 +56,12 @@ function QuestionsPage() {
         });
 
         setData(data);
-        setState({ loading: false, error: '' });
+        setLoading(false);
 
-      }, (err) => {
+      }, (err: any) => {
         console.error(err.message);
-        setState({ loading: false, error: err.message });
+        setError(err.message);
+        setLoading(false);
       });
 
     return () => {
@@ -73,7 +74,8 @@ function QuestionsPage() {
       await firebase.firestore().collection(type).doc(id).delete();
     } catch (err) {
       console.error(err.message);
-      setState({ loading: false, error: err.message });
+      setError(err.message);
+      setLoading(false);
     }
   }
 
@@ -84,28 +86,28 @@ function QuestionsPage() {
 
   const disabledBtn = !authenticated && !admin;
 
+  if (loading) return <Spinner thickness={2} />;
   return (
     <Paper className={classes.paper}>
-      <Button onClick={dataSelection} disabled={state.loading} color={type === 'dare_questions' ? 'primary' : 'secondary'} variant="contained" className={classes.button}>
+      <Button onClick={dataSelection} disabled={loading} color={type === 'dare_questions' ? 'primary' : 'secondary'} variant="contained" className={classes.button}>
         Show {type === 'dare_questions' ? 'truth' : 'dare'} questions
       </Button>
       <CategoriesPage label="Categories" category={category} setCategory={setCategory} select={true} />
-      <Typography gutterBottom color='error'>{state.error}</Typography>
+      <Typography gutterBottom color='error'>{error}</Typography>
       <List dense>
         <TransitionGroup>
-          {state.loading ? <Spinner thickness={2} /> :
-            data?.map((q: any) => (
-              <CSSTransition key={q.id} timeout={300} classNames="fade">
-                <ListItem button onClick={() => history.push(`/update/${type}/${q.id}`)}>
-                  <ListItemText primary={q.question} secondary={format(q.createdAt.toDate(), 'd MMMM yyyy')} />
-                  <ListItemSecondaryAction>
-                    <IconButton disabled={disabledBtn} edge="end" aria-label="delete" onClick={() => deleteQuestion(q.id)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              </CSSTransition>
-            ))}
+          {loading ? <Spinner thickness={2} /> : data?.map((q: any) => (
+            <CSSTransition key={q.id} timeout={300} classNames="fade">
+              <ListItem button onClick={() => history.push(`/update/${type}/${q.id}`)}>
+                <ListItemText primary={q.question} secondary={format(q.createdAt.toDate(), 'd MMMM yyyy')} />
+                <ListItemSecondaryAction>
+                  <IconButton disabled={disabledBtn} edge="end" aria-label="delete" onClick={() => deleteQuestion(q.id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            </CSSTransition>
+          ))}
         </TransitionGroup>
       </List>
     </Paper>

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useContext, useEffect } from 'react';
 import cuid from 'cuid';
 import { useParams, useHistory } from 'react-router-dom';

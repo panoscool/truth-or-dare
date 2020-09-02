@@ -47,22 +47,22 @@ function App() {
   // @ts-ignore - Change theme color when user switches on/off dark mode
   document.querySelector('meta[name=theme-color]').setAttribute('content', theme === 'light' ? '#ffffff' : '#000000');
 
+  if (loading) return <Spinner thickness={1} />;
+
   return (
     <Fragment>
       <ModalManager />
       <Navbar />
-      {!loading ?
-        <Switch>
-          <Route path="/game" component={GamePage} />
-          <Route path={['/update/:type/:id', '/create']} component={QuestionsForm} />
-          <PrivateRoute path="/questions" component={QuestionsPage} />
-          <Route path="/information" component={InformationPage} />
-          <Route path="/privacy-policy" component={PrivacyPolicy} />
-          <PublicRoute path='/recovery' component={RecoveryPage} />
-          <Route exact path="/" component={HomePage} />
-          <Route component={NotFoundPage} />
-        </Switch>
-        : <Spinner thickness={1} />}
+      <Switch>
+        <Route path="/game" component={GamePage} />
+        <Route path={['/update/:type/:id', '/create']} component={QuestionsForm} />
+        <PrivateRoute path="/questions" component={QuestionsPage} />
+        <Route path="/information" component={InformationPage} />
+        <Route path="/privacy-policy" component={PrivacyPolicy} />
+        <PublicRoute path='/recovery' component={RecoveryPage} />
+        <Route exact path="/" component={HomePage} />
+        <Route component={NotFoundPage} />
+      </Switch>
     </Fragment>
   );
 }

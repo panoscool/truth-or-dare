@@ -151,8 +151,8 @@ function GamePage() {
                   size="large"
                   color="primary"
                   variant="contained"
-                  disabled={isTruthOver}
                   className={classes.button}
+                  disabled={isTruthOver || state.loading}
                   onClick={() => handleRandomQuestion('truth')}
                 >
                   Truth
@@ -161,8 +161,8 @@ function GamePage() {
                   size="large"
                   color="secondary"
                   variant="contained"
-                  disabled={isDareOver}
                   className={classes.button}
+                  disabled={isDareOver || state.loading}
                   onClick={() => handleRandomQuestion('dare')}
                 >
                   Dare
