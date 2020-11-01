@@ -27,6 +27,8 @@ interface Props {
 function GameDisplay({ state, isTruthOver, isDareOver, questionType, currentQuestion, currentPlayer }: Props) {
   const classes = useStyles();
 
+  const playerName = <span className={classes.pName}>{currentPlayer}</span>;
+
   if (state.loading) {
     return <Spinner thickness={2} />;
   } else if (isTruthOver && isDareOver) {
@@ -48,7 +50,7 @@ function GameDisplay({ state, isTruthOver, isDareOver, questionType, currentQues
     return (
       <Typography gutterBottom variant="h6">
         {currentPlayer
-          ? <span><span className={classes.pName}>{currentPlayer}</span> is playing...</span>
+          ? <span>{playerName} is playing...</span>
           : 'Select a question type!'}
       </Typography>
     );

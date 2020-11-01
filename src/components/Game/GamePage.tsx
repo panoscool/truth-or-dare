@@ -72,10 +72,6 @@ function GamePage() {
     storeRemoveItem(KEYS.CURRENT_QUESTION);
   }
 
-  function getRandomInt(max: string) {
-    return Math.floor(Math.random() * max.length);
-  }
-
   function handleStorage(type: string, question: string) {
     storeSetItem(KEYS.QUESTION_TYPE, type);
     storeSetItem(KEYS.CURRENT_QUESTION, question);
@@ -86,7 +82,11 @@ function GamePage() {
     }
   }
 
-  function handleFilteredQuestions(type: string) {
+  function getRandomInt(max: string) {
+    return Math.floor(Math.random() * max.length);
+  }
+
+  function getFilteredQuestions(type: string) {
     if (type === 'truth') {
       return truth.filter((t: any) => !t.appeared);
     } else {
@@ -95,7 +95,7 @@ function GamePage() {
   }
 
   function handleRandomQuestion(qType: string) {
-    const remainedQuestions = handleFilteredQuestions(qType);
+    const remainedQuestions = getFilteredQuestions(qType);
     const randomNum = getRandomInt(remainedQuestions);
 
     if (remainedQuestions.length > 0) {
