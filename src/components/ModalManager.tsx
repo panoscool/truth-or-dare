@@ -1,6 +1,6 @@
 // @ts-nocheck
-import React, { useContext } from 'react';
-import { ThemeContext } from '../context/ThemeContext';
+import React from 'react';
+import useTheme from '../hooks/useTheme';
 import AdminForm from './Authentication/AdminForm';
 import SignInForm from './Authentication/SignInForm';
 import SignUpForm from './Authentication/SignUpForm';
@@ -14,7 +14,7 @@ const modals = {
 };
 
 function ModalManager() {
-  const { modal } = useContext(ThemeContext);
+  const { modal } = useTheme();
 
   if (modal && modals[modal]) {
     const ModalComponent = modals[modal];

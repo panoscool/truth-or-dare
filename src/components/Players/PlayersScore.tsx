@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -7,7 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { OptionsContext } from '../../context/OptionsContext';
+import useGameOptions from '../../hooks/useGameOptions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,9 +23,9 @@ const useStyles = makeStyles((theme) => ({
 
 function PlayersScore() {
   const classes = useStyles();
-  const { players } = useContext(OptionsContext);
+  const { players } = useGameOptions();
 
-  const transformedList = players?.map((obj) => {
+  const transformedList = players?.map((obj: any) => {
     return {
       ...(obj as any),
       // @ts-ignore

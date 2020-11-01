@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -6,14 +6,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { ThemeContext } from '../../context/ThemeContext';
-import { OptionsContext } from '../../context/OptionsContext';
 import { storeClearAll, CLEAR_KEYS } from '../../config/store';
+import useTheme from '../../hooks/useTheme';
+import useGameOptions from '../../hooks/useGameOptions';
 
 function ConfirmExitDialog() {
   const history = useHistory();
-  const { modal, setModal } = useContext(ThemeContext);
-  const { setCategory, setPlayers } = useContext(OptionsContext);
+  const { modal, setModal } = useTheme();
+  const { setCategory, setPlayers } = useGameOptions();
 
   function handleClose(redirect: any) {
     if (redirect === 'game') {

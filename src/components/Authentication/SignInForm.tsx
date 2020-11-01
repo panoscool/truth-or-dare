@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -9,8 +9,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
 import TextInput from '../Shared/TextInput';
 import SocialLogin from './SocialLogin';
-import { ThemeContext } from '../../context/ThemeContext';
-import firebase from '../../config/firebase';
+import useAuthentication from '../../hooks/useAuthentication';
+import useTheme from '../../hooks/useTheme';
 
 const useStyles = makeStyles((theme) => ({
   closeButton: {
@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
 function SignInForm() {
   const classes = useStyles();
   const history = useHistory();
-  const { modal, setModal } = useContext(ThemeContext);
+  const { modal, setModal } = useTheme();
+  const { signin } = useAuthentication();
   const [error, setError] = useState(null);
   const [values, setValues] = useState({
     email: '',
@@ -54,7 +55,7 @@ function SignInForm() {
     event.preventDefault();
 
     try {
-      await firebase.auth().signInWithEmailAndPassword(values.email, values.password);
+      await signin(values.email, values.password);
 
       handleClose();
     } catch (err) {

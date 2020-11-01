@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Button } from '@material-ui/core';
-import { OptionsContext } from '../../context/OptionsContext';
 import GameDisplay from './GameDisplay';
+import useGameOptions from '../../hooks/useGameOptions';
 import PlayersScore from '../Players/PlayersScore';
 import { storeSetItem, storeGetItem, storeRemoveItem, KEYS } from '../../config/store';
-import firebase from '../../config/firebase';
+import { firestore } from '../../config/firebase';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,9 +25,9 @@ const useStyles = makeStyles((theme) => ({
 
 function GamePage() {
   const classes = useStyles();
-  const { category, playerName, nextPlayer, scoreUpdate } = useContext(OptionsContext);
   const [isTruthOver, setTruthOver] = useState(false);
   const [isDareOver, setDareOver] = useState(false);
+  const { category, currentPlayer, nextPlayer, scoreUpdate } = useGameOptions();
   const [questionType, setQuestionType] = useState(storeGetItem(KEYS.QUESTION_TYPE) || null);
   const [currentQuestion, setCurrentQuestion] = useState(storeGetItem(KEYS.CURRENT_QUESTION) || null);
   const [truth, setTruth] = useState(storeGetItem(KEYS.TRUTH_QUESTIONS) || []);
@@ -42,8 +42,8 @@ function GamePage() {
       setState({ loading: true, error: null });
 
       try {
-        const t = await firebase.firestore().collection('truth_questions').get();
-        const d = await firebase.firestore().collection('dare_questions').get();
+        const t = await firestore.collection('truth_questions').get();
+        const d = await firestore.collection('dare_questions').get();
 
         setTruth(t.docs.map((doc) => doc.data()).filter((t) => t.category === category));
         setDare(d.docs.map((doc) => doc.data()).filter((d) => d.category === category));
@@ -120,11 +120,11 @@ function GamePage() {
             isDareOver={isDareOver}
             questionType={questionType}
             currentQuestion={currentQuestion}
-            playerName={playerName}
+            currentPlayer={currentPlayer}
           />
         </div>
         <div className="animate-btnGroup">
-          {currentQuestion && playerName ? (
+          {currentQuestion && currentPlayer ? (
             <>
               <Button
                 size="large"
@@ -171,7 +171,7 @@ function GamePage() {
             )}
         </div>
       </Paper>
-      {playerName ? <PlayersScore /> : null}
+      {currentPlayer ? <PlayersScore /> : null}
     </div>
   );
 }

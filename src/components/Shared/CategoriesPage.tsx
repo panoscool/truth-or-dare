@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import cuid from 'cuid';
 import RadioInput from './RadioInput';
 import SelectInput from './SelectInput';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
-import { AuthContext } from '../../context/AuthContext';
 import { storeSetItem, KEYS } from '../../config/store';
+import useAuthentication from '../../hooks/useAuthentication';
 
 interface Props {
   name?: string;
@@ -16,7 +16,7 @@ interface Props {
 
 function CategoriesPage({ select, category, setCategory, ...rest }: Props) {
   const { width } = useWindowDimensions();
-  const { authenticated } = useContext(AuthContext);
+  const { authenticated } = useAuthentication();
 
   function handleChange(event: React.ChangeEvent<{ value: unknown }>) {
     setCategory(event.target.value as string);

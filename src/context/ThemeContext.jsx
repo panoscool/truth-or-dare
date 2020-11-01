@@ -1,23 +1,21 @@
-import React, { useState, createContext, ReactNode } from 'react';
+import React, { useState, createContext } from 'react';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { blue, red } from '@material-ui/core/colors';
 import { storeGetTheme } from '../config/store';
 
-interface Props {
-  children: ReactNode;
-}
-
-export const ThemeContext = createContext({
+const initValues = {
   modal: null,
   theme: 'dark',
-  setTheme: (e: string) => { },
-  setModal: (e: any) => { }
-});
+  setTheme: (e) => { },
+  setModal: (e) => { }
+};
 
-export default ({ children }: Props) => {
-  const [modal, setModal] = useState<any>(null);
-  const [theme, setTheme] = useState<any>(storeGetTheme() || 'dark');
+export const ThemeContext = createContext(initValues);
+
+export default ({ children }) => {
+  const [modal, setModal] = useState(null);
+  const [theme, setTheme] = useState(storeGetTheme() || 'dark');
 
   const muiTheme = createMuiTheme({
     palette: {
@@ -30,15 +28,15 @@ export default ({ children }: Props) => {
     }
   });
 
+  const values = {
+    theme,
+    setTheme,
+    modal,
+    setModal
+  };
+
   return (
-    <ThemeContext.Provider
-      value={{
-        theme: theme,
-        setTheme: setTheme,
-        modal: modal,
-        setModal: setModal
-      }}
-    >
+    <ThemeContext.Provider value={values}>
       <ThemeProvider theme={muiTheme}>{children}</ThemeProvider>
     </ThemeContext.Provider>
   );

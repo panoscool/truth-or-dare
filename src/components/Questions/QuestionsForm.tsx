@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import cuid from 'cuid';
 import { useParams, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,9 +7,9 @@ import { Button, Paper, Typography } from '@material-ui/core';
 import TextInput from '../Shared/TextInput';
 import RadioInput from '../Shared/RadioInput';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
-import { AuthContext } from '../../context/AuthContext';
 import Spinner from '../Shared/Spinner';
-import firebase from '../../config/firebase';
+import firebase, { firestore } from '../../config/firebase';
+import useAuthentication from '../../hooks/useAuthentication';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,7 +35,7 @@ function QuestionsForm() {
   const history = useHistory();
   const { id, type } = useParams();
   const { width } = useWindowDimensions();
-  const { userId, authenticated } = useContext(AuthContext);
+  const { uid, authenticated } = useAuthentication();
   const [questionType, setQuestionType] = useState('');
   const [values, setValues] = useState({
     category: '',
@@ -52,7 +52,7 @@ function QuestionsForm() {
 
       setState({ loading: true, error: '' });
       try {
-        const doc = await firebase.firestore().collection(type).doc(id).get();
+        const doc = await firestore.collection(type).doc(id).get();
 
         setState({ loading: false, error: '' });
         if (doc.exists) {
@@ -86,11 +86,11 @@ function QuestionsForm() {
 
       const newQuestion = {
         ...values,
-        userId: userId,
+        userId: uid,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       };
 
-      await firebase.firestore().collection(questionType).add(newQuestion);
+      await firestore.collection(questionType).add(newQuestion);
 
       setState({ loading: false, error: '' });
       setQuestionType('');
@@ -110,7 +110,7 @@ function QuestionsForm() {
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       };
 
-      await firebase.firestore().collection(type).doc(id).update(updatedQuestion);
+      await firestore.collection(type).doc(id).update(updatedQuestion);
 
       setState({ loading: false, error: '' });
       history.push('/questions');

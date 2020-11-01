@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -8,8 +8,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
 import TextInput from '../Shared/TextInput';
 import SocialLogin from './SocialLogin';
-import { ThemeContext } from '../../context/ThemeContext';
-import firebase from '../../config/firebase';
+import useAuthentication from '../../hooks/useAuthentication';
+import useTheme from '../../hooks/useTheme';
 
 const useStyles = makeStyles((theme) => ({
   closeButton: {
@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
 
 function SignUpForm() {
   const classes = useStyles();
-  const { modal, setModal } = useContext(ThemeContext);
+  const { modal, setModal } = useTheme();
+  const { signup } = useAuthentication();
   const [error, setError] = useState(null);
   const [values, setValues] = useState({
     displayName: '',
@@ -45,7 +46,8 @@ function SignUpForm() {
     event.preventDefault();
 
     try {
-      const createdUser = await firebase.auth().createUserWithEmailAndPassword(values.email, values.password);
+      // It has effect, otherwise createdUser will be undefined
+      const createdUser = await signup(values.email, values.password);
       // @ts-ignore
       await createdUser.user.updateProfile({ displayName: values.displayName });
 

@@ -6,7 +6,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import firebase from '../../config/firebase';
+import useAuthentication from '../../hooks/useAuthentication';
 
 const useStyles = makeStyles((theme) => ({
   small: {
@@ -29,6 +29,7 @@ interface Props {
 function AuthMenu({ admin, authenticated, displayName, photoURL, setModal }: Props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
+  const { signout } = useAuthentication();
   const open = Boolean(anchorEl);
 
   function handleMenu(event: any) {
@@ -41,9 +42,14 @@ function AuthMenu({ admin, authenticated, displayName, photoURL, setModal }: Pro
     setAnchorEl(null);
   };
 
-  function handleLogout() {
-    firebase.auth().signOut();
-    setAnchorEl(null);
+  async function handleLogout() {
+    try {
+      await signout();
+      setAnchorEl(null);
+    } catch {
+      console.error('Failed to log out');
+    }
+
   }
 
   function renderAvatar() {

@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Paper } from '@material-ui/core';
 import Details from '@material-ui/icons/Details';
-import { ThemeContext } from '../../context/ThemeContext';
-import { AuthContext } from '../../context/AuthContext';
-import { OptionsContext } from '../../context/OptionsContext';
 import CategoriesPage from '../Shared/CategoriesPage';
 import PlayersPage from '../Players/PlayersPage';
 import NavList from './NavList';
+import useTheme from '../../hooks/useTheme';
+import useAuthentication from '../../hooks/useAuthentication';
+import useGameOptions from '../../hooks/useGameOptions';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,9 +34,9 @@ const useStyles = makeStyles((theme) => ({
 
 function HomePage() {
   const classes = useStyles();
-  const { theme } = useContext(ThemeContext);
-  const { authenticated, admin } = useContext(AuthContext);
-  const { players, setPlayers, category, setCategory } = useContext(OptionsContext);
+  const { theme } = useTheme();
+  const { authenticated, admin } = useAuthentication();
+  const { players, setPlayers, category, setCategory } = useGameOptions();
 
   const iconStyle = theme === 'dark' ? classes.iconDark : classes.iconLight;
 

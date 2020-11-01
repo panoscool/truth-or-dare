@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navigation/Navbar';
 import HomePage from './components/Home/HomePage';
@@ -13,35 +13,20 @@ import ModalManager from './components/ModalManager';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
 import Spinner from './components/Shared/Spinner';
-import { AuthContext } from './context/AuthContext';
-import { ThemeContext } from './context/ThemeContext';
-import firebase from './config/firebase';
+import useAuthentication from './hooks/useAuthentication';
+import { analytics } from './config/firebase';
+import useTheme from './hooks/useTheme';
 
 function App() {
+  const { theme } = useTheme();
   const { pathname } = useLocation();
-  const { theme } = useContext(ThemeContext);
-  const [loading, setLoading] = useState(true);
-  const { setUser, setAdmin } = useContext(AuthContext);
-
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      user.getIdTokenResult().then((idTokenResult) => {
-        setAdmin(idTokenResult.claims.admin);
-      });
-      setUser(user);
-      setLoading(false);
-    } else {
-      setUser(null);
-      setAdmin(false);
-      setLoading(false);
-    }
-  });
+  const { loading } = useAuthentication();
 
   useEffect(() => {
     let page_location = pathname;
     let page_referrer = document.referrer;
 
-    firebase.analytics().logEvent('page_view', { page_location, page_referrer });
+    analytics.logEvent('page_view', { page_location, page_referrer });
   }, [pathname]);
 
   // @ts-ignore - Change theme color when user switches on/off dark mode

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import format from 'date-fns/format';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,9 +14,9 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CategoriesPage from '../Shared/CategoriesPage';
 import Spinner from '../Shared/Spinner';
-import { AuthContext } from '../../context/AuthContext';
-import { OptionsContext } from '../../context/OptionsContext';
-import firebase from '../../config/firebase';
+import useGameOptions from '../../hooks/useGameOptions';
+import useAuthentication from '../../hooks/useAuthentication';
+import { firestore } from '../../config/firebase';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,17 +33,15 @@ const useStyles = makeStyles((theme) => ({
 function QuestionsPage() {
   const classes = useStyles();
   const history = useHistory();
-  const { authenticated, admin } = useContext(AuthContext);
-  const { category, setCategory } = useContext(OptionsContext);
+  const { authenticated, admin } = useAuthentication();
+  const { category, setCategory } = useGameOptions();
   const [type, setType] = useState('truth_questions');
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  console.log(loading);
-
   useEffect(() => {
-    let unsubscribe = firebase.firestore().collection(type)
+    let unsubscribe = firestore.collection(type)
       .where('category', '==', category)
       .orderBy('createdAt', 'desc')
       .onSnapshot((snapshot: any) => {
@@ -71,7 +69,7 @@ function QuestionsPage() {
 
   async function deleteQuestion(id: string) {
     try {
-      await firebase.firestore().collection(type).doc(id).delete();
+      await firestore.collection(type).doc(id).delete();
     } catch (err) {
       console.error(err.message);
       setError(err.message);

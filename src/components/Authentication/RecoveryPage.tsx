@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Paper } from '@material-ui/core';
 import TextInput from '../Shared/TextInput';
-import firebase from '../../config/firebase';
+import useAuthentication from '../../hooks/useAuthentication';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 function RecoveryPage() {
   const classes = useStyles();
+  const { resetPassword } = useAuthentication();
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState({
     type: '',
@@ -45,13 +46,13 @@ function RecoveryPage() {
     event.preventDefault();
 
     try {
-      await firebase.auth().sendPasswordResetEmail(email);
+      await resetPassword(email);
 
       setEmail('');
-      setMessage({ type: 'success', text: 'Please check your email and follow the instractions.' });
+      setMessage({ type: 'success', text: 'Check your inbox for further instractions' });
     } catch (err) {
       console.error(err.message);
-      setMessage({ type: 'error', text: 'Something went wrong, please check your email and try again.' });
+      setMessage({ type: 'error', text: 'Failed to reset password' });
     }
   }
 
@@ -60,7 +61,7 @@ function RecoveryPage() {
       <div className={classes.innerBlock}>
         <div className="title">Truth or Dare</div>
         <div className={classes.typography}>
-          <Typography color='textPrimary'>Password Recovery</Typography>
+          <Typography color='textPrimary'>Password Reset</Typography>
           <Typography color='textSecondary'>Add your registered email to reset you password.</Typography>
         </div>
         <Typography className={message.type === 'success' ? classes.success : classes.error}>{message.text}</Typography>

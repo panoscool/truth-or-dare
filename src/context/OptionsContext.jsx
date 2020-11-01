@@ -1,29 +1,27 @@
-import React, { useState, createContext, ReactNode } from 'react';
+import React, { useState, createContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { storeSetItem, storeGetItem, KEYS } from '../config/store';
 
-interface Props {
-  children: ReactNode;
-}
-
-export const OptionsContext = createContext({
+const initValues = {
   players: [],
   category: null,
-  playerName: null,
-  setPlayers: (e: any) => { },
-  setCategory: (e: any) => { },
+  currentPlayer: null,
+  setPlayers: (e) => { },
+  setCategory: (e) => { },
   nextPlayer: () => { },
-  scoreUpdate: (e: any) => { }
-});
+  scoreUpdate: (e) => { }
+};
 
-export default ({ children }: Props) => {
+export const OptionsContext = createContext(initValues);
+
+function OptionsProvider({ children }) {
   const { pathname } = useLocation();
   const [playerIndex, setPlayerIndex] = useState(storeGetItem(KEYS.PLAYER_TURN) || 0);
   const [players, setPlayers] = useState(storeGetItem(KEYS.PLAYERS_LIST) || []);
   const [category, setCategory] = useState(storeGetItem(KEYS.QUESTION_CATEGORY) || 'funny');
 
-  function scoreUpdate(qType: string) {
-    const newPlayers = players.map((p: any, idx: string) => {
+  function scoreUpdate(qType) {
+    const newPlayers = players.map((p, idx) => {
       if (idx === playerIndex) {
         p.score[qType] = p.score[qType] + 1;
       }
@@ -46,19 +44,21 @@ export default ({ children }: Props) => {
 
   const currentPlayer = pathname === '/game' && players.length && players[playerIndex].name;
 
+  const values = {
+    players,
+    category,
+    currentPlayer,
+    setPlayers,
+    setCategory,
+    nextPlayer,
+    scoreUpdate
+  };
+
   return (
-    <OptionsContext.Provider
-      value={{
-        players: players,
-        category: category,
-        playerName: currentPlayer,
-        setPlayers: setPlayers,
-        setCategory: setCategory,
-        nextPlayer: nextPlayer,
-        scoreUpdate: scoreUpdate
-      }}
-    >
+    <OptionsContext.Provider value={values}>
       {children}
     </OptionsContext.Provider>
   );
 };
+
+export default OptionsProvider;

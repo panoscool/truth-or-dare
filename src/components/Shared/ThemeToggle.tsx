@@ -1,17 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Switch from '@material-ui/core/Switch';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import WBSunny from '@material-ui/icons/WbSunny';
-import { ThemeContext } from '../../context/ThemeContext';
 import { storeSetTheme } from '../../config/store';
+import useTheme from '../../hooks/useTheme';
 
 interface Props {
   btnType?: string;
 }
 
 function ThemeToggle({ btnType }: Props) {
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme, setTheme } = useTheme();
 
   function toggleThemeMode() {
     const themeMode = theme === 'light' ? 'dark' : 'light';

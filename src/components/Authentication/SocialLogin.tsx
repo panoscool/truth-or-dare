@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
-import { ThemeContext } from '../../context/ThemeContext';
-import firebase from '../../config/firebase';
 import Facebook from '../Icons/Facebook';
 import Google from '../Icons/Google';
+import useAuthentication from '../../hooks/useAuthentication';
+import useTheme from '../../hooks/useTheme';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,18 +18,14 @@ const useStyles = makeStyles((theme) => ({
 
 function SocialLogin() {
   const classes = useStyles();
-  const { setModal } = useContext(ThemeContext);
+  const { setModal } = useTheme();
+  const { socialLogin } = useAuthentication();
 
   async function handleSocialLogin(selectedProvider: any) {
     try {
       setModal(null);
 
-      const provider = {
-        facebook: new firebase.auth.FacebookAuthProvider(),
-        google: new firebase.auth.GoogleAuthProvider()
-      };
-      // @ts-ignore
-      await firebase.auth().signInWithPopup(provider[selectedProvider]);
+      await socialLogin(selectedProvider);
 
     } catch (err) {
       console.error(err);

@@ -21,10 +21,10 @@ interface Props {
   isDareOver: boolean;
   questionType: string;
   currentQuestion: string;
-  playerName: string | null;
+  currentPlayer: string | null;
 }
 
-function GameDisplay({ state, isTruthOver, isDareOver, questionType, currentQuestion, playerName }: Props) {
+function GameDisplay({ state, isTruthOver, isDareOver, questionType, currentQuestion, currentPlayer }: Props) {
   const classes = useStyles();
 
   if (state.loading) {
@@ -47,8 +47,8 @@ function GameDisplay({ state, isTruthOver, isDareOver, questionType, currentQues
   } else {
     return (
       <Typography gutterBottom variant="h6">
-        {playerName
-          ? <span><span className={classes.pName}>{playerName}</span> is playing...</span>
+        {currentPlayer
+          ? <span><span className={classes.pName}>{currentPlayer}</span> is playing...</span>
           : 'Select a question type!'}
       </Typography>
     );

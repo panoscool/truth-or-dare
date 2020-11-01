@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import useAuthentication from '../hooks/useAuthentication';
 
 function PublicRoute({ component: Component, ...rest }) {
-  const { authenticated } = useContext(AuthContext);
+  const { authenticated } = useAuthentication();
 
   return (
     <Route {...rest} component={(props) => (
