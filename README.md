@@ -1,9 +1,9 @@
 ### Installation
 - Clone `git clone`
-- Run `npm install`
+- Run `yarn install`
 
 ### Development
 - Add your firebase config
-- Run `npm start`
+- Run `yarn start`
 
 Live demo: https://tord.netlify.com/
