@@ -1,15 +1,15 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Button, Typography } from "@material-ui/core";
-import Google from "../Icons/Google";
-import Facebook from "../Icons/Facebook";
-import Twitter from "../Icons/Twitter";
-import useAuthentication from "../../hooks/useAuthentication";
-import useTheme from "../../hooks/useTheme";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, Typography } from '@material-ui/core';
+import Google from '../Icons/Google';
+import Facebook from '../Icons/Facebook';
+import Twitter from '../Icons/Twitter';
+import useAuthentication from '../../hooks/useAuthentication';
+import useTheme from '../../hooks/useTheme';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    textAlign: "center",
+    textAlign: 'center',
     margin: theme.spacing(2, 0),
   },
   button: {
@@ -36,18 +36,18 @@ function SocialLogin() {
     <div className={classes.root}>
       <Typography>- OR -</Typography>
       <Button
-        onClick={() => handleSocialLogin("google")}
-        startIcon={<Google />}
+        onClick={() => handleSocialLogin('google')}
+        startIcon={<Google height="28px" />}
         className={classes.button}
         fullWidth
-        color="default"
+        color="secondary"
         variant="outlined"
       >
         Continue with Google
       </Button>
       <Button
-        onClick={() => handleSocialLogin("facebook")}
-        startIcon={<Facebook />}
+        onClick={() => handleSocialLogin('facebook')}
+        startIcon={<Facebook height="28px" />}
         className={classes.button}
         fullWidth
         color="primary"
@@ -56,14 +56,14 @@ function SocialLogin() {
         Continue with Facebook
       </Button>
       <Button
-        onClick={() => handleSocialLogin("twitter")}
-        startIcon={<Twitter />}
+        onClick={() => handleSocialLogin('twitter')}
+        startIcon={<Twitter height="28px" />}
         className={classes.button}
         fullWidth
-        color="primary"
+        color="default"
         variant="outlined"
       >
-        Continue with Facebook
+        Continue with Twitter
       </Button>
     </div>
   );

@@ -9,11 +9,11 @@ const initValues = {
   displayName: null,
   photoURL: null,
   authenticated: null,
-  signup: (email, password) => { },
-  signin: (email, password) => { },
-  signout: () => { },
-  socialLogin: (provider) => { },
-  resetPassword: (email) => { }
+  signup: (email, password) => {},
+  signin: (email, password) => {},
+  signout: () => {},
+  socialLogin: (provider) => {},
+  resetPassword: (email) => {},
 };
 
 export const AuthContext = createContext(initValues);
@@ -59,8 +59,9 @@ function AuthProvider({ children }) {
 
   function socialLogin(selectedProvider) {
     const provider = {
+      google: new firebase.auth.GoogleAuthProvider(),
       facebook: new firebase.auth.FacebookAuthProvider(),
-      google: new firebase.auth.GoogleAuthProvider()
+      twitter: new firebase.auth.TwitterAuthProvider(),
     };
     return auth.signInWithPopup(provider[selectedProvider]);
   }
@@ -80,14 +81,10 @@ function AuthProvider({ children }) {
     signin,
     signout,
     socialLogin,
-    resetPassword
+    resetPassword,
   };
 
-  return (
-    <AuthContext.Provider value={values}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
+  return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
+}
 
 export default AuthProvider;
