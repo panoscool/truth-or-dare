@@ -60,7 +60,6 @@ function AuthProvider({ children }) {
   function socialLogin(selectedProvider) {
     const provider = {
       google: new firebase.auth.GoogleAuthProvider(),
-      facebook: new firebase.auth.FacebookAuthProvider(),
       twitter: new firebase.auth.TwitterAuthProvider(),
     };
     return auth.signInWithPopup(provider[selectedProvider]);
@@ -69,7 +68,7 @@ function AuthProvider({ children }) {
   const { uid, displayName, photoURL } = user || {};
   const authenticated = user !== null;
 
-  const values = {
+  const contextValues = {
     user,
     admin,
     uid,
@@ -77,6 +76,9 @@ function AuthProvider({ children }) {
     photoURL,
     authenticated,
     loading,
+  };
+
+  const contextFunctions = {
     signup,
     signin,
     signout,
@@ -84,7 +86,11 @@ function AuthProvider({ children }) {
     resetPassword,
   };
 
-  return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ ...contextValues, ...contextFunctions }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export default AuthProvider;

@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
 import Google from '../Icons/Google';
-import Facebook from '../Icons/Facebook';
 import Twitter from '../Icons/Twitter';
 import useAuthentication from '../../hooks/useAuthentication';
 import useTheme from '../../hooks/useTheme';
@@ -45,16 +44,7 @@ function SocialLogin() {
       >
         Continue with Google
       </Button>
-      <Button
-        onClick={() => handleSocialLogin('facebook')}
-        startIcon={<Facebook height="28px" />}
-        className={classes.button}
-        fullWidth
-        color="primary"
-        variant="outlined"
-      >
-        Continue with Facebook
-      </Button>
+
       <Button
         onClick={() => handleSocialLogin('twitter')}
         startIcon={<Twitter height="28px" />}

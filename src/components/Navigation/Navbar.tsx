@@ -14,14 +14,14 @@ import useGameOptions from '../../hooks/useGameOptions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   pName: {
-    textTransform: 'capitalize'
-  }
+    textTransform: 'capitalize',
+  },
 }));
 
 function Navbar() {
@@ -44,16 +44,13 @@ function Navbar() {
     <div className={classes.root}>
       <AppBar color="transparent" position="static">
         <Toolbar variant="dense">
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={handleHomeRedirect}
-          >
+          <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleHomeRedirect}>
             <HomeIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            {currentPlayer ? <Typography className={classes.pName}>{currentPlayer}</Typography> : null}
+            {currentPlayer ? (
+              <Typography className={classes.pName}>{currentPlayer}</Typography>
+            ) : null}
           </Typography>
           <ThemeToggle />
           <AuthMenu
