@@ -11,11 +11,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     margin: theme.spacing(2),
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   button: {
-    marginTop: theme.spacing(3)
-  }
+    marginTop: theme.spacing(3),
+  },
 }));
 
 function NotFoundPage() {
@@ -23,9 +23,23 @@ function NotFoundPage() {
 
   return (
     <div className={classes.root}>
-      <Typography gutterBottom variant='h4'>Page not found</Typography>
-      <Typography variant='h6'>Maybe the link you followed is wrong, mistyped or the page does not exist anymore.</Typography>
-      <Button variant="outlined" color="primary" size="large" className={classes.button} startIcon={<Home />} component={Link} to="/">Go Home</Button>
+      <Typography gutterBottom variant="h4">
+        Page not found
+      </Typography>
+      <Typography variant="h6">
+        Maybe the link you followed is wrong, mistyped or the page does not exist anymore.
+      </Typography>
+      <Button
+        variant="outlined"
+        color="primary"
+        size="large"
+        className={classes.button}
+        startIcon={<Home />}
+        component={Link}
+        to="/"
+      >
+        Go Home
+      </Button>
     </div>
   );
 }

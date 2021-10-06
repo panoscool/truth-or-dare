@@ -30,7 +30,9 @@ function App() {
   }, [pathname]);
 
   // @ts-ignore - Change theme color when user switches on/off dark mode
-  document.querySelector('meta[name=theme-color]').setAttribute('content', theme === 'light' ? '#ffffff' : '#000000');
+  document
+    .querySelector('meta[name=theme-color]')
+    .setAttribute('content', theme === 'light' ? '#ffffff' : '#000000');
 
   if (loading) return <Spinner thickness={1} />;
 
@@ -44,7 +46,7 @@ function App() {
         <PrivateRoute path="/questions" component={QuestionsPage} />
         <Route path="/information" component={InformationPage} />
         <Route path="/privacy-policy" component={PrivacyPolicy} />
-        <PublicRoute path='/recovery' component={RecoveryPage} />
+        <PublicRoute path="/recovery" component={RecoveryPage} />
         <Route exact path="/" component={HomePage} />
         <Route component={NotFoundPage} />
       </Switch>
