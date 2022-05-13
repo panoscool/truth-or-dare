@@ -8,11 +8,11 @@ import useTheme from '../../hooks/useTheme';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    display: 'flex',
+    flexDirection: 'column',
     textAlign: 'center',
+    gap: theme.spacing(2),
     margin: theme.spacing(2, 0),
-  },
-  button: {
-    margin: theme.spacing(1, 0),
   },
 }));
 
@@ -37,10 +37,8 @@ function SocialLogin() {
       <Button
         onClick={() => handleSocialLogin('google')}
         startIcon={<Google height="28px" />}
-        className={classes.button}
-        fullWidth
-        color="secondary"
         variant="outlined"
+        fullWidth
       >
         Continue with Google
       </Button>
@@ -48,10 +46,8 @@ function SocialLogin() {
       <Button
         onClick={() => handleSocialLogin('twitter')}
         startIcon={<Twitter height="28px" />}
-        className={classes.button}
-        fullWidth
-        color="default"
         variant="outlined"
+        fullWidth
       >
         Continue with Twitter
       </Button>
