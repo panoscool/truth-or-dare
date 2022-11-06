@@ -86,7 +86,7 @@ function QuestionsPage() {
   }
 
   const filteredData = data.filter((item: any) => {
-    return item.question.toLowerCase().includes(search);
+    return item.question.toLowerCase().includes(search.toLowerCase());
   });
 
   const disabledBtn = !authenticated && !admin;
