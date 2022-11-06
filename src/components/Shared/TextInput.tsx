@@ -6,8 +6,8 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     minWidth: 120,
     width: '100%',
-    margin: theme.spacing(2, 0)
-  }
+    margin: theme.spacing(2, 0),
+  },
 }));
 
 interface Props {
@@ -20,7 +20,7 @@ interface Props {
   placeholder?: string;
   inputProps?: any;
   helperText?: any;
-  handleChange: (e: any) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function TextInput({ handleChange, inputProps, ...props }: Props) {
