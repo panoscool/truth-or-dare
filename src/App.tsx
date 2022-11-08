@@ -38,7 +38,6 @@ function App() {
 
   return (
     <Fragment>
-      <ModalManager />
       <Navbar />
       <Routes>
         <Route path="/game" element={<GamePage />} />
@@ -65,6 +64,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route element={<NotFoundPage />} />
       </Routes>
+      <ModalManager />
     </Fragment>
   );
 }
