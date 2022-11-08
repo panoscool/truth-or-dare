@@ -58,7 +58,7 @@ function GameDisplay({
           is playing...
         </Typography>
       ) : (
-        <Typography variant="h4">Select a question type!</Typography>
+        <Typography variant="h5">Select a question type!</Typography>
       )}
     </Box>
   );
