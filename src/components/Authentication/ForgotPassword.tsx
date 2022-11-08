@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Typography, Button, Paper } from '@mui/material';
+import { Typography, Button, Box } from '@mui/material';
 import TextInput from '../Shared/TextInput';
 import useAuthentication from '../../hooks/useAuthentication';
+import Layout from '../Layout';
 
-function RecoveryPage() {
+function ForgotPassword() {
   const { resetPassword } = useAuthentication();
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState({
@@ -30,10 +31,11 @@ function RecoveryPage() {
   }
 
   return (
-    <Paper>
-      <div className="title">Truth or Dare</div>
-      <Typography color="textPrimary">Password Reset</Typography>
-      <Typography color="textSecondary">
+    <Layout>
+      <Typography variant="h6" textAlign="center" pt={4} pb={2}>
+        Forgot Password
+      </Typography>
+      <Typography color="textSecondary" textAlign="center" pb={8}>
         Add your registered email to reset you password.
       </Typography>
       <Typography>{message.text}</Typography>
@@ -46,12 +48,14 @@ function RecoveryPage() {
           value={email || ''}
           onChange={handleChange}
         />
-        <Button fullWidth type="submit" variant="contained" color="primary">
-          Submit
-        </Button>
+        <Box mt={2} pb={4}>
+          <Button fullWidth type="submit" variant="contained" color="primary">
+            Submit
+          </Button>
+        </Box>
       </form>
-    </Paper>
+    </Layout>
   );
 }
 
-export default RecoveryPage;
+export default ForgotPassword;

@@ -5,7 +5,6 @@ import App from './App';
 import AuthProvider from './context/AuthContext';
 import OptionsProvider from './context/OptionsContext';
 import ThemeProvider from './context/ThemeContext';
-import './index.css';
 
 const app = (
   <BrowserRouter>

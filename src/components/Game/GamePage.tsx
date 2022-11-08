@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Paper, Button, Box } from '@mui/material';
+import { Button, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import GameDisplay from './GameDisplay';
 import useGameOptions from '../../hooks/useGameOptions';
 import PlayersScore from '../Players/PlayersScore';
 import { storeSetItem, storeGetItem, storeRemoveItem, KEYS } from '../../config/store';
 import { firestore } from '../../config/firebase';
+import Layout from '../Layout';
 
 const ButtonsWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -104,64 +105,63 @@ function GamePage() {
   }
 
   return (
-    <Box textAlign="center">
-      <Paper sx={{ m: 2, p: 2 }}>
-        <Box minHeight={100}>
-          <GameDisplay
-            state={state}
-            isTruthOver={isTruthOver}
-            isDareOver={isDareOver}
-            questionType={questionType}
-            currentQuestion={currentQuestion}
-            currentPlayer={currentPlayer}
-          />
-        </Box>
-        <div className="animate-btnGroup">
-          {currentQuestion && currentPlayer ? (
-            <ButtonsWrapper>
-              <Button
-                size="large"
-                color="secondary"
-                variant="outlined"
-                onClick={() => handlePlayerTurn()}
-              >
-                Skip
-              </Button>
-              <Button
-                size="large"
-                color="primary"
-                variant="outlined"
-                onClick={() => handlePlayerTurn('update')}
-              >
-                Done
-              </Button>
-            </ButtonsWrapper>
-          ) : (
-            <ButtonsWrapper>
-              <Button
-                size="large"
-                color="primary"
-                variant="contained"
-                disabled={isTruthOver || state.loading}
-                onClick={() => handleRandomQuestion('truth')}
-              >
-                Truth
-              </Button>
-              <Button
-                size="large"
-                color="secondary"
-                variant="contained"
-                disabled={isDareOver || state.loading}
-                onClick={() => handleRandomQuestion('dare')}
-              >
-                Dare
-              </Button>
-            </ButtonsWrapper>
-          )}
-        </div>
-      </Paper>
-      {currentPlayer ? <PlayersScore /> : null}
-    </Box>
+    <Layout>
+      <Box minHeight={100} display="flex" justifyContent="center" pt={4} pb={8}>
+        <GameDisplay
+          state={state}
+          isTruthOver={isTruthOver}
+          isDareOver={isDareOver}
+          questionType={questionType}
+          currentQuestion={currentQuestion}
+          currentPlayer={currentPlayer}
+        />
+      </Box>
+      {currentQuestion && currentPlayer ? (
+        <ButtonsWrapper>
+          <Button
+            size="large"
+            color="secondary"
+            variant="outlined"
+            onClick={() => handlePlayerTurn()}
+          >
+            Skip
+          </Button>
+          <Button
+            size="large"
+            color="primary"
+            variant="outlined"
+            onClick={() => handlePlayerTurn('update')}
+          >
+            Done
+          </Button>
+        </ButtonsWrapper>
+      ) : (
+        <ButtonsWrapper>
+          <Button
+            size="large"
+            color="primary"
+            variant="contained"
+            disabled={isTruthOver || state.loading}
+            onClick={() => handleRandomQuestion('truth')}
+          >
+            Truth
+          </Button>
+          <Button
+            size="large"
+            color="secondary"
+            variant="contained"
+            disabled={isDareOver || state.loading}
+            onClick={() => handleRandomQuestion('dare')}
+          >
+            Dare
+          </Button>
+        </ButtonsWrapper>
+      )}
+
+      <Box my={4} py={4}>
+        {currentPlayer ? <PlayersScore /> : null}
+      </Box>
+    </Layout>
   );
 }
 

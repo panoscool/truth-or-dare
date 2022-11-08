@@ -24,7 +24,12 @@ function PlayersList({ data, handleSelect, handleDelete, handleClearList }: Prop
             <ListItemText primary="Name" />
             <ListItemSecondaryAction>
               <Tooltip placement="left" title="Clear all">
-                <IconButton onClick={handleClearList} edge="end" aria-label="clear-all" size="large">
+                <IconButton
+                  edge="end"
+                  size="large"
+                  aria-label="clear-all"
+                  onClick={handleClearList}
+                >
                   <ClearAll />
                 </IconButton>
               </Tooltip>
@@ -39,9 +44,10 @@ function PlayersList({ data, handleSelect, handleDelete, handleClearList }: Prop
           <ListItemSecondaryAction>
             <IconButton
               edge="end"
+              size="large"
               aria-label="delete"
               onClick={() => handleDelete(p.id)}
-              size="large">
+            >
               <ClearIcon />
             </IconButton>
           </ListItemSecondaryAction>

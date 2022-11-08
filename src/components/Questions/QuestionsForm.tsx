@@ -1,13 +1,19 @@
 import { useState, useEffect } from 'react';
 import cuid from 'cuid';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Button, Paper, Typography } from '@mui/material';
+import { Button, Typography, Box } from '@mui/material';
 import TextInput from '../Shared/TextInput';
 import RadioInput from '../Shared/RadioInput';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import Spinner from '../Shared/Spinner';
 import firebase, { firestore } from '../../config/firebase';
 import useAuthentication from '../../hooks/useAuthentication';
+import Layout from '../Layout';
+import { styled } from '@mui/material/styles';
+
+const FormElementGap = styled(Box)(({ theme }) => ({
+  marginBottom: theme.spacing(4),
+}));
 
 function QuestionsForm() {
   const navigate = useNavigate();
@@ -109,10 +115,12 @@ function QuestionsForm() {
   }
 
   return (
-    <Paper>
-      <div>
-        <Typography variant="h6">Add your own questions!</Typography>
-        <form autoComplete="off" onSubmit={handleSubmit}>
+    <Layout>
+      <Typography variant="h6" textAlign="center" py={2}>
+        Add your own questions!
+      </Typography>
+      <form autoComplete="off" onSubmit={handleSubmit}>
+        <FormElementGap>
           <RadioInput
             required
             name="questionType"
@@ -125,6 +133,8 @@ function QuestionsForm() {
               { id: cuid(), value: 'dare_questions', label: 'Dare' },
             ]}
           />
+        </FormElementGap>
+        <FormElementGap>
           <RadioInput
             required
             name="category"
@@ -138,6 +148,8 @@ function QuestionsForm() {
               { id: cuid(), value: 'uncensored', label: 'Uncensored' },
             ]}
           />
+        </FormElementGap>
+        <FormElementGap>
           <TextInput
             required
             name="question"
@@ -146,6 +158,9 @@ function QuestionsForm() {
             value={values.question || ''}
             onChange={handleChange}
           />
+        </FormElementGap>
+
+        <Box pb={4}>
           {state.loading ? (
             <Spinner thickness={2} />
           ) : (
@@ -159,17 +174,21 @@ function QuestionsForm() {
               Save
             </Button>
           )}
-        </form>
-        <Typography gutterBottom color="error">
-          {state.error && state.error}
-        </Typography>
-        {!authenticated && (
+        </Box>
+      </form>
+
+      <Typography gutterBottom color="error">
+        {state.error && state.error}
+      </Typography>
+
+      {!authenticated && (
+        <Box py={2} textAlign="center">
           <Typography variant="caption" color="textSecondary">
             * Login to submit your questions *
           </Typography>
-        )}
-      </div>
-    </Paper>
+        </Box>
+      )}
+    </Layout>
   );
 }
 

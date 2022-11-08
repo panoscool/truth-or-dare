@@ -1,12 +1,31 @@
 import { useState } from 'react';
-import { Button, IconButton, Dialog, DialogTitle, DialogContent, Typography } from '@mui/material';
+import {
+  Button,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Typography,
+  Box,
+} from '@mui/material';
 import Close from '@mui/icons-material/Close';
 import TextInput from '../Shared/TextInput';
 import { functions } from '../../config/firebase';
-import useTheme from '../../hooks/useTheme';
+import { styled } from '@mui/material/styles';
 
-function AdminForm() {
-  const { modal, setModal } = useTheme();
+const CloseButton = styled(IconButton)(({ theme }) => ({
+  position: 'absolute',
+  right: theme.spacing(1),
+  top: theme.spacing(1),
+  color: theme.palette.grey[500],
+}));
+
+interface Props {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function AdminForm({ open, setOpen }: Props) {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState({
     type: '',
@@ -14,7 +33,7 @@ function AdminForm() {
   });
 
   function handleClose() {
-    setModal(null);
+    setOpen(false);
   }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -29,6 +48,7 @@ function AdminForm() {
     try {
       const addAdminRole = functions.httpsCallable('addAdminRole');
       const response = await addAdminRole({ email });
+
       setMessage({ type: 'success', text: response.data.message });
       setEmail('');
     } catch (err) {
@@ -38,24 +58,27 @@ function AdminForm() {
   }
 
   return (
-    <Dialog open={Boolean(modal)} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle>
         Make admin
-        <IconButton aria-label="close" onClick={handleClose} size="large">
+        <CloseButton aria-label="close" onClick={handleClose} size="large">
           <Close />
-        </IconButton>
+        </CloseButton>
       </DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit} autoComplete="off">
           <Typography>{message.text}</Typography>
-          <TextInput
-            required
-            name="email"
-            label="Add email"
-            placeholder="Add email"
-            value={email || ''}
-            onChange={handleChange}
-          />
+
+          <Box mt={4} mb={2} minWidth={300}>
+            <TextInput
+              required
+              name="email"
+              label="Add email"
+              placeholder="Add email"
+              value={email || ''}
+              onChange={handleChange}
+            />
+          </Box>
           <Button fullWidth type="submit" color="primary" variant="contained">
             Make admin
           </Button>

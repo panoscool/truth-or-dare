@@ -1,17 +1,13 @@
 import { useState } from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import IconButton from '@mui/material/IconButton';
-import Close from '@mui/icons-material/Close';
 import TextInput from '../Shared/TextInput';
 import SocialLogin from './SocialLogin';
 import useAuthentication from '../../hooks/useAuthentication';
-import useTheme from '../../hooks/useTheme';
+import Layout from '../Layout';
+import { Typography, Button, Box } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 
-function SignUpForm() {
-  const { modal, setModal } = useTheme();
+function RegisterForm() {
+  const navigate = useNavigate();
   const { signup } = useAuthentication();
   const [error, setError] = useState(null);
   const [values, setValues] = useState({
@@ -19,10 +15,6 @@ function SignUpForm() {
     email: '',
     password: '',
   });
-
-  function handleClose() {
-    setModal(null);
-  }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -37,7 +29,7 @@ function SignUpForm() {
       // @ts-ignore
       await createdUser.user.updateProfile({ displayName: values.displayName });
 
-      handleClose();
+      navigate('/');
     } catch (err) {
       console.error((err as any).message);
       setError((err as any).message);
@@ -45,16 +37,15 @@ function SignUpForm() {
   }
 
   return (
-    <Dialog open={Boolean(modal)} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">
+    <Layout>
+      <Typography variant="h6" textAlign="center" pt={4} pb={6}>
         Register
-        <IconButton aria-label="close" onClick={handleClose} size="large">
-          <Close />
-        </IconButton>
-      </DialogTitle>
-      <DialogContent>
-        <span>{error && error}</span>
-        <form onSubmit={handleSubmit} autoComplete="off">
+      </Typography>
+
+      <Typography color="error">{error && error}</Typography>
+
+      <form onSubmit={handleSubmit} autoComplete="off">
+        <Box mb={3}>
           <TextInput
             required
             type="text"
@@ -63,6 +54,8 @@ function SignUpForm() {
             value={values.displayName}
             onChange={handleChange}
           />
+        </Box>
+        <Box mb={3}>
           <TextInput
             required
             type="email"
@@ -71,6 +64,8 @@ function SignUpForm() {
             value={values.email}
             onChange={handleChange}
           />
+        </Box>
+        <Box mb={3}>
           <TextInput
             required
             type="password"
@@ -79,14 +74,24 @@ function SignUpForm() {
             value={values.password}
             onChange={handleChange}
           />
-          <Button fullWidth type="submit" color="primary" variant="contained">
-            Register
-          </Button>
-        </form>
-        <SocialLogin />
-      </DialogContent>
-    </Dialog>
+        </Box>
+
+        <Button fullWidth type="submit" color="primary" variant="contained">
+          Register
+        </Button>
+
+        <Box mt={2} mb={4}>
+          <Typography variant="body2" color="textSecondary">
+            Have account?{' '}
+            <Typography variant="body2" color="textSecondary" component={Link} to="/login">
+              Login
+            </Typography>
+          </Typography>
+        </Box>
+      </form>
+      <SocialLogin />
+    </Layout>
   );
 }
 
-export default SignUpForm;
+export default RegisterForm;

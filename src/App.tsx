@@ -7,9 +7,10 @@ import QuestionsPage from './components/Questions/QuestionsPage';
 import QuestionsForm from './components/Questions/QuestionsForm';
 import InformationPage from './components/Information/InformationPage';
 import PrivacyPolicy from './components/Information/PrivacyPolicy';
-import RecoveryPage from './components/Authentication/RecoveryPage';
+import LoginForm from './components/Authentication/LoginForm';
+import RegisterForm from './components/Authentication/RegisterForm';
+import ForgotPassword from './components/Authentication/ForgotPassword';
 import NotFoundPage from './components/NotFoundPage';
-import ModalManager from './components/ModalManager';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
 import Spinner from './components/Shared/Spinner';
@@ -40,6 +41,7 @@ function App() {
     <Fragment>
       <Navbar />
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route path="/game" element={<GamePage />} />
         <Route path="/update/:type/:id" element={<QuestionsForm />} />
         <Route path="/create" element={<QuestionsForm />} />
@@ -51,20 +53,34 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/information" element={<InformationPage />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute redirectTo="/">
+              <RegisterForm />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute redirectTo="/">
+              <LoginForm />
+            </PublicRoute>
+          }
+        />
         <Route
           path="/forgot-password"
           element={
             <PublicRoute redirectTo="/">
-              <RecoveryPage />
+              <ForgotPassword />
             </PublicRoute>
           }
         />
-        <Route path="/" element={<HomePage />} />
+        <Route path="/information" element={<InformationPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route element={<NotFoundPage />} />
       </Routes>
-      <ModalManager />
     </Fragment>
   );
 }

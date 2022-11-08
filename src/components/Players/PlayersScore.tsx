@@ -1,4 +1,3 @@
-import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -21,7 +20,7 @@ function PlayersScore() {
   const sortedList = transformedList.sort((a, b) => b.total - a.total);
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -34,7 +33,7 @@ function PlayersScore() {
         <TableBody>
           {sortedList.map((row) => (
             <TableRow key={row.id}>
-              <TableCell>{row.name}</TableCell>
+              <TableCell sx={{ textTransform: 'capitalize' }}>{row.name}</TableCell>
               <TableCell align="right">{row.score.truth}</TableCell>
               <TableCell align="right">{row.score.dare}</TableCell>
               <TableCell align="right">{row.total}</TableCell>

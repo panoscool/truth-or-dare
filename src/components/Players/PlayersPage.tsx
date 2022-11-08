@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import cuid from 'cuid';
-import Button from '@mui/material/Button';
 import PlayersList from './PlayersList';
 import TextInput from '../Shared/TextInput';
 import { storeSetItem, storeRemoveItem, KEYS } from '../../config/store';
+import { Box, Button } from '@mui/material';
 
 interface Props {
   players: Array<object>;
@@ -76,7 +76,14 @@ function PlayersPage({ players, setPlayers }: Props) {
 
   return (
     <div>
-      <form autoComplete="off" onSubmit={handleSubmit}>
+      <Box
+        component="form"
+        autoComplete="off"
+        display="flex"
+        gap={1}
+        mb={3}
+        onSubmit={handleSubmit}
+      >
         <TextInput
           name="name"
           label="Add names"
@@ -87,7 +94,7 @@ function PlayersPage({ players, setPlayers }: Props) {
         <Button type="submit" color="primary" variant="contained" disabled={disabled}>
           {isEdit ? 'Edit' : 'Add'}
         </Button>
-      </form>
+      </Box>
       <PlayersList
         data={players}
         handleSelect={handleSelect}

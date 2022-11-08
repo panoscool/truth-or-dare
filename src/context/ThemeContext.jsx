@@ -3,17 +3,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { blue, red } from '@mui/material/colors';
 import { storeGetTheme } from '../config/store';
 
-const initValues = {
-  modal: null,
+export const ThemeContext = createContext({
   theme: 'dark',
-  setTheme: (e) => {},
-  setModal: (e) => {},
-};
-
-export const ThemeContext = createContext(initValues);
+  setTheme: (mode) => {},
+});
 
 function ThemeContextProvider({ children }) {
-  const [modal, setModal] = useState(null);
   const [theme, setTheme] = useState(storeGetTheme() || 'dark');
 
   const muiTheme = createTheme({
@@ -23,19 +18,12 @@ function ThemeContextProvider({ children }) {
       secondary: red,
     },
     typography: {
-      fontFamily: 'Helvetica Neue, Roboto, sans-serif',
+      fontFamily: 'Roboto, sans-serif',
     },
   });
 
-  const values = {
-    theme,
-    setTheme,
-    modal,
-    setModal,
-  };
-
   return (
-    <ThemeContext.Provider value={values}>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       <ThemeProvider theme={muiTheme}>{children}</ThemeProvider>
     </ThemeContext.Provider>
   );

@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import Spinner from '../Shared/Spinner';
 
 interface Props {
@@ -20,32 +20,48 @@ function GameDisplay({
 }: Props) {
   if (state.loading) {
     return <Spinner thickness={2} />;
-  } else if (isTruthOver && isDareOver) {
-    return <Typography variant="h4">Game over</Typography>;
-  } else if (questionType && currentQuestion) {
+  }
+  if (isTruthOver && isDareOver) {
     return (
-      <>
+      <Typography variant="h4" textAlign="center">
+        Game over
+      </Typography>
+    );
+  }
+  if (questionType && currentQuestion) {
+    return (
+      <Box textAlign="center">
         <Typography variant="caption" color="textSecondary" textTransform="capitalize">
           {questionType}
         </Typography>
         <Typography variant="h6" my={2}>
           {currentQuestion}
         </Typography>
-      </>
+      </Box>
     );
-  } else if (state.error) {
+  }
+  if (state.error) {
     return (
-      <Typography gutterBottom color="error">
+      <Typography gutterBottom color="error" textAlign="center">
         {state.error}
       </Typography>
     );
-  } else {
-    return (
-      <Typography gutterBottom variant="h6" textTransform="capitalize">
-        {currentPlayer ? <span>{currentPlayer} is playing...</span> : 'Select a question type!'}
-      </Typography>
-    );
   }
+
+  return (
+    <Box textAlign="center">
+      {currentPlayer ? (
+        <Typography gutterBottom variant="h6">
+          <Typography variant="h6" component="span" textTransform="capitalize">
+            {currentPlayer}{' '}
+          </Typography>
+          is playing...
+        </Typography>
+      ) : (
+        <Typography variant="h4">Select a question type!</Typography>
+      )}
+    </Box>
+  );
 }
 
 export default GameDisplay;

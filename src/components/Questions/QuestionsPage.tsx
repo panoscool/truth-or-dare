@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import format from 'date-fns/format';
 import { Link } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
@@ -16,6 +17,12 @@ import useGameOptions from '../../hooks/useGameOptions';
 import useAuthentication from '../../hooks/useAuthentication';
 import { firestore } from '../../config/firebase';
 import TextInput from '../Shared/TextInput';
+import { Box } from '@mui/material';
+
+const PaperWrapper = styled(Paper)(({ theme }) => ({
+  margin: theme.spacing(2),
+  padding: theme.spacing(2),
+}));
 
 function QuestionsPage() {
   const { authenticated, admin } = useAuthentication();
@@ -79,21 +86,20 @@ function QuestionsPage() {
   if (loading) return <Spinner thickness={2} />;
 
   return (
-    <Paper>
-      <Button
-        onClick={dataSelection}
-        disabled={loading}
-        color={type === 'dare_questions' ? 'primary' : 'secondary'}
-        variant="contained"
-      >
-        Show {type === 'dare_questions' ? 'truth' : 'dare'} questions
-      </Button>
-      <CategoriesPage
-        label="Categories"
-        category={category}
-        setCategory={setCategory}
-        select={true}
-      />
+    <PaperWrapper>
+      <Box textAlign="center" my={4}>
+        <Button
+          onClick={dataSelection}
+          disabled={loading}
+          color={type === 'dare_questions' ? 'primary' : 'secondary'}
+          variant="contained"
+        >
+          Show {type === 'dare_questions' ? 'truth' : 'dare'} questions
+        </Button>
+      </Box>
+
+      <CategoriesPage select label="Categories" category={category} setCategory={setCategory} />
+
       <TextInput
         name="search"
         label="Search"
@@ -101,9 +107,11 @@ function QuestionsPage() {
         placeholder="Search for questions..."
         onChange={(e) => setSearch(e.target.value)}
       />
+
       <Typography gutterBottom color="error">
         {error}
       </Typography>
+
       <List dense>
         {loading ? (
           <Spinner thickness={2} />
@@ -118,9 +126,9 @@ function QuestionsPage() {
                 <IconButton
                   disabled={disabledBtn}
                   edge="end"
+                  size="large"
                   aria-label="delete"
                   onClick={() => deleteQuestion(q.id)}
-                  size="large"
                 >
                   <DeleteIcon />
                 </IconButton>
@@ -129,7 +137,7 @@ function QuestionsPage() {
           ))
         )}
       </List>
-    </Paper>
+    </PaperWrapper>
   );
 }
 
