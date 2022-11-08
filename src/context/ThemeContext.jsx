@@ -13,7 +13,7 @@ const initValues = {
 
 export const ThemeContext = createContext(initValues);
 
-export default ({ children }) => {
+function ThemeContextProvider({ children }) {
   const [modal, setModal] = useState(null);
   const [theme, setTheme] = useState(storeGetTheme() || 'dark');
 
@@ -40,4 +40,6 @@ export default ({ children }) => {
       <ThemeProvider theme={muiTheme}>{children}</ThemeProvider>
     </ThemeContext.Provider>
   );
-};
+}
+
+export default ThemeContextProvider;
