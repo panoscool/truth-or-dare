@@ -1,36 +1,21 @@
 import { useState, useEffect } from 'react';
 import cuid from 'cuid';
 import { useParams, useNavigate } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, Paper, Typography } from '@material-ui/core';
+import { Button, Typography, Box } from '@mui/material';
 import TextInput from '../Shared/TextInput';
 import RadioInput from '../Shared/RadioInput';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import Spinner from '../Shared/Spinner';
 import firebase, { firestore } from '../../config/firebase';
 import useAuthentication from '../../hooks/useAuthentication';
+import Layout from '../Layout';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    display: 'flex',
-    justifyContent: 'center',
-    margin: theme.spacing(2),
-    padding: theme.spacing(2),
-  },
-  innerBlock: {
-    width: 620,
-    textAlign: 'center',
-  },
-  button: {
-    marginBottom: theme.spacing(2),
-  },
-  title: {
-    marginBottom: theme.spacing(2),
-  },
+const FormElementGap = styled(Box)(({ theme }) => ({
+  marginBottom: theme.spacing(4),
 }));
 
 function QuestionsForm() {
-  const classes = useStyles();
   const navigate = useNavigate();
   const { id, type } = useParams<{ id: string; type: string }>();
   const { width } = useWindowDimensions();
@@ -130,45 +115,52 @@ function QuestionsForm() {
   }
 
   return (
-    <Paper className={classes.paper}>
-      <div className={classes.innerBlock}>
-        <Typography variant="h6" className={classes.title}>
-          Add your own questions!
-        </Typography>
-        <form autoComplete="off" onSubmit={handleSubmit}>
+    <Layout>
+      <Typography variant="h6" textAlign="center" py={2}>
+        Add your own questions!
+      </Typography>
+      <form autoComplete="off" onSubmit={handleSubmit}>
+        <FormElementGap>
           <RadioInput
             required
             name="questionType"
             label="Question Type"
             disabled={Boolean(id)}
             value={questionType || ''}
-            handleChange={handleQuestionType}
+            onChange={handleQuestionType}
             optionsArray={[
               { id: cuid(), value: 'truth_questions', label: 'Truth' },
               { id: cuid(), value: 'dare_questions', label: 'Dare' },
             ]}
           />
+        </FormElementGap>
+        <FormElementGap>
           <RadioInput
             required
             name="category"
             label="Select Category"
             vertical={width < 460}
             value={values.category || ''}
-            handleChange={handleChange}
+            onChange={handleChange}
             optionsArray={[
               { id: cuid(), value: 'funny', label: 'Funny' },
               { id: cuid(), value: 'challenging', label: 'Challenging' },
               { id: cuid(), value: 'uncensored', label: 'Uncensored' },
             ]}
           />
+        </FormElementGap>
+        <FormElementGap>
           <TextInput
             required
             name="question"
             label="Add question"
             placeholder="Add question"
             value={values.question || ''}
-            handleChange={handleChange}
+            onChange={handleChange}
           />
+        </FormElementGap>
+
+        <Box pb={4}>
           {state.loading ? (
             <Spinner thickness={2} />
           ) : (
@@ -178,22 +170,25 @@ function QuestionsForm() {
               color="primary"
               variant="contained"
               disabled={!authenticated}
-              className={classes.button}
             >
               Save
             </Button>
           )}
-        </form>
-        <Typography gutterBottom color="error">
-          {state.error && state.error}
-        </Typography>
-        {!authenticated && (
+        </Box>
+      </form>
+
+      <Typography gutterBottom color="error">
+        {state.error && state.error}
+      </Typography>
+
+      {!authenticated && (
+        <Box py={2} textAlign="center">
           <Typography variant="caption" color="textSecondary">
             * Login to submit your questions *
           </Typography>
-        )}
-      </div>
-    </Paper>
+        </Box>
+      )}
+    </Layout>
   );
 }
 

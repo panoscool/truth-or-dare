@@ -1,30 +1,22 @@
 import { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Button } from '@material-ui/core';
+import { Button, Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import GameDisplay from './GameDisplay';
 import useGameOptions from '../../hooks/useGameOptions';
 import PlayersScore from '../Players/PlayersScore';
 import { storeSetItem, storeGetItem, storeRemoveItem, KEYS } from '../../config/store';
 import { firestore } from '../../config/firebase';
+import Layout from '../Layout';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    textAlign: 'center',
-  },
-  paper: {
-    margin: theme.spacing(2),
-    padding: theme.spacing(2),
-  },
-  button: {
-    margin: theme.spacing(2),
-  },
-  text: {
-    minHeight: 100,
-  },
+const ButtonsWrapper = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: theme.spacing(1),
+  margin: theme.spacing(2, 0),
 }));
 
 function GamePage() {
-  const classes = useStyles();
   const [isTruthOver, setTruthOver] = useState(false);
   const [isDareOver, setDareOver] = useState(false);
   const { category, currentPlayer, nextPlayer, scoreUpdate } = useGameOptions();
@@ -113,68 +105,63 @@ function GamePage() {
   }
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <div className={classes.text}>
-          <GameDisplay
-            state={state}
-            isTruthOver={isTruthOver}
-            isDareOver={isDareOver}
-            questionType={questionType}
-            currentQuestion={currentQuestion}
-            currentPlayer={currentPlayer}
-          />
-        </div>
-        <div className="animate-btnGroup">
-          {currentQuestion && currentPlayer ? (
-            <>
-              <Button
-                size="large"
-                color="secondary"
-                variant="outlined"
-                onClick={() => handlePlayerTurn()}
-                className={classes.button}
-              >
-                Skip
-              </Button>
-              <Button
-                size="large"
-                color="primary"
-                variant="outlined"
-                className={classes.button}
-                onClick={() => handlePlayerTurn('update')}
-              >
-                Done
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button
-                size="large"
-                color="primary"
-                variant="contained"
-                className={classes.button}
-                disabled={isTruthOver || state.loading}
-                onClick={() => handleRandomQuestion('truth')}
-              >
-                Truth
-              </Button>
-              <Button
-                size="large"
-                color="secondary"
-                variant="contained"
-                className={classes.button}
-                disabled={isDareOver || state.loading}
-                onClick={() => handleRandomQuestion('dare')}
-              >
-                Dare
-              </Button>
-            </>
-          )}
-        </div>
-      </Paper>
-      {currentPlayer ? <PlayersScore /> : null}
-    </div>
+    <Layout>
+      <Box minHeight={100} display="flex" justifyContent="center" pt={4} pb={8}>
+        <GameDisplay
+          state={state}
+          isTruthOver={isTruthOver}
+          isDareOver={isDareOver}
+          questionType={questionType}
+          currentQuestion={currentQuestion}
+          currentPlayer={currentPlayer}
+        />
+      </Box>
+      {currentQuestion && currentPlayer ? (
+        <ButtonsWrapper>
+          <Button
+            size="large"
+            color="secondary"
+            variant="outlined"
+            onClick={() => handlePlayerTurn()}
+          >
+            Skip
+          </Button>
+          <Button
+            size="large"
+            color="primary"
+            variant="outlined"
+            onClick={() => handlePlayerTurn('update')}
+          >
+            Done
+          </Button>
+        </ButtonsWrapper>
+      ) : (
+        <ButtonsWrapper>
+          <Button
+            size="large"
+            color="primary"
+            variant="contained"
+            disabled={isTruthOver || state.loading}
+            onClick={() => handleRandomQuestion('truth')}
+          >
+            Truth
+          </Button>
+          <Button
+            size="large"
+            color="secondary"
+            variant="contained"
+            disabled={isDareOver || state.loading}
+            onClick={() => handleRandomQuestion('dare')}
+          >
+            Dare
+          </Button>
+        </ButtonsWrapper>
+      )}
+
+      <Box my={4} py={4}>
+        {currentPlayer ? <PlayersScore /> : null}
+      </Box>
+    </Layout>
   );
 }
 

@@ -1,7 +1,7 @@
-import Switch from '@material-ui/core/Switch';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import WBSunny from '@material-ui/icons/WbSunny';
+import Switch from '@mui/material/Switch';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import WBSunny from '@mui/icons-material/WbSunny';
 import { storeSetTheme } from '../../config/store';
 import useTheme from '../../hooks/useTheme';
 
@@ -24,7 +24,10 @@ function ThemeToggle({ btnType }: Props) {
 
   return (
     <Tooltip title="Toggle light/dark theme">
-      <IconButton onClick={toggleThemeMode} aria-label="Toggle light/dark theme">
+      <IconButton
+        onClick={toggleThemeMode}
+        aria-label="Toggle light/dark theme"
+        size="large">
         <WBSunny />
       </IconButton>
     </Tooltip>

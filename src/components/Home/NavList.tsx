@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { Divider, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
-import { AddCircleOutline, InfoOutlined, ListAltOutlined } from '@material-ui/icons';
+import { Divider, List, ListItem, ListItemText, ListItemIcon } from '@mui/material';
+import { AddCircleOutline, InfoOutlined, ListAltOutlined } from '@mui/icons-material';
 
 interface Props {
   admin: boolean | null;

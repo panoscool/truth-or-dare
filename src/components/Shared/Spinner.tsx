@@ -1,24 +1,15 @@
-import { makeStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
-
-const useStyles = makeStyles((theme) => ({
-  progress: {
-    textAlign: 'center',
-    margin: theme.spacing(2),
-  },
-}));
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 
 interface Props {
   thickness: number;
 }
 
 function Spinner({ thickness }: Props) {
-  const classes = useStyles();
-
   return (
-    <div className={classes.progress}>
+    <Box textAlign="center" margin={2}>
       <CircularProgress color="inherit" thickness={thickness} />
-    </div>
+    </Box>
   );
 }
 

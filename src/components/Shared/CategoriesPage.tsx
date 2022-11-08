@@ -35,7 +35,7 @@ function CategoriesPage({ select, category, setCategory, ...rest }: Props) {
         name="category"
         value={category || ''}
         optionsArray={categories}
-        handleChange={handleChange}
+        onChange={handleChange}
       />
     );
   }
@@ -47,7 +47,7 @@ function CategoriesPage({ select, category, setCategory, ...rest }: Props) {
       vertical={width < 460}
       value={category || ''}
       optionsArray={categories}
-      handleChange={handleChange}
+      onChange={handleChange}
     />
   );
 }

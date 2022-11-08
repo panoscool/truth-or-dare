@@ -1,11 +1,10 @@
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline';
 import App from './App';
 import AuthProvider from './context/AuthContext';
 import OptionsProvider from './context/OptionsContext';
 import ThemeProvider from './context/ThemeContext';
-import './index.css';
 
 const app = (
   <BrowserRouter>

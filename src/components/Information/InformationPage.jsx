@@ -1,20 +1,16 @@
-import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Paper, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
-import ArroRight from '@material-ui/icons/ArrowRight';
+import { Typography, Paper, List, ListItem, ListItemText, ListItemIcon } from '@mui/material';
+import ArroRight from '@mui/icons-material/ArrowRight';
+import { styled } from '@mui/material/styles';
 import { rules, categories, questions } from './InformationData';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    margin: theme.spacing(2),
-    padding: theme.spacing(2),
-  },
+const PaperWrapper = styled(Paper)(({ theme }) => ({
+  margin: theme.spacing(2),
+  padding: theme.spacing(2),
 }));
 
 function InformationPage() {
-  const classes = useStyles();
-
   return (
-    <Paper className={classes.paper}>
+    <PaperWrapper>
       <Typography variant="h6">Don’t Break The Rules</Typography>
       <List dense>
         {rules.map((r) => (
@@ -48,7 +44,7 @@ function InformationPage() {
           </ListItem>
         ))}
       </List>
-    </Paper>
+    </PaperWrapper>
   );
 }
 

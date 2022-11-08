@@ -1,37 +1,30 @@
 import { useState, useEffect } from 'react';
 import format from 'date-fns/format';
 import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 import CategoriesPage from '../Shared/CategoriesPage';
 import Spinner from '../Shared/Spinner';
 import useGameOptions from '../../hooks/useGameOptions';
 import useAuthentication from '../../hooks/useAuthentication';
 import { firestore } from '../../config/firebase';
 import TextInput from '../Shared/TextInput';
+import { Box } from '@mui/material';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    textAlign: 'center',
-    margin: theme.spacing(2),
-    padding: theme.spacing(2),
-  },
-  button: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-  },
+const PaperWrapper = styled(Paper)(({ theme }) => ({
+  margin: theme.spacing(2),
+  padding: theme.spacing(2),
 }));
 
 function QuestionsPage() {
-  const classes = useStyles();
   const { authenticated, admin } = useAuthentication();
   const { category, setCategory } = useGameOptions();
   const [type, setType] = useState('truth_questions');
@@ -93,32 +86,32 @@ function QuestionsPage() {
   if (loading) return <Spinner thickness={2} />;
 
   return (
-    <Paper className={classes.paper}>
-      <Button
-        onClick={dataSelection}
-        disabled={loading}
-        color={type === 'dare_questions' ? 'primary' : 'secondary'}
-        variant="contained"
-        className={classes.button}
-      >
-        Show {type === 'dare_questions' ? 'truth' : 'dare'} questions
-      </Button>
-      <CategoriesPage
-        label="Categories"
-        category={category}
-        setCategory={setCategory}
-        select={true}
-      />
+    <PaperWrapper>
+      <Box textAlign="center" my={4}>
+        <Button
+          onClick={dataSelection}
+          disabled={loading}
+          color={type === 'dare_questions' ? 'primary' : 'secondary'}
+          variant="contained"
+        >
+          Show {type === 'dare_questions' ? 'truth' : 'dare'} questions
+        </Button>
+      </Box>
+
+      <CategoriesPage select label="Categories" category={category} setCategory={setCategory} />
+
       <TextInput
         name="search"
         label="Search"
         value={search}
         placeholder="Search for questions..."
-        handleChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => setSearch(e.target.value)}
       />
+
       <Typography gutterBottom color="error">
         {error}
       </Typography>
+
       <List dense>
         {loading ? (
           <Spinner thickness={2} />
@@ -133,6 +126,7 @@ function QuestionsPage() {
                 <IconButton
                   disabled={disabledBtn}
                   edge="end"
+                  size="large"
                   aria-label="delete"
                   onClick={() => deleteQuestion(q.id)}
                 >
@@ -143,7 +137,7 @@ function QuestionsPage() {
           ))
         )}
       </List>
-    </Paper>
+    </PaperWrapper>
   );
 }
 

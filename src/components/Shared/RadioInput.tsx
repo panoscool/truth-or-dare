@@ -1,25 +1,9 @@
-import { makeStyles } from '@material-ui/core/styles';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    margin: theme.spacing(2, 0),
-  },
-  radioGroup: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  radioGroupVertical: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-}));
+import Box from '@mui/material/Box';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 interface Props {
   name: string;
@@ -29,7 +13,7 @@ interface Props {
   disabled?: boolean;
   vertical?: boolean;
   optionsArray: Array<object>;
-  handleChange: (e: any) => void;
+  onChange: (e: any) => void;
 }
 
 function RadioInput({
@@ -40,32 +24,25 @@ function RadioInput({
   disabled,
   vertical,
   optionsArray,
-  handleChange,
+  onChange,
 }: Props) {
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
+    <Box display="flex" justifyContent="center" my={2}>
       <FormControl disabled={disabled} required={required} component="fieldset">
         <FormLabel component="legend">{label}</FormLabel>
-        <RadioGroup
-          name={name}
-          value={value}
-          onChange={handleChange}
-          className={vertical ? classes.radioGroupVertical : classes.radioGroup}
-        >
+        <RadioGroup name={name} value={value} onChange={onChange} row={!vertical}>
           {optionsArray?.map((option: any) => (
             <FormControlLabel
               key={option.id}
               label={option.label}
               value={option.value}
               disabled={option.disabled}
-              control={<Radio disabled={disabled} required={required} color="primary" />}
+              control={<Radio disabled={disabled} required={required} />}
             />
           ))}
         </RadioGroup>
       </FormControl>
-    </div>
+    </Box>
   );
 }
 

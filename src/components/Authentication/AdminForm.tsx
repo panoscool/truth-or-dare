@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
   IconButton,
@@ -7,33 +6,26 @@ import {
   DialogTitle,
   DialogContent,
   Typography,
-} from '@material-ui/core';
-import Close from '@material-ui//icons/Close';
+  Box,
+} from '@mui/material';
+import Close from '@mui/icons-material/Close';
 import TextInput from '../Shared/TextInput';
 import { functions } from '../../config/firebase';
-import useTheme from '../../hooks/useTheme';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-  button: {
-    margin: theme.spacing(2, 0),
-  },
-  success: {
-    color: theme.palette.success.main,
-  },
-  error: {
-    color: theme.palette.error.main,
-  },
+const CloseButton = styled(IconButton)(({ theme }) => ({
+  position: 'absolute',
+  right: theme.spacing(1),
+  top: theme.spacing(1),
+  color: theme.palette.grey[500],
 }));
 
-function AdminForm() {
-  const classes = useStyles();
-  const { modal, setModal } = useTheme();
+interface Props {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function AdminForm({ open, setOpen }: Props) {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState({
     type: '',
@@ -41,7 +33,7 @@ function AdminForm() {
   });
 
   function handleClose() {
-    setModal(null);
+    setOpen(false);
   }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -56,6 +48,7 @@ function AdminForm() {
     try {
       const addAdminRole = functions.httpsCallable('addAdminRole');
       const response = await addAdminRole({ email });
+
       setMessage({ type: 'success', text: response.data.message });
       setEmail('');
     } catch (err) {
@@ -65,33 +58,28 @@ function AdminForm() {
   }
 
   return (
-    <Dialog open={Boolean(modal)} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle>
         Make admin
-        <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+        <CloseButton aria-label="close" onClick={handleClose} size="large">
           <Close />
-        </IconButton>
+        </CloseButton>
       </DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit} autoComplete="off">
-          <Typography className={message.type === 'success' ? classes.success : classes.error}>
-            {message.text}
-          </Typography>
-          <TextInput
-            required
-            name="email"
-            label="Add email"
-            placeholder="Add email"
-            value={email || ''}
-            handleChange={handleChange}
-          />
-          <Button
-            fullWidth
-            type="submit"
-            color="primary"
-            variant="contained"
-            className={classes.button}
-          >
+          <Typography>{message.text}</Typography>
+
+          <Box mt={4} mb={2} minWidth={300}>
+            <TextInput
+              required
+              name="email"
+              label="Add email"
+              placeholder="Add email"
+              value={email || ''}
+              onChange={handleChange}
+            />
+          </Box>
+          <Button fullWidth type="submit" color="primary" variant="contained">
             Make admin
           </Button>
         </form>

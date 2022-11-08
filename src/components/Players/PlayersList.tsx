@@ -1,12 +1,12 @@
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import IconButton from '@material-ui/core/IconButton';
-import Divider from '@material-ui/core/Divider';
-import Tooltip from '@material-ui/core/Tooltip';
-import ClearAll from '@material-ui/icons/ClearAll';
-import ClearIcon from '@material-ui/icons/Clear';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import ListItemText from '@mui/material/ListItemText';
+import IconButton from '@mui/material/IconButton';
+import Divider from '@mui/material/Divider';
+import Tooltip from '@mui/material/Tooltip';
+import ClearAll from '@mui/icons-material/ClearAll';
+import ClearIcon from '@mui/icons-material/Clear';
 
 interface Props {
   data: Array<object>;
@@ -24,7 +24,12 @@ function PlayersList({ data, handleSelect, handleDelete, handleClearList }: Prop
             <ListItemText primary="Name" />
             <ListItemSecondaryAction>
               <Tooltip placement="left" title="Clear all">
-                <IconButton onClick={handleClearList} edge="end" aria-label="clear-all">
+                <IconButton
+                  edge="end"
+                  size="large"
+                  aria-label="clear-all"
+                  onClick={handleClearList}
+                >
                   <ClearAll />
                 </IconButton>
               </Tooltip>
@@ -37,7 +42,12 @@ function PlayersList({ data, handleSelect, handleDelete, handleClearList }: Prop
         <ListItem button key={p.id} onClick={() => handleSelect(p)}>
           <ListItemText primary={<span style={{ textTransform: 'capitalize' }}>{p.name}</span>} />
           <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(p.id)}>
+            <IconButton
+              edge="end"
+              size="large"
+              aria-label="delete"
+              onClick={() => handleDelete(p.id)}
+            >
               <ClearIcon />
             </IconButton>
           </ListItemSecondaryAction>

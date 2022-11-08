@@ -1,18 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import { Typography, Box } from '@mui/material';
 import Spinner from '../Shared/Spinner';
-
-const useStyles = makeStyles((theme) => ({
-  pName: {
-    textTransform: 'capitalize',
-  },
-  qType: {
-    textTransform: 'uppercase',
-  },
-  question: {
-    margin: theme.spacing(2, 0),
-  },
-}));
 
 interface Props {
   state: any;
@@ -31,38 +18,50 @@ function GameDisplay({
   currentQuestion,
   currentPlayer,
 }: Props) {
-  const classes = useStyles();
-
-  const playerName = <span className={classes.pName}>{currentPlayer}</span>;
-
   if (state.loading) {
     return <Spinner thickness={2} />;
-  } else if (isTruthOver && isDareOver) {
-    return <Typography variant="h4">Game over</Typography>;
-  } else if (questionType && currentQuestion) {
+  }
+  if (isTruthOver && isDareOver) {
     return (
-      <>
-        <Typography variant="caption" color="textSecondary" className={classes.qType}>
-          {questionType}
-        </Typography>
-        <Typography variant="h6" className={classes.question}>
-          {currentQuestion}
-        </Typography>
-      </>
-    );
-  } else if (state.error) {
-    return (
-      <Typography gutterBottom color="error">
-        {state.error}
-      </Typography>
-    );
-  } else {
-    return (
-      <Typography gutterBottom variant="h6">
-        {currentPlayer ? <span>{playerName} is playing...</span> : 'Select a question type!'}
+      <Typography variant="h4" textAlign="center">
+        Game over
       </Typography>
     );
   }
+  if (questionType && currentQuestion) {
+    return (
+      <Box textAlign="center">
+        <Typography variant="caption" color="textSecondary" textTransform="capitalize">
+          {questionType}
+        </Typography>
+        <Typography variant="h6" my={2}>
+          {currentQuestion}
+        </Typography>
+      </Box>
+    );
+  }
+  if (state.error) {
+    return (
+      <Typography gutterBottom color="error" textAlign="center">
+        {state.error}
+      </Typography>
+    );
+  }
+
+  return (
+    <Box textAlign="center">
+      {currentPlayer ? (
+        <Typography gutterBottom variant="h6">
+          <Typography variant="h6" component="span" textTransform="capitalize">
+            {currentPlayer}{' '}
+          </Typography>
+          is playing...
+        </Typography>
+      ) : (
+        <Typography variant="h5">Select a question type!</Typography>
+      )}
+    </Box>
+  );
 }
 
 export default GameDisplay;

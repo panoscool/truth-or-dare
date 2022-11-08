@@ -1,18 +1,14 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { styled } from '@mui/material/styles';
+import { Paper } from '@mui/material';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: theme.spacing(2),
-    padding: theme.spacing(2),
-    backgroundColor: theme.palette.background.paper,
-  },
+const PaperWrapper = styled(Paper)(({ theme }) => ({
+  margin: theme.spacing(2),
+  padding: theme.spacing(2),
 }));
 
 function PrivacyPolicy() {
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
+    <PaperWrapper>
       <h1>Privacy Policy</h1>
 
       <p>Last updated: February 06, 2020</p>
@@ -389,7 +385,7 @@ function PrivacyPolicy() {
       <ul>
         <li>By visiting this page on our website: tord.netlify.com/contact</li>
       </ul>
-    </div>
+    </PaperWrapper>
   );
 }
 

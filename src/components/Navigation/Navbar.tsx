@@ -1,67 +1,84 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import HomeIcon from '@material-ui/icons/Home';
-import AuthMenu from './AuthMenu';
+import { AppBar, Box, Toolbar, Typography, IconButton } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import PrivateMenu from './PrivateMenu';
 import ThemeToggle from '../Shared/ThemeToggle';
-import useTheme from '../../hooks/useTheme';
 import useAuthentication from '../../hooks/useAuthentication';
 import useGameOptions from '../../hooks/useGameOptions';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  title: {
-    flexGrow: 1,
-  },
-  pName: {
-    textTransform: 'capitalize',
-  },
-}));
+import { useState } from 'react';
+import PublicMenu from './PublicMenu';
+import ConfirmExitDialog from '../Shared/ConfirmExitDialog';
 
 function Navbar() {
-  const classes = useStyles();
-  const { setModal } = useTheme();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { currentPlayer } = useGameOptions();
-  const { admin, authenticated, displayName, photoURL } = useAuthentication();
+  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { admin, authenticated, displayName, photoURL, signout } = useAuthentication();
+
+  function handleOpen(event: React.MouseEvent<HTMLElement>) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleClose() {
+    setAnchorEl(null);
+  }
+
+  async function handleLogout() {
+    try {
+      await signout();
+      setAnchorEl(null);
+    } catch {
+      console.error('Failed to log out');
+    }
+  }
 
   function handleHomeRedirect() {
     if (pathname === '/game') {
-      setModal('ConfirmExitDialog');
+      setOpen(true);
     } else {
       navigate('/');
     }
   }
 
   return (
-    <div className={classes.root}>
+    <Box flexGrow={1} mb={2}>
       <AppBar color="transparent" position="static">
         <Toolbar variant="dense">
-          <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleHomeRedirect}>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            size="large"
+            onClick={handleHomeRedirect}
+          >
             <HomeIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" flexGrow={1}>
             {currentPlayer ? (
-              <Typography className={classes.pName}>{currentPlayer}</Typography>
+              <Typography textTransform="capitalize">{currentPlayer}</Typography>
             ) : null}
           </Typography>
           <ThemeToggle />
-          <AuthMenu
-            admin={admin}
-            authenticated={authenticated}
-            displayName={displayName}
-            photoURL={photoURL}
-            setModal={setModal}
-          />
+          {authenticated ? (
+            <PrivateMenu
+              anchorEl={anchorEl}
+              admin={Boolean(admin)}
+              userName={displayName}
+              photoURL={photoURL}
+              openMenu={handleOpen}
+              closeMenu={handleClose}
+              logout={handleLogout}
+            />
+          ) : (
+            <PublicMenu anchorEl={anchorEl} openMenu={handleOpen} closeMenu={handleClose} />
+          )}
         </Toolbar>
       </AppBar>
-    </div>
+
+      <ConfirmExitDialog open={open} setOpen={setOpen} />
+    </Box>
   );
 }
 
