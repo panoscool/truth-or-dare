@@ -6,20 +6,20 @@
 }
 
 ::-webkit-scrollbar {
-  width: 0px;  /* Remove scrollbar space */
-  background: transparent;  /* Optional: just make scrollbar invisible */
+  width: 0px; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
 }
 
 .title {
-	background-image: url('/images/giphy.gif');
+  background-image: url('/public/images/giphy.gif');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-	background-clip: text;
-	text-transform: uppercase;
+  background-clip: text;
+  text-transform: uppercase;
   color: transparent;
-	font-size: 3rem;
-	line-height: .75;
+  font-size: 3rem;
+  line-height: 0.75;
   font-family: 'Luckiest Guy', cursive, sans-serif;
   letter-spacing: 0.35rem;
   margin: 16px 0;
@@ -35,8 +35,12 @@
 }
 
 @keyframes categories {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .animate-btnPlay {
@@ -49,8 +53,12 @@
 }
 
 @keyframes btnPlay {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .animate-list {
@@ -63,8 +71,12 @@
 }
 
 @keyframes list {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .animate-btnGroup {
@@ -76,8 +88,12 @@
 }
 
 @keyframes btnGroup {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .fade-enter {

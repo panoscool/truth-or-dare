@@ -1,5 +1,5 @@
-import React, { useEffect, Fragment } from 'react';
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { useEffect, Fragment } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navigation/Navbar';
 import HomePage from './components/Home/HomePage';
 import GamePage from './components/Game/GamePage';
@@ -23,8 +23,8 @@ function App() {
   const { loading } = useAuthentication();
 
   useEffect(() => {
-    let page_location = pathname;
-    let page_referrer = document.referrer;
+    const page_location = pathname;
+    const page_referrer = document.referrer;
 
     analytics.logEvent('page_view', { page_location, page_referrer });
   }, [pathname]);
@@ -40,16 +40,31 @@ function App() {
     <Fragment>
       <ModalManager />
       <Navbar />
-      <Switch>
-        <Route path="/game" component={GamePage} />
-        <Route path={['/update/:type/:id', '/create']} component={QuestionsForm} />
-        <PrivateRoute path="/questions" component={QuestionsPage} />
-        <Route path="/information" component={InformationPage} />
-        <Route path="/privacy-policy" component={PrivacyPolicy} />
-        <PublicRoute path="/recovery" component={RecoveryPage} />
-        <Route exact path="/" component={HomePage} />
-        <Route component={NotFoundPage} />
-      </Switch>
+      <Routes>
+        <Route path="/game" element={<GamePage />} />
+        <Route path="/update/:type/:id" element={<QuestionsForm />} />
+        <Route path="/create" element={<QuestionsForm />} />
+        <Route
+          path="/questions"
+          element={
+            <PrivateRoute redirectTo="/">
+              <QuestionsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/information" element={<InformationPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route
+          path="/recovery"
+          element={
+            <PublicRoute redirectTo="/">
+              <RecoveryPage />
+            </PublicRoute>
+          }
+        />
+        <Route path="/" element={<HomePage />} />
+        <Route element={<NotFoundPage />} />
+      </Routes>
     </Fragment>
   );
 }

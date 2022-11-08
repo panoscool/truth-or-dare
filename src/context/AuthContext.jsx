@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect } from 'react';
+import { useState, createContext, useEffect } from 'react';
 import firebase, { auth } from '../config/firebase';
 
 const initValues = {

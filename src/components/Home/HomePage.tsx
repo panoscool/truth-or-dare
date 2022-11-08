@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Paper } from '@material-ui/core';
@@ -15,21 +14,21 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     margin: theme.spacing(2),
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   innerBlock: {
     width: 620,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   button: {
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   iconLight: {
-    color: theme.palette.grey[400]
+    color: theme.palette.grey[400],
   },
   iconDark: {
-    color: theme.palette.grey[600]
-  }
+    color: theme.palette.grey[600],
+  },
 }));
 
 function HomePage() {
@@ -44,7 +43,9 @@ function HomePage() {
     <Paper className={classes.paper}>
       <div className={classes.innerBlock}>
         <div className="title">Truth or Dare</div>
-        <div className="animate-categories"><CategoriesPage label="Game Mode" category={category} setCategory={setCategory} /></div>
+        <div className="animate-categories">
+          <CategoriesPage label="Game Mode" category={category} setCategory={setCategory} />
+        </div>
         <div className="animate-btnPlay">
           {!players.length && (
             <>
@@ -57,7 +58,7 @@ function HomePage() {
                 to="/game"
               >
                 Quick Play
-            </Button>
+              </Button>
               <Typography gutterBottom>- OR -</Typography>
             </>
           )}
@@ -73,19 +74,22 @@ function HomePage() {
                 to="/game"
               >
                 Play
-            </Button>
-              <Typography><Details className={iconStyle} /></Typography>
+              </Button>
+              <Typography>
+                <Details className={iconStyle} />
+              </Typography>
             </>
           )}
           <PlayersPage players={players} setPlayers={setPlayers} />
         </div>
         <div className="animate-list">
-          {!players.length && (
-            <NavList authenticated={authenticated} admin={admin} />
-          )}
+          {!players.length && <NavList authenticated={authenticated} admin={admin} />}
         </div>
-        {!authenticated &&
-          <Typography variant='caption' color='textSecondary'>* Login to access all categories *</Typography>}
+        {!authenticated && (
+          <Typography variant="caption" color="textSecondary">
+            * Login to access all categories *
+          </Typography>
+        )}
       </div>
     </Paper>
   );

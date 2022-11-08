@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -9,8 +8,8 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     minWidth: 120,
     width: '100%',
-    margin: theme.spacing(2, 0)
-  }
+    margin: theme.spacing(2, 0),
+  },
 }));
 
 interface Props {
@@ -19,7 +18,7 @@ interface Props {
   value: string;
   required?: boolean;
   disabled?: boolean;
-  optionsArray: Array<object>
+  optionsArray: Array<object>;
   handleChange: (e: any) => void;
 }
 
@@ -27,7 +26,13 @@ function SelectForm({ name, label, value, required, disabled, optionsArray, hand
   const classes = useStyles();
 
   return (
-    <FormControl required={required} disabled={disabled} variant="outlined" margin="dense" className={classes.formControl}>
+    <FormControl
+      required={required}
+      disabled={disabled}
+      variant="outlined"
+      margin="dense"
+      className={classes.formControl}
+    >
       <InputLabel>{label}</InputLabel>
       <Select label={label} name={name} value={value} onChange={handleChange}>
         {optionsArray?.map((option: any) => (

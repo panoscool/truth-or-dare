@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -16,11 +16,11 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: theme.palette.grey[500]
+    color: theme.palette.grey[500],
   },
   error: {
-    color: theme.palette.error.main
-  }
+    color: theme.palette.error.main,
+  },
 }));
 
 function SignUpForm() {
@@ -31,12 +31,12 @@ function SignUpForm() {
   const [values, setValues] = useState({
     displayName: '',
     email: '',
-    password: ''
+    password: '',
   });
 
   function handleClose() {
     setModal(null);
-  };
+  }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -53,8 +53,8 @@ function SignUpForm() {
 
       handleClose();
     } catch (err) {
-      console.error(err.message);
-      setError(err.message);
+      console.error((err as any).message);
+      setError((err as any).message);
     }
   }
 
@@ -68,11 +68,11 @@ function SignUpForm() {
       </DialogTitle>
       <DialogContent>
         <span className={classes.error}>{error && error}</span>
-        <form onSubmit={handleSubmit} autoComplete='off'>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <TextInput
             required
             type="text"
-            name='displayName'
+            name="displayName"
             label="Name"
             value={values.displayName}
             handleChange={handleChange}
@@ -80,20 +80,22 @@ function SignUpForm() {
           <TextInput
             required
             type="email"
-            name='email'
+            name="email"
             label="Email"
             value={values.email}
             handleChange={handleChange}
           />
           <TextInput
             required
-            type='password'
-            name='password'
+            type="password"
+            name="password"
             label="Password"
             value={values.password}
             handleChange={handleChange}
           />
-          <Button fullWidth type='submit' color='primary' variant='contained'>Register</Button>
+          <Button fullWidth type="submit" color="primary" variant="contained">
+            Register
+          </Button>
         </form>
         <SocialLogin />
       </DialogContent>

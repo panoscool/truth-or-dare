@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Divider, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import { AddCircleOutline, InfoOutlined, ListAltOutlined } from '@material-ui/icons';

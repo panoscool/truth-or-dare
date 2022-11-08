@@ -1,5 +1,4 @@
 // @ts-nocheck
-import React from 'react';
 import useTheme from '../hooks/useTheme';
 import AdminForm from './Authentication/AdminForm';
 import SignInForm from './Authentication/SignInForm';
@@ -10,7 +9,7 @@ const modals = {
   AdminForm,
   SignInForm,
   SignUpForm,
-  ConfirmExitDialog
+  ConfirmExitDialog,
 };
 
 function ModalManager() {

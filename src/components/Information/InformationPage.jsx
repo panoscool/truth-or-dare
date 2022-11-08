@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Paper, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
 import ArroRight from '@material-ui/icons/ArrowRight';
@@ -7,8 +6,8 @@ import { rules, categories, questions } from './InformationData';
 const useStyles = makeStyles((theme) => ({
   paper: {
     margin: theme.spacing(2),
-    padding: theme.spacing(2)
-  }
+    padding: theme.spacing(2),
+  },
 }));
 
 function InformationPage() {

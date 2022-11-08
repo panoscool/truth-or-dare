@@ -1,5 +1,4 @@
-import React from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -27,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 function Navbar() {
   const classes = useStyles();
   const { setModal } = useTheme();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const { currentPlayer } = useGameOptions();
   const { admin, authenticated, displayName, photoURL } = useAuthentication();
@@ -36,7 +35,7 @@ function Navbar() {
     if (pathname === '/game') {
       setModal('ConfirmExitDialog');
     } else {
-      history.push('/');
+      navigate('/');
     }
   }
 

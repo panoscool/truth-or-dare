@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -10,30 +9,39 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     justifyContent: 'center',
-    margin: theme.spacing(2, 0)
+    margin: theme.spacing(2, 0),
   },
   radioGroup: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   radioGroupVertical: {
     display: 'flex',
-    flexDirection: 'column'
-  }
+    flexDirection: 'column',
+  },
 }));
 
 interface Props {
   name: string;
-  label: string
-  value: string
+  label: string;
+  value: string;
   required?: boolean;
   disabled?: boolean;
   vertical?: boolean;
-  optionsArray: Array<object>
+  optionsArray: Array<object>;
   handleChange: (e: any) => void;
 }
 
-function RadioInput({ name, label, value, required, disabled, vertical, optionsArray, handleChange }: Props) {
+function RadioInput({
+  name,
+  label,
+  value,
+  required,
+  disabled,
+  vertical,
+  optionsArray,
+  handleChange,
+}: Props) {
   const classes = useStyles();
 
   return (
