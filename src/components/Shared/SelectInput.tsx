@@ -1,16 +1,7 @@
-import { makeStyles } from '@material-ui/core/styles';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    minWidth: 120,
-    width: '100%',
-    margin: theme.spacing(2, 0),
-  },
-}));
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 interface Props {
   name: string;
@@ -19,22 +10,14 @@ interface Props {
   required?: boolean;
   disabled?: boolean;
   optionsArray: Array<object>;
-  handleChange: (e: any) => void;
+  onChange: (e: any) => void;
 }
 
-function SelectForm({ name, label, value, required, disabled, optionsArray, handleChange }: Props) {
-  const classes = useStyles();
-
+function SelectForm({ name, label, value, required, disabled, optionsArray, onChange }: Props) {
   return (
-    <FormControl
-      required={required}
-      disabled={disabled}
-      variant="outlined"
-      margin="dense"
-      className={classes.formControl}
-    >
+    <FormControl required={required} disabled={disabled} margin="dense">
       <InputLabel>{label}</InputLabel>
-      <Select label={label} name={name} value={value} onChange={handleChange}>
+      <Select label={label} name={name} value={value} onChange={onChange}>
         {optionsArray?.map((option: any) => (
           <MenuItem key={option.id} value={option.value} disabled={option.disabled}>
             {option.label}

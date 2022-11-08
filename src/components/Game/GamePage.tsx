@@ -1,30 +1,21 @@
 import { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Button } from '@material-ui/core';
+import { Paper, Button, Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import GameDisplay from './GameDisplay';
 import useGameOptions from '../../hooks/useGameOptions';
 import PlayersScore from '../Players/PlayersScore';
 import { storeSetItem, storeGetItem, storeRemoveItem, KEYS } from '../../config/store';
 import { firestore } from '../../config/firebase';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    textAlign: 'center',
-  },
-  paper: {
-    margin: theme.spacing(2),
-    padding: theme.spacing(2),
-  },
-  button: {
-    margin: theme.spacing(2),
-  },
-  text: {
-    minHeight: 100,
-  },
+const ButtonsWrapper = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: theme.spacing(1),
+  margin: theme.spacing(2, 0),
 }));
 
 function GamePage() {
-  const classes = useStyles();
   const [isTruthOver, setTruthOver] = useState(false);
   const [isDareOver, setDareOver] = useState(false);
   const { category, currentPlayer, nextPlayer, scoreUpdate } = useGameOptions();
@@ -113,9 +104,9 @@ function GamePage() {
   }
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <div className={classes.text}>
+    <Box textAlign="center">
+      <Paper sx={{ m: 2, p: 2 }}>
+        <Box minHeight={100}>
           <GameDisplay
             state={state}
             isTruthOver={isTruthOver}
@@ -124,16 +115,15 @@ function GamePage() {
             currentQuestion={currentQuestion}
             currentPlayer={currentPlayer}
           />
-        </div>
+        </Box>
         <div className="animate-btnGroup">
           {currentQuestion && currentPlayer ? (
-            <>
+            <ButtonsWrapper>
               <Button
                 size="large"
                 color="secondary"
                 variant="outlined"
                 onClick={() => handlePlayerTurn()}
-                className={classes.button}
               >
                 Skip
               </Button>
@@ -141,19 +131,17 @@ function GamePage() {
                 size="large"
                 color="primary"
                 variant="outlined"
-                className={classes.button}
                 onClick={() => handlePlayerTurn('update')}
               >
                 Done
               </Button>
-            </>
+            </ButtonsWrapper>
           ) : (
-            <>
+            <ButtonsWrapper>
               <Button
                 size="large"
                 color="primary"
                 variant="contained"
-                className={classes.button}
                 disabled={isTruthOver || state.loading}
                 onClick={() => handleRandomQuestion('truth')}
               >
@@ -163,18 +151,17 @@ function GamePage() {
                 size="large"
                 color="secondary"
                 variant="contained"
-                className={classes.button}
                 disabled={isDareOver || state.loading}
                 onClick={() => handleRandomQuestion('dare')}
               >
                 Dare
               </Button>
-            </>
+            </ButtonsWrapper>
           )}
         </div>
       </Paper>
       {currentPlayer ? <PlayersScore /> : null}
-    </div>
+    </Box>
   );
 }
 

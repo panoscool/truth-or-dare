@@ -1,18 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import { Typography } from '@mui/material';
 import Spinner from '../Shared/Spinner';
-
-const useStyles = makeStyles((theme) => ({
-  pName: {
-    textTransform: 'capitalize',
-  },
-  qType: {
-    textTransform: 'uppercase',
-  },
-  question: {
-    margin: theme.spacing(2, 0),
-  },
-}));
 
 interface Props {
   state: any;
@@ -31,10 +18,6 @@ function GameDisplay({
   currentQuestion,
   currentPlayer,
 }: Props) {
-  const classes = useStyles();
-
-  const playerName = <span className={classes.pName}>{currentPlayer}</span>;
-
   if (state.loading) {
     return <Spinner thickness={2} />;
   } else if (isTruthOver && isDareOver) {
@@ -42,10 +25,10 @@ function GameDisplay({
   } else if (questionType && currentQuestion) {
     return (
       <>
-        <Typography variant="caption" color="textSecondary" className={classes.qType}>
+        <Typography variant="caption" color="textSecondary" textTransform="capitalize">
           {questionType}
         </Typography>
-        <Typography variant="h6" className={classes.question}>
+        <Typography variant="h6" my={2}>
           {currentQuestion}
         </Typography>
       </>
@@ -58,8 +41,8 @@ function GameDisplay({
     );
   } else {
     return (
-      <Typography gutterBottom variant="h6">
-        {currentPlayer ? <span>{playerName} is playing...</span> : 'Select a question type!'}
+      <Typography gutterBottom variant="h6" textTransform="capitalize">
+        {currentPlayer ? <span>{currentPlayer} is playing...</span> : 'Select a question type!'}
       </Typography>
     );
   }

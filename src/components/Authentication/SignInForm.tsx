@@ -1,34 +1,17 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
-import Close from '@material-ui/icons/Close';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
+import Close from '@mui/icons-material/Close';
 import TextInput from '../Shared/TextInput';
 import SocialLogin from './SocialLogin';
 import useAuthentication from '../../hooks/useAuthentication';
 import useTheme from '../../hooks/useTheme';
 
-const useStyles = makeStyles((theme) => ({
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-  link: {
-    cursor: 'pointer',
-  },
-  error: {
-    color: theme.palette.error.main,
-  },
-}));
-
 function SignInForm() {
-  const classes = useStyles();
   const navigate = useNavigate();
   const { modal, setModal } = useTheme();
   const { signin } = useAuthentication();
@@ -68,12 +51,12 @@ function SignInForm() {
     <Dialog open={Boolean(modal)} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">
         Login
-        <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+        <IconButton aria-label="close" onClick={handleClose} size="large">
           <Close />
         </IconButton>
       </DialogTitle>
       <DialogContent>
-        <span className={classes.error}>{error && error}</span>
+        <span>{error && error}</span>
         <form onSubmit={handleSubmit} autoComplete="off">
           <TextInput
             required
@@ -81,7 +64,7 @@ function SignInForm() {
             name="email"
             label="Email"
             value={values.email}
-            handleChange={handleChange}
+            onChange={handleChange}
           />
           <TextInput
             required
@@ -89,12 +72,8 @@ function SignInForm() {
             name="password"
             label="Password"
             value={values.password}
-            handleChange={handleChange}
-            helperText={
-              <span onClick={hanndleForgotPassword} className={classes.link}>
-                Forgot password?
-              </span>
-            }
+            onChange={handleChange}
+            helperText={<span onClick={hanndleForgotPassword}>Forgot password?</span>}
           />
           <Button fullWidth type="submit" color="primary" variant="contained">
             Login

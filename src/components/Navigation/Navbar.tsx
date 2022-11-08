@@ -1,30 +1,13 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import HomeIcon from '@material-ui/icons/Home';
+import { AppBar, Box, Toolbar, Typography, IconButton } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
 import AuthMenu from './AuthMenu';
 import ThemeToggle from '../Shared/ThemeToggle';
 import useTheme from '../../hooks/useTheme';
 import useAuthentication from '../../hooks/useAuthentication';
 import useGameOptions from '../../hooks/useGameOptions';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  title: {
-    flexGrow: 1,
-  },
-  pName: {
-    textTransform: 'capitalize',
-  },
-}));
-
 function Navbar() {
-  const classes = useStyles();
   const { setModal } = useTheme();
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -40,15 +23,21 @@ function Navbar() {
   }
 
   return (
-    <div className={classes.root}>
+    <Box flexGrow={1}>
       <AppBar color="transparent" position="static">
         <Toolbar variant="dense">
-          <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleHomeRedirect}>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={handleHomeRedirect}
+            size="large"
+          >
             <HomeIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" flexGrow={1}>
             {currentPlayer ? (
-              <Typography className={classes.pName}>{currentPlayer}</Typography>
+              <Typography textTransform="capitalize">{currentPlayer}</Typography>
             ) : null}
           </Typography>
           <ThemeToggle />
@@ -61,7 +50,7 @@ function Navbar() {
           />
         </Toolbar>
       </AppBar>
-    </div>
+    </Box>
   );
 }
 

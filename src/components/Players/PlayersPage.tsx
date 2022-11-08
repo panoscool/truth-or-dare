@@ -1,19 +1,9 @@
 import { useState } from 'react';
 import cuid from 'cuid';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import PlayersList from './PlayersList';
 import TextInput from '../Shared/TextInput';
 import { storeSetItem, storeRemoveItem, KEYS } from '../../config/store';
-
-const useStyles = makeStyles((theme) => ({
-  formGroup: {
-    display: 'flex',
-  },
-  button: {
-    margin: theme.spacing(2, 0, 2, 1),
-  },
-}));
 
 interface Props {
   players: Array<object>;
@@ -21,7 +11,6 @@ interface Props {
 }
 
 function PlayersPage({ players, setPlayers }: Props) {
-  const classes = useStyles();
   const [isEdit, setIsEdit] = useState(false);
   const [values, setValues] = useState({
     id: '',
@@ -87,21 +76,15 @@ function PlayersPage({ players, setPlayers }: Props) {
 
   return (
     <div>
-      <form autoComplete="off" onSubmit={handleSubmit} className={classes.formGroup}>
+      <form autoComplete="off" onSubmit={handleSubmit}>
         <TextInput
           name="name"
           label="Add names"
           placeholder="Add names"
           value={values.name || ''}
-          handleChange={handleChange}
+          onChange={handleChange}
         />
-        <Button
-          type="submit"
-          color="primary"
-          variant="contained"
-          disabled={disabled}
-          className={classes.button}
-        >
+        <Button type="submit" color="primary" variant="contained" disabled={disabled}>
           {isEdit ? 'Edit' : 'Add'}
         </Button>
       </form>

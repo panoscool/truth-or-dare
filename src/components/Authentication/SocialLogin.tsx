@@ -1,22 +1,10 @@
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, Typography } from '@material-ui/core';
+import { Button, Typography } from '@mui/material';
 import Google from '../Icons/Google';
 import Twitter from '../Icons/Twitter';
 import useAuthentication from '../../hooks/useAuthentication';
 import useTheme from '../../hooks/useTheme';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    textAlign: 'center',
-    gap: theme.spacing(2),
-    margin: theme.spacing(2, 0),
-  },
-}));
-
 function SocialLogin() {
-  const classes = useStyles();
   const { setModal } = useTheme();
   const { socialLogin } = useAuthentication();
 
@@ -31,7 +19,7 @@ function SocialLogin() {
   }
 
   return (
-    <div className={classes.root}>
+    <div>
       <Typography>- OR -</Typography>
       <Button
         onClick={() => handleSocialLogin('google')}

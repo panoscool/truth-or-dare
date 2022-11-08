@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import cuid from 'cuid';
 import { useParams, useNavigate } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, Paper, Typography } from '@material-ui/core';
+import { Button, Paper, Typography } from '@mui/material';
 import TextInput from '../Shared/TextInput';
 import RadioInput from '../Shared/RadioInput';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
@@ -10,27 +9,7 @@ import Spinner from '../Shared/Spinner';
 import firebase, { firestore } from '../../config/firebase';
 import useAuthentication from '../../hooks/useAuthentication';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    display: 'flex',
-    justifyContent: 'center',
-    margin: theme.spacing(2),
-    padding: theme.spacing(2),
-  },
-  innerBlock: {
-    width: 620,
-    textAlign: 'center',
-  },
-  button: {
-    marginBottom: theme.spacing(2),
-  },
-  title: {
-    marginBottom: theme.spacing(2),
-  },
-}));
-
 function QuestionsForm() {
-  const classes = useStyles();
   const navigate = useNavigate();
   const { id, type } = useParams<{ id: string; type: string }>();
   const { width } = useWindowDimensions();
@@ -130,11 +109,9 @@ function QuestionsForm() {
   }
 
   return (
-    <Paper className={classes.paper}>
-      <div className={classes.innerBlock}>
-        <Typography variant="h6" className={classes.title}>
-          Add your own questions!
-        </Typography>
+    <Paper>
+      <div>
+        <Typography variant="h6">Add your own questions!</Typography>
         <form autoComplete="off" onSubmit={handleSubmit}>
           <RadioInput
             required
@@ -142,7 +119,7 @@ function QuestionsForm() {
             label="Question Type"
             disabled={Boolean(id)}
             value={questionType || ''}
-            handleChange={handleQuestionType}
+            onChange={handleQuestionType}
             optionsArray={[
               { id: cuid(), value: 'truth_questions', label: 'Truth' },
               { id: cuid(), value: 'dare_questions', label: 'Dare' },
@@ -154,7 +131,7 @@ function QuestionsForm() {
             label="Select Category"
             vertical={width < 460}
             value={values.category || ''}
-            handleChange={handleChange}
+            onChange={handleChange}
             optionsArray={[
               { id: cuid(), value: 'funny', label: 'Funny' },
               { id: cuid(), value: 'challenging', label: 'Challenging' },
@@ -167,7 +144,7 @@ function QuestionsForm() {
             label="Add question"
             placeholder="Add question"
             value={values.question || ''}
-            handleChange={handleChange}
+            onChange={handleChange}
           />
           {state.loading ? (
             <Spinner thickness={2} />
@@ -178,7 +155,6 @@ function QuestionsForm() {
               color="primary"
               variant="contained"
               disabled={!authenticated}
-              className={classes.button}
             >
               Save
             </Button>

@@ -1,10 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { storeClearAll, CLEAR_KEYS } from '../../config/store';
 import useTheme from '../../hooks/useTheme';
 import useGameOptions from '../../hooks/useGameOptions';
@@ -28,11 +23,7 @@ function ConfirmExitDialog() {
   return (
     <Dialog open={Boolean(modal)} onClose={handleClose} aria-labelledby="alert-dialog-title">
       <DialogTitle id="alert-dialog-title">Exit game?</DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          Your game progress will be lost.
-        </DialogContentText>
-      </DialogContent>
+      <DialogContent>Your game progress will be lost.</DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">
           No

@@ -1,38 +1,11 @@
 import { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  Button,
-  IconButton,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  Typography,
-} from '@material-ui/core';
-import Close from '@material-ui//icons/Close';
+import { Button, IconButton, Dialog, DialogTitle, DialogContent, Typography } from '@mui/material';
+import Close from '@mui/icons-material/Close';
 import TextInput from '../Shared/TextInput';
 import { functions } from '../../config/firebase';
 import useTheme from '../../hooks/useTheme';
 
-const useStyles = makeStyles((theme) => ({
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-  button: {
-    margin: theme.spacing(2, 0),
-  },
-  success: {
-    color: theme.palette.success.main,
-  },
-  error: {
-    color: theme.palette.error.main,
-  },
-}));
-
 function AdminForm() {
-  const classes = useStyles();
   const { modal, setModal } = useTheme();
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState({
@@ -68,30 +41,22 @@ function AdminForm() {
     <Dialog open={Boolean(modal)} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">
         Make admin
-        <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+        <IconButton aria-label="close" onClick={handleClose} size="large">
           <Close />
         </IconButton>
       </DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit} autoComplete="off">
-          <Typography className={message.type === 'success' ? classes.success : classes.error}>
-            {message.text}
-          </Typography>
+          <Typography>{message.text}</Typography>
           <TextInput
             required
             name="email"
             label="Add email"
             placeholder="Add email"
             value={email || ''}
-            handleChange={handleChange}
+            onChange={handleChange}
           />
-          <Button
-            fullWidth
-            type="submit"
-            color="primary"
-            variant="contained"
-            className={classes.button}
-          >
+          <Button fullWidth type="submit" color="primary" variant="contained">
             Make admin
           </Button>
         </form>
