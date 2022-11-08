@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Button } from '@material-ui/core';
 import GameDisplay from './GameDisplay';
@@ -9,18 +9,18 @@ import { firestore } from '../../config/firebase';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    textAlign: 'center'
+    textAlign: 'center',
   },
   paper: {
     margin: theme.spacing(2),
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   button: {
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   text: {
-    minHeight: 100
-  }
+    minHeight: 100,
+  },
 }));
 
 function GamePage() {
@@ -29,12 +29,14 @@ function GamePage() {
   const [isDareOver, setDareOver] = useState(false);
   const { category, currentPlayer, nextPlayer, scoreUpdate } = useGameOptions();
   const [questionType, setQuestionType] = useState(storeGetItem(KEYS.QUESTION_TYPE) || null);
-  const [currentQuestion, setCurrentQuestion] = useState(storeGetItem(KEYS.CURRENT_QUESTION) || null);
+  const [currentQuestion, setCurrentQuestion] = useState(
+    storeGetItem(KEYS.CURRENT_QUESTION) || null,
+  );
   const [truth, setTruth] = useState(storeGetItem(KEYS.TRUTH_QUESTIONS) || []);
   const [dare, setDare] = useState(storeGetItem(KEYS.DARE_QUESTIONS) || []);
   const [state, setState] = useState({
     loading: false,
-    error: null
+    error: null,
   });
 
   useEffect(() => {
@@ -50,8 +52,8 @@ function GamePage() {
 
         setState({ loading: false, error: null });
       } catch (err) {
-        console.error(err.message);
-        setState({ loading: false, error: err.message });
+        console.error((err as any).message);
+        setState({ loading: false, error: (err as any).message });
       }
     }
 
@@ -134,7 +136,7 @@ function GamePage() {
                 className={classes.button}
               >
                 Skip
-            </Button>
+              </Button>
               <Button
                 size="large"
                 color="primary"
@@ -143,32 +145,32 @@ function GamePage() {
                 onClick={() => handlePlayerTurn('update')}
               >
                 Done
-            </Button>
+              </Button>
             </>
           ) : (
-              <>
-                <Button
-                  size="large"
-                  color="primary"
-                  variant="contained"
-                  className={classes.button}
-                  disabled={isTruthOver || state.loading}
-                  onClick={() => handleRandomQuestion('truth')}
-                >
-                  Truth
+            <>
+              <Button
+                size="large"
+                color="primary"
+                variant="contained"
+                className={classes.button}
+                disabled={isTruthOver || state.loading}
+                onClick={() => handleRandomQuestion('truth')}
+              >
+                Truth
               </Button>
-                <Button
-                  size="large"
-                  color="secondary"
-                  variant="contained"
-                  className={classes.button}
-                  disabled={isDareOver || state.loading}
-                  onClick={() => handleRandomQuestion('dare')}
-                >
-                  Dare
+              <Button
+                size="large"
+                color="secondary"
+                variant="contained"
+                className={classes.button}
+                disabled={isDareOver || state.loading}
+                onClick={() => handleRandomQuestion('dare')}
+              >
+                Dare
               </Button>
-              </>
-            )}
+            </>
+          )}
         </div>
       </Paper>
       {currentPlayer ? <PlayersScore /> : null}

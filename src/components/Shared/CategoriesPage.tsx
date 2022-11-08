@@ -1,4 +1,3 @@
-import React from 'react';
 import cuid from 'cuid';
 import RadioInput from './RadioInput';
 import SelectInput from './SelectInput';
@@ -26,7 +25,7 @@ function CategoriesPage({ select, category, setCategory, ...rest }: Props) {
   const categories = [
     { id: cuid(), value: 'funny', label: 'Funny', disabled: false },
     { id: cuid(), value: 'challenging', label: 'Challenging', disabled: false },
-    { id: cuid(), value: 'uncensored', label: 'Uncensored', disabled: !authenticated }
+    { id: cuid(), value: 'uncensored', label: 'Uncensored', disabled: !authenticated },
   ];
 
   if (select && width < 460) {

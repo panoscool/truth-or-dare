@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
@@ -14,8 +14,8 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(3),
   },
   userName: {
-    textTransform: 'capitalize'
-  }
+    textTransform: 'capitalize',
+  },
 }));
 
 interface Props {
@@ -34,13 +34,13 @@ function AuthMenu({ admin, authenticated, displayName, photoURL, setModal }: Pro
 
   function handleMenu(event: any) {
     setAnchorEl(event.currentTarget);
-  };
+  }
 
   function handleClose(modal: string) {
     // @ts-ignore
     setModal(modal);
     setAnchorEl(null);
-  };
+  }
 
   async function handleLogout() {
     try {
@@ -49,14 +49,13 @@ function AuthMenu({ admin, authenticated, displayName, photoURL, setModal }: Pro
     } catch {
       console.error('Failed to log out');
     }
-
   }
 
   function renderAvatar() {
     if (authenticated && photoURL) {
       return <Avatar className={classes.small} alt={displayName} src={photoURL} />;
     } else if (authenticated && !photoURL) {
-      return <Avatar className={classes.small} alt={displayName} src='/images/user.png' />;
+      return <Avatar className={classes.small} alt={displayName} src="/images/user.png" />;
     } else {
       return <AccountCircle />;
     }
@@ -88,18 +87,21 @@ function AuthMenu({ admin, authenticated, displayName, photoURL, setModal }: Pro
         open={open}
         onClose={handleClose}
       >
-        {authenticated ?
+        {authenticated ? (
           <span>
-            <MenuItem disabled className={classes.userName}>{displayName}</MenuItem>
-            <Divider variant='fullWidth' />
+            <MenuItem disabled className={classes.userName}>
+              {displayName}
+            </MenuItem>
+            <Divider variant="fullWidth" />
             {admin && <MenuItem onClick={() => handleClose('AdminForm')}>Admin</MenuItem>}
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </span>
-          :
+        ) : (
           <span>
             <MenuItem onClick={() => handleClose('SignInForm')}>Login</MenuItem>
             <MenuItem onClick={() => handleClose('SignUpForm')}>Register</MenuItem>
-          </span>}
+          </span>
+        )}
       </Menu>
     </div>
   );

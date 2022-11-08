@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import { useState, createContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { storeSetItem, storeGetItem, KEYS } from '../config/store';
 
@@ -6,10 +6,10 @@ const initValues = {
   players: [],
   category: null,
   currentPlayer: null,
-  setPlayers: (e) => { },
-  setCategory: (e) => { },
-  nextPlayer: () => { },
-  scoreUpdate: (e) => { }
+  setPlayers: (e) => {},
+  setCategory: (e) => {},
+  nextPlayer: () => {},
+  scoreUpdate: (e) => {},
 };
 
 export const OptionsContext = createContext(initValues);
@@ -51,14 +51,10 @@ function OptionsProvider({ children }) {
     setPlayers,
     setCategory,
     nextPlayer,
-    scoreUpdate
+    scoreUpdate,
   };
 
-  return (
-    <OptionsContext.Provider value={values}>
-      {children}
-    </OptionsContext.Provider>
-  );
-};
+  return <OptionsContext.Provider value={values}>{children}</OptionsContext.Provider>;
+}
 
 export default OptionsProvider;

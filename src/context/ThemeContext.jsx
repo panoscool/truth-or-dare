@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import { useState, createContext } from 'react';
 import { ThemeProvider } from '@material-ui/styles';
 import { createTheme } from '@material-ui/core/styles';
 import { blue, red } from '@material-ui/core/colors';
@@ -13,7 +13,7 @@ const initValues = {
 
 export const ThemeContext = createContext(initValues);
 
-export default ({ children }) => {
+function ThemeContextProvider({ children }) {
   const [modal, setModal] = useState(null);
   const [theme, setTheme] = useState(storeGetTheme() || 'dark');
 
@@ -40,4 +40,6 @@ export default ({ children }) => {
       <ThemeProvider theme={muiTheme}>{children}</ThemeProvider>
     </ThemeContext.Provider>
   );
-};
+}
+
+export default ThemeContextProvider;

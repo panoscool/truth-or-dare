@@ -1,18 +1,17 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Spinner from '../Shared/Spinner';
 
 const useStyles = makeStyles((theme) => ({
   pName: {
-    textTransform: 'capitalize'
+    textTransform: 'capitalize',
   },
   qType: {
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
   },
   question: {
-    margin: theme.spacing(2, 0)
-  }
+    margin: theme.spacing(2, 0),
+  },
 }));
 
 interface Props {
@@ -24,7 +23,14 @@ interface Props {
   currentPlayer: string | null;
 }
 
-function GameDisplay({ state, isTruthOver, isDareOver, questionType, currentQuestion, currentPlayer }: Props) {
+function GameDisplay({
+  state,
+  isTruthOver,
+  isDareOver,
+  questionType,
+  currentQuestion,
+  currentPlayer,
+}: Props) {
   const classes = useStyles();
 
   const playerName = <span className={classes.pName}>{currentPlayer}</span>;
@@ -45,13 +51,15 @@ function GameDisplay({ state, isTruthOver, isDareOver, questionType, currentQues
       </>
     );
   } else if (state.error) {
-    return <Typography gutterBottom color="error">{state.error}</Typography>;
+    return (
+      <Typography gutterBottom color="error">
+        {state.error}
+      </Typography>
+    );
   } else {
     return (
       <Typography gutterBottom variant="h6">
-        {currentPlayer
-          ? <span>{playerName} is playing...</span>
-          : 'Select a question type!'}
+        {currentPlayer ? <span>{playerName} is playing...</span> : 'Select a question type!'}
       </Typography>
     );
   }

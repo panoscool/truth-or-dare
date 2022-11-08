@@ -1,7 +1,6 @@
-// @ts-nocheck
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import cuid from 'cuid';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Paper, Typography } from '@material-ui/core';
 import TextInput from '../Shared/TextInput';
@@ -16,34 +15,34 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     margin: theme.spacing(2),
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   innerBlock: {
     width: 620,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   button: {
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
   },
   title: {
-    marginBottom: theme.spacing(2)
-  }
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 function QuestionsForm() {
   const classes = useStyles();
-  const history = useHistory();
-  const { id, type } = useParams();
+  const navigate = useNavigate();
+  const { id, type } = useParams<{ id: string; type: string }>();
   const { width } = useWindowDimensions();
   const { uid, authenticated } = useAuthentication();
   const [questionType, setQuestionType] = useState('');
   const [values, setValues] = useState({
     category: '',
-    question: ''
+    question: '',
   });
   const [state, setState] = useState({
     loading: false,
-    error: ''
+    error: '',
   });
 
   useEffect(() => {
@@ -52,12 +51,12 @@ function QuestionsForm() {
 
       setState({ loading: true, error: '' });
       try {
-        const doc = await firestore.collection(type).doc(id).get();
+        const doc = await firestore.collection(type!).doc(id).get();
 
         setState({ loading: false, error: '' });
         if (doc.exists) {
           const d = doc.data();
-          setQuestionType(type);
+          setQuestionType(type!);
           setValues({ category: d?.category, question: d?.question });
         } else {
           // doc.data() will be undefined in this case
@@ -65,7 +64,7 @@ function QuestionsForm() {
         }
       } catch (err) {
         console.error('Error getting document:', err);
-        setState({ loading: false, error: err.message });
+        setState({ loading: false, error: (err as any).message });
       }
     }
 
@@ -76,7 +75,7 @@ function QuestionsForm() {
     setValues({ ...values, [event.target.name]: event.target.value });
   }
 
-  function handleQuestionType(event: { target: { value: React.SetStateAction<string>; }; }) {
+  function handleQuestionType(event: { target: { value: React.SetStateAction<string> } }) {
     setQuestionType(event.target.value);
   }
 
@@ -87,7 +86,7 @@ function QuestionsForm() {
       const newQuestion = {
         ...values,
         userId: uid,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       };
 
       await firestore.collection(questionType).add(newQuestion);
@@ -96,8 +95,8 @@ function QuestionsForm() {
       setQuestionType('');
       setValues({ category: '', question: '' });
     } catch (err) {
-      console.error(err.message);
-      setState({ loading: false, error: err.message });
+      console.error((err as any).message);
+      setState({ loading: false, error: (err as any).message });
     }
   }
 
@@ -107,16 +106,16 @@ function QuestionsForm() {
 
       const updatedQuestion = {
         ...values,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       };
 
-      await firestore.collection(type).doc(id).update(updatedQuestion);
+      await firestore.collection(type!).doc(id).update(updatedQuestion);
 
       setState({ loading: false, error: '' });
-      history.push('/questions');
+      navigate('/questions');
     } catch (err) {
-      console.error(err.message);
-      setState({ loading: false, error: err.message });
+      console.error((err as any).message);
+      setState({ loading: false, error: (err as any).message });
     }
   }
 
@@ -133,8 +132,10 @@ function QuestionsForm() {
   return (
     <Paper className={classes.paper}>
       <div className={classes.innerBlock}>
-        <Typography variant="h6" className={classes.title}>Add your own questions!</Typography>
-        <form autoComplete='off' onSubmit={handleSubmit}>
+        <Typography variant="h6" className={classes.title}>
+          Add your own questions!
+        </Typography>
+        <form autoComplete="off" onSubmit={handleSubmit}>
           <RadioInput
             required
             name="questionType"
@@ -144,7 +145,7 @@ function QuestionsForm() {
             handleChange={handleQuestionType}
             optionsArray={[
               { id: cuid(), value: 'truth_questions', label: 'Truth' },
-              { id: cuid(), value: 'dare_questions', label: 'Dare' }
+              { id: cuid(), value: 'dare_questions', label: 'Dare' },
             ]}
           />
           <RadioInput
@@ -157,7 +158,7 @@ function QuestionsForm() {
             optionsArray={[
               { id: cuid(), value: 'funny', label: 'Funny' },
               { id: cuid(), value: 'challenging', label: 'Challenging' },
-              { id: cuid(), value: 'uncensored', label: 'Uncensored' }
+              { id: cuid(), value: 'uncensored', label: 'Uncensored' },
             ]}
           />
           <TextInput
@@ -171,21 +172,26 @@ function QuestionsForm() {
           {state.loading ? (
             <Spinner thickness={2} />
           ) : (
-              <Button
-                fullWidth
-                type="submit"
-                color="primary"
-                variant="contained"
-                disabled={!authenticated}
-                className={classes.button}
-              >
-                Save
-              </Button>
-            )}
+            <Button
+              fullWidth
+              type="submit"
+              color="primary"
+              variant="contained"
+              disabled={!authenticated}
+              className={classes.button}
+            >
+              Save
+            </Button>
+          )}
         </form>
-        <Typography gutterBottom color='error'>{state.error && state.error}</Typography>
-        {!authenticated &&
-          <Typography variant='caption' color='textSecondary'>* Login to submit your questions *</Typography>}
+        <Typography gutterBottom color="error">
+          {state.error && state.error}
+        </Typography>
+        {!authenticated && (
+          <Typography variant="caption" color="textSecondary">
+            * Login to submit your questions *
+          </Typography>
+        )}
       </div>
     </Paper>
   );

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -17,25 +17,25 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: theme.palette.grey[500]
+    color: theme.palette.grey[500],
   },
   link: {
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   error: {
-    color: theme.palette.error.main
-  }
+    color: theme.palette.error.main,
+  },
 }));
 
 function SignInForm() {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { modal, setModal } = useTheme();
   const { signin } = useAuthentication();
   const [error, setError] = useState(null);
   const [values, setValues] = useState({
     email: '',
-    password: ''
+    password: '',
   });
 
   function handleClose() {
@@ -47,7 +47,7 @@ function SignInForm() {
   }
 
   function hanndleForgotPassword() {
-    history.push('/recovery');
+    navigate('/recovery');
     handleClose();
   }
 
@@ -59,8 +59,8 @@ function SignInForm() {
 
       handleClose();
     } catch (err) {
-      console.error(err.message);
-      setError(err.message);
+      console.error((err as any).message);
+      setError((err as any).message);
     }
   }
 
@@ -74,25 +74,31 @@ function SignInForm() {
       </DialogTitle>
       <DialogContent>
         <span className={classes.error}>{error && error}</span>
-        <form onSubmit={handleSubmit} autoComplete='off'>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <TextInput
             required
             type="email"
-            name='email'
+            name="email"
             label="Email"
             value={values.email}
             handleChange={handleChange}
           />
           <TextInput
             required
-            type='password'
-            name='password'
+            type="password"
+            name="password"
             label="Password"
             value={values.password}
             handleChange={handleChange}
-            helperText={<span onClick={hanndleForgotPassword} className={classes.link}>Forgot password?</span>}
+            helperText={
+              <span onClick={hanndleForgotPassword} className={classes.link}>
+                Forgot password?
+              </span>
+            }
           />
-          <Button fullWidth type='submit' color='primary' variant='contained'>Login</Button>
+          <Button fullWidth type="submit" color="primary" variant="contained">
+            Login
+          </Button>
         </form>
         <SocialLogin />
       </DialogContent>

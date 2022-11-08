@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, IconButton, Dialog, DialogTitle, DialogContent, Typography } from '@material-ui/core';
+import {
+  Button,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Typography,
+} from '@material-ui/core';
 import Close from '@material-ui//icons/Close';
 import TextInput from '../Shared/TextInput';
 import { functions } from '../../config/firebase';
@@ -11,17 +18,17 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: theme.palette.grey[500]
+    color: theme.palette.grey[500],
   },
   button: {
-    margin: theme.spacing(2, 0)
+    margin: theme.spacing(2, 0),
   },
   success: {
-    color: theme.palette.success.main
+    color: theme.palette.success.main,
   },
   error: {
-    color: theme.palette.error.main
-  }
+    color: theme.palette.error.main,
+  },
 }));
 
 function AdminForm() {
@@ -30,7 +37,7 @@ function AdminForm() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState({
     type: '',
-    text: ''
+    text: '',
   });
 
   function handleClose() {
@@ -66,10 +73,27 @@ function AdminForm() {
         </IconButton>
       </DialogTitle>
       <DialogContent>
-        <form onSubmit={handleSubmit} autoComplete='off'>
-          <Typography className={message.type === 'success' ? classes.success : classes.error}>{message.text}</Typography>
-          <TextInput required name="email" label="Add email" placeholder="Add email" value={email || ''} handleChange={handleChange} />
-          <Button fullWidth type="submit" color="primary" variant="contained" className={classes.button}>Make admin</Button>
+        <form onSubmit={handleSubmit} autoComplete="off">
+          <Typography className={message.type === 'success' ? classes.success : classes.error}>
+            {message.text}
+          </Typography>
+          <TextInput
+            required
+            name="email"
+            label="Add email"
+            placeholder="Add email"
+            value={email || ''}
+            handleChange={handleChange}
+          />
+          <Button
+            fullWidth
+            type="submit"
+            color="primary"
+            variant="contained"
+            className={classes.button}
+          >
+            Make admin
+          </Button>
         </form>
       </DialogContent>
     </Dialog>

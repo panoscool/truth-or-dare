@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -11,14 +10,14 @@ import useGameOptions from '../../hooks/useGameOptions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   table: {
-    width: '100%'
+    width: '100%',
   },
   pName: {
-    textTransform: 'capitalize'
-  }
+    textTransform: 'capitalize',
+  },
 }));
 
 function PlayersScore() {
@@ -29,7 +28,7 @@ function PlayersScore() {
     return {
       ...(obj as any),
       // @ts-ignore
-      total: obj.score.truth + obj.score.dare
+      total: obj.score.truth + obj.score.dare,
     };
   });
 
@@ -50,7 +49,7 @@ function PlayersScore() {
           <TableBody>
             {sortedList.map((row) => (
               <TableRow key={row.id}>
-                <TableCell component="th" scope="row" className={classes.pName}>{row.name}</TableCell>
+                <TableCell className={classes.pName}>{row.name}</TableCell>
                 <TableCell align="right">{row.score.truth}</TableCell>
                 <TableCell align="right">{row.score.dare}</TableCell>
                 <TableCell align="right">{row.total}</TableCell>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import cuid from 'cuid';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -8,11 +8,11 @@ import { storeSetItem, storeRemoveItem, KEYS } from '../../config/store';
 
 const useStyles = makeStyles((theme) => ({
   formGroup: {
-    display: 'flex'
+    display: 'flex',
   },
   button: {
-    margin: theme.spacing(2, 0, 2, 1)
-  }
+    margin: theme.spacing(2, 0, 2, 1),
+  },
 }));
 
 interface Props {
@@ -28,8 +28,8 @@ function PlayersPage({ players, setPlayers }: Props) {
     name: '',
     score: {
       truth: 0,
-      dare: 0
-    }
+      dare: 0,
+    },
   });
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -87,7 +87,7 @@ function PlayersPage({ players, setPlayers }: Props) {
 
   return (
     <div>
-      <form autoComplete='off' onSubmit={handleSubmit} className={classes.formGroup}>
+      <form autoComplete="off" onSubmit={handleSubmit} className={classes.formGroup}>
         <TextInput
           name="name"
           label="Add names"

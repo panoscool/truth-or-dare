@@ -1,5 +1,4 @@
-import React from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -11,7 +10,7 @@ import useTheme from '../../hooks/useTheme';
 import useGameOptions from '../../hooks/useGameOptions';
 
 function ConfirmExitDialog() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { modal, setModal } = useTheme();
   const { setCategory, setPlayers } = useGameOptions();
 
@@ -20,7 +19,7 @@ function ConfirmExitDialog() {
       storeClearAll(CLEAR_KEYS);
       setCategory('funny');
       setPlayers([]);
-      history.push('/');
+      navigate('/');
       setModal(null);
     }
     setModal(null);
@@ -30,11 +29,17 @@ function ConfirmExitDialog() {
     <Dialog open={Boolean(modal)} onClose={handleClose} aria-labelledby="alert-dialog-title">
       <DialogTitle id="alert-dialog-title">Exit game?</DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">Your game progress will be lost.</DialogContentText>
+        <DialogContentText id="alert-dialog-description">
+          Your game progress will be lost.
+        </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">No</Button>
-        <Button onClick={() => handleClose('game')} color="primary" autoFocus>Yes</Button>
+        <Button onClick={handleClose} color="primary">
+          No
+        </Button>
+        <Button onClick={() => handleClose('game')} color="primary" autoFocus>
+          Yes
+        </Button>
       </DialogActions>
     </Dialog>
   );

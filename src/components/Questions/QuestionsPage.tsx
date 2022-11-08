@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import format from 'date-fns/format';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,7 +9,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CategoriesPage from '../Shared/CategoriesPage';
@@ -121,32 +120,28 @@ function QuestionsPage() {
         {error}
       </Typography>
       <List dense>
-        <TransitionGroup>
-          {loading ? (
-            <Spinner thickness={2} />
-          ) : (
-            filteredData?.map((q: any) => (
-              <CSSTransition key={q.id} timeout={300} classNames="fade">
-                <ListItem button component={Link} to={`/update/${type}/${q.id}`}>
-                  <ListItemText
-                    primary={q.question}
-                    secondary={format(q.createdAt.toDate(), 'd MMMM yyyy')}
-                  />
-                  <ListItemSecondaryAction>
-                    <IconButton
-                      disabled={disabledBtn}
-                      edge="end"
-                      aria-label="delete"
-                      onClick={() => deleteQuestion(q.id)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              </CSSTransition>
-            ))
-          )}
-        </TransitionGroup>
+        {loading ? (
+          <Spinner thickness={2} />
+        ) : (
+          filteredData?.map((q: any) => (
+            <ListItem button key={q.id} component={Link} to={`/update/${type}/${q.id}`}>
+              <ListItemText
+                primary={q.question}
+                secondary={format(q.createdAt.toDate(), 'd MMMM yyyy')}
+              />
+              <ListItemSecondaryAction>
+                <IconButton
+                  disabled={disabledBtn}
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => deleteQuestion(q.id)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))
+        )}
       </List>
     </Paper>
   );
