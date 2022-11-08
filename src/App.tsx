@@ -55,7 +55,7 @@ function App() {
         <Route path="/information" element={<InformationPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route
-          path="/recovery"
+          path="/forgot-password"
           element={
             <PublicRoute redirectTo="/">
               <RecoveryPage />
