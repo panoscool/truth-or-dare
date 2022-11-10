@@ -4,21 +4,23 @@ import SelectInput from './SelectInput';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { storeSetItem, KEYS } from '../../config/store';
 import useAuthentication from '../../hooks/useAuthentication';
+import { SelectChangeEvent } from '@mui/material/Select';
 
 interface Props {
   name?: string;
   label: string;
   select?: boolean;
-  category: any;
+  value: string | null;
+  row?: boolean;
   setCategory: (e: string) => void;
 }
 
-function CategoriesPage({ select, category, setCategory, ...rest }: Props) {
+function CategoriesPage({ select, row, value, setCategory, ...rest }: Props) {
   const { width } = useWindowDimensions();
   const { authenticated } = useAuthentication();
 
-  function handleChange(event: React.ChangeEvent<{ value: unknown }>) {
-    setCategory(event.target.value as string);
+  function handleChange(event: SelectChangeEvent | React.ChangeEvent<HTMLInputElement>) {
+    setCategory(event.target.value);
     storeSetItem(KEYS.QUESTION_CATEGORY, event.target.value);
   }
 
@@ -33,8 +35,8 @@ function CategoriesPage({ select, category, setCategory, ...rest }: Props) {
       <SelectInput
         {...rest}
         name="category"
-        value={category || ''}
-        optionsArray={categories}
+        value={value || ''}
+        options={categories}
         onChange={handleChange}
       />
     );
@@ -43,10 +45,10 @@ function CategoriesPage({ select, category, setCategory, ...rest }: Props) {
   return (
     <RadioInput
       {...rest}
+      row={row}
       name="category"
-      vertical={width < 460}
-      value={category || ''}
-      optionsArray={categories}
+      value={value || ''}
+      options={categories}
       onChange={handleChange}
     />
   );

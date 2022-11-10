@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Typography, Button, Box } from '@mui/material';
-import TextInput from '../Shared/TextInput';
+import { Typography, Button, Box, TextField } from '@mui/material';
 import useAuthentication from '../../hooks/useAuthentication';
 import Layout from '../Layout';
 
@@ -40,7 +39,7 @@ function ForgotPassword() {
       </Typography>
       <Typography>{message.text}</Typography>
       <form onSubmit={handleSubmit} autoComplete="off">
-        <TextInput
+        <TextField
           required
           name="email"
           label="Add email"

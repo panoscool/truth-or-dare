@@ -1,7 +1,7 @@
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 interface Props {
   name: string;
@@ -9,16 +9,16 @@ interface Props {
   value: string;
   required?: boolean;
   disabled?: boolean;
-  optionsArray: Array<object>;
-  onChange: (e: any) => void;
+  options: { id: string; value: string; label: string; disabled?: boolean }[];
+  onChange: (e: SelectChangeEvent) => void;
 }
 
-function SelectForm({ name, label, value, required, disabled, optionsArray, onChange }: Props) {
+function SelectInput({ name, label, value, required, disabled, options, onChange }: Props) {
   return (
-    <FormControl required={required} disabled={disabled} margin="dense">
+    <FormControl fullWidth required={required} disabled={disabled} size="small">
       <InputLabel>{label}</InputLabel>
       <Select label={label} name={name} value={value} onChange={onChange}>
-        {optionsArray?.map((option: any) => (
+        {options?.map((option: any) => (
           <MenuItem key={option.id} value={option.value} disabled={option.disabled}>
             {option.label}
           </MenuItem>
@@ -28,4 +28,4 @@ function SelectForm({ name, label, value, required, disabled, optionsArray, onCh
   );
 }
 
-export default SelectForm;
+export default SelectInput;

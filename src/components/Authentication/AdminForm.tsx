@@ -7,9 +7,9 @@ import {
   DialogContent,
   Typography,
   Box,
+  TextField,
 } from '@mui/material';
 import Close from '@mui/icons-material/Close';
-import TextInput from '../Shared/TextInput';
 import { functions } from '../../config/firebase';
 import { styled } from '@mui/material/styles';
 
@@ -70,7 +70,7 @@ function AdminForm({ open, setOpen }: Props) {
           <Typography>{message.text}</Typography>
 
           <Box mt={4} mb={2} minWidth={300}>
-            <TextInput
+            <TextField
               required
               name="email"
               label="Add email"

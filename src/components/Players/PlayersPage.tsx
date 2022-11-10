@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import cuid from 'cuid';
 import PlayersList from './PlayersList';
-import TextInput from '../Shared/TextInput';
 import { storeSetItem, storeRemoveItem, KEYS } from '../../config/store';
-import { Box, Button } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 
 interface Props {
   players: Array<object>;
@@ -84,7 +83,7 @@ function PlayersPage({ players, setPlayers }: Props) {
         mb={3}
         onSubmit={handleSubmit}
       >
-        <TextInput
+        <TextField
           name="name"
           label="Add names"
           placeholder="Add names"

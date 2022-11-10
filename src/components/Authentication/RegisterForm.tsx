@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import TextInput from '../Shared/TextInput';
 import SocialLogin from './SocialLogin';
 import useAuthentication from '../../hooks/useAuthentication';
 import Layout from '../Layout';
-import { Typography, Button, Box } from '@mui/material';
+import { Typography, Button, Box, TextField } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 
 function RegisterForm() {
@@ -46,7 +45,7 @@ function RegisterForm() {
 
       <form onSubmit={handleSubmit} autoComplete="off">
         <Box mb={3}>
-          <TextInput
+          <TextField
             required
             type="text"
             name="displayName"
@@ -56,7 +55,7 @@ function RegisterForm() {
           />
         </Box>
         <Box mb={3}>
-          <TextInput
+          <TextField
             required
             type="email"
             name="email"
@@ -66,7 +65,7 @@ function RegisterForm() {
           />
         </Box>
         <Box mb={3}>
-          <TextInput
+          <TextField
             required
             type="password"
             name="password"

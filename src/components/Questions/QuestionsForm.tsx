@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import cuid from 'cuid';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Button, Typography, Box } from '@mui/material';
-import TextInput from '../Shared/TextInput';
+import { Button, Typography, Box, TextField } from '@mui/material';
 import RadioInput from '../Shared/RadioInput';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import Spinner from '../Shared/Spinner';
@@ -12,6 +11,8 @@ import Layout from '../Layout';
 import { styled } from '@mui/material/styles';
 
 const FormElementGap = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
   marginBottom: theme.spacing(4),
 }));
 
@@ -123,12 +124,13 @@ function QuestionsForm() {
         <FormElementGap>
           <RadioInput
             required
+            row
             name="questionType"
             label="Question Type"
             disabled={Boolean(id)}
             value={questionType || ''}
             onChange={handleQuestionType}
-            optionsArray={[
+            options={[
               { id: cuid(), value: 'truth_questions', label: 'Truth' },
               { id: cuid(), value: 'dare_questions', label: 'Dare' },
             ]}
@@ -139,10 +141,10 @@ function QuestionsForm() {
             required
             name="category"
             label="Select Category"
-            vertical={width < 460}
+            row={width > 460}
             value={values.category || ''}
             onChange={handleChange}
-            optionsArray={[
+            options={[
               { id: cuid(), value: 'funny', label: 'Funny' },
               { id: cuid(), value: 'challenging', label: 'Challenging' },
               { id: cuid(), value: 'uncensored', label: 'Uncensored' },
@@ -150,7 +152,7 @@ function QuestionsForm() {
           />
         </FormElementGap>
         <FormElementGap>
-          <TextInput
+          <TextField
             required
             name="question"
             label="Add question"

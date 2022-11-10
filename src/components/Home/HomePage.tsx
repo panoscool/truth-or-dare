@@ -13,39 +13,26 @@ function HomePage() {
   const { authenticated, admin } = useAuthentication();
   const { players, setPlayers, category, setCategory } = useGameOptions();
 
+  const hasPlayers = players.length > 0;
+
   return (
     <Layout>
       <GameTitle />
-      <CategoriesPage label="Game Mode" category={category} setCategory={setCategory} />
 
-      {players.length > 0 ? (
-        <Box textAlign="center" mt={4}>
-          <Button
-            size="large"
-            color="primary"
-            variant="contained"
-            disabled={players.length <= 0}
-            component={Link}
-            to="/game"
-          >
-            Play
-          </Button>
-          <Typography my={4}>
-            <MoodIcon fontSize="large" />
-          </Typography>
-        </Box>
-      ) : (
-        <Box textAlign="center" mt={4}>
-          <Button size="large" color="primary" variant="contained" component={Link} to="/game">
-            Quick Play
-          </Button>
-          <Typography my={4}>- OR -</Typography>
-        </Box>
-      )}
+      <Box display="flex" justifyContent="center">
+        <CategoriesPage label="Game Mode" value={category} setCategory={setCategory} />
+      </Box>
+
+      <Box textAlign="center" mt={4}>
+        <Button size="large" color="primary" variant="contained" component={Link} to="/game">
+          {hasPlayers ? 'Play' : 'Quick Play'}
+        </Button>
+        <Typography my={4}>{hasPlayers ? <MoodIcon fontSize="large" /> : '- OR -'}</Typography>
+      </Box>
 
       <PlayersPage players={players} setPlayers={setPlayers} />
 
-      {!players.length && <NavList authenticated={authenticated} admin={admin} />}
+      {!hasPlayers && <NavList authenticated={authenticated} admin={admin} />}
 
       {!authenticated && (
         <Box py={2} textAlign="center">

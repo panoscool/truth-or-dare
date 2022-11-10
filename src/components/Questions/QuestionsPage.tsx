@@ -1,23 +1,24 @@
-import { useState, useEffect } from 'react';
-import format from 'date-fns/format';
-import { Link } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
+import ListItemText from '@mui/material/ListItemText';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import format from 'date-fns/format';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { firestore } from '../../config/firebase';
+import useAuthentication from '../../hooks/useAuthentication';
+import useGameOptions from '../../hooks/useGameOptions';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
 import CategoriesPage from '../Shared/CategoriesPage';
 import Spinner from '../Shared/Spinner';
-import useGameOptions from '../../hooks/useGameOptions';
-import useAuthentication from '../../hooks/useAuthentication';
-import { firestore } from '../../config/firebase';
-import TextInput from '../Shared/TextInput';
-import { Box } from '@mui/material';
 
 const PaperWrapper = styled(Paper)(({ theme }) => ({
   margin: theme.spacing(2),
@@ -32,6 +33,7 @@ function QuestionsPage() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { width } = useWindowDimensions();
 
   useEffect(() => {
     let unsubscribe = firestore
@@ -87,7 +89,7 @@ function QuestionsPage() {
 
   return (
     <PaperWrapper>
-      <Box textAlign="center" my={4}>
+      <Box textAlign="center" mt={2}>
         <Button
           onClick={dataSelection}
           disabled={loading}
@@ -98,9 +100,17 @@ function QuestionsPage() {
         </Button>
       </Box>
 
-      <CategoriesPage select label="Categories" category={category} setCategory={setCategory} />
+      <Box display="flex" justifyContent="center" my={4}>
+        <CategoriesPage
+          select
+          label="Categories"
+          row={width > 460}
+          value={category}
+          setCategory={setCategory}
+        />
+      </Box>
 
-      <TextInput
+      <TextField
         name="search"
         label="Search"
         value={search}

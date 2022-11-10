@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import TextInput from '../Shared/TextInput';
 import SocialLogin from './SocialLogin';
 import useAuthentication from '../../hooks/useAuthentication';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, TextField } from '@mui/material';
 import Layout from '../Layout';
 
 function LoginForm() {
@@ -42,7 +41,7 @@ function LoginForm() {
 
       <form onSubmit={handleSubmit} autoComplete="off">
         <Box mb={3}>
-          <TextInput
+          <TextField
             required
             type="email"
             name="email"
@@ -52,7 +51,7 @@ function LoginForm() {
           />
         </Box>
         <Box mb={3}>
-          <TextInput
+          <TextField
             required
             type="password"
             name="password"
