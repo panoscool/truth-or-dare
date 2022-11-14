@@ -36,7 +36,7 @@ function QuestionsPage() {
   const { width } = useWindowDimensions();
 
   useEffect(() => {
-    let unsubscribe = firestore
+    const unsubscribe = firestore
       .collection(type)
       .where('category', '==', category)
       .orderBy('createdAt', 'desc')
@@ -65,12 +65,13 @@ function QuestionsPage() {
   }, [category, type]);
 
   async function deleteQuestion(id: string) {
-    try {
-      await firestore.collection(type).doc(id).delete();
-    } catch (err) {
-      console.error((err as any).message);
-      setError((err as any).message);
-      setLoading(false);
+    if (window.confirm('Are you sure you want to delete this question?')) {
+      try {
+        await firestore.collection(type).doc(id).delete();
+      } catch (err) {
+        console.error((err as any).message);
+        setError((err as any).message);
+      }
     }
   }
 

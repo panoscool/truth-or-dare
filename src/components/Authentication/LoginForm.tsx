@@ -7,7 +7,7 @@ import Layout from '../Layout';
 
 function LoginForm() {
   const navigate = useNavigate();
-  const { signin } = useAuthentication();
+  const { signIn } = useAuthentication();
   const [error, setError] = useState(null);
   const [values, setValues] = useState({
     email: '',
@@ -22,7 +22,7 @@ function LoginForm() {
     event.preventDefault();
 
     try {
-      await signin(values.email, values.password);
+      await signIn(values.email, values.password);
 
       navigate('/');
     } catch (err) {

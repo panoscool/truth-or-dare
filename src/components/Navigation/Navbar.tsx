@@ -15,7 +15,7 @@ function Navbar() {
   const { currentPlayer } = useGameOptions();
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const { admin, authenticated, displayName, photoURL, signout } = useAuthentication();
+  const { admin, authenticated, displayName, photoURL, signOut } = useAuthentication();
 
   function handleOpen(event: React.MouseEvent<HTMLElement>) {
     setAnchorEl(event.currentTarget);
@@ -27,7 +27,7 @@ function Navbar() {
 
   async function handleLogout() {
     try {
-      await signout();
+      await signOut();
       setAnchorEl(null);
     } catch {
       console.error('Failed to log out');

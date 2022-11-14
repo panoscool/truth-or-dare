@@ -9,9 +9,9 @@ const initValues = {
   displayName: null,
   photoURL: null,
   authenticated: null,
-  signup: (email, password) => {},
-  signin: (email, password) => {},
-  signout: () => {},
+  signUp: (email, password) => {},
+  signIn: (email, password) => {},
+  signOut: () => {},
   socialLogin: (provider) => {},
   resetPassword: (email) => {},
 };
@@ -41,15 +41,15 @@ function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  function signup(email, password) {
+  function signUp(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
   }
 
-  function signin(email, password) {
+  function signIn(email, password) {
     return auth.signInWithEmailAndPassword(email, password);
   }
 
-  function signout() {
+  function signOut() {
     return auth.signOut();
   }
 
@@ -79,9 +79,9 @@ function AuthProvider({ children }) {
   };
 
   const contextFunctions = {
-    signup,
-    signin,
-    signout,
+    signUp,
+    signIn,
+    signOut,
     socialLogin,
     resetPassword,
   };

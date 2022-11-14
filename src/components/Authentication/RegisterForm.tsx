@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 function RegisterForm() {
   const navigate = useNavigate();
-  const { signup } = useAuthentication();
+  const { signUp } = useAuthentication();
   const [error, setError] = useState(null);
   const [values, setValues] = useState({
     displayName: '',
@@ -24,7 +24,7 @@ function RegisterForm() {
 
     try {
       // It has effect, otherwise createdUser will be undefined
-      const createdUser = await signup(values.email, values.password);
+      const createdUser = await signUp(values.email, values.password);
       // @ts-ignore
       await createdUser.user.updateProfile({ displayName: values.displayName });
 
