@@ -18,7 +18,7 @@ import useAuthentication from '../../hooks/useAuthentication';
 import useGameOptions from '../../hooks/useGameOptions';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import CategoriesPage from '../Shared/CategoriesPage';
-import Spinner from '../Shared/Spinner';
+import Loading from '../Shared/Loading';
 
 const PaperWrapper = styled(Paper)(({ theme }) => ({
   margin: theme.spacing(2),
@@ -86,7 +86,7 @@ function QuestionsPage() {
 
   const disabledBtn = !authenticated && !admin;
 
-  if (loading) return <Spinner thickness={2} />;
+  if (loading) return <Loading thickness={2} />;
 
   return (
     <PaperWrapper>
@@ -125,7 +125,7 @@ function QuestionsPage() {
 
       <List dense>
         {loading ? (
-          <Spinner thickness={2} />
+          <Loading />
         ) : (
           filteredData?.map((q: any) => (
             <ListItem button key={q.id} component={Link} to={`/update/${type}/${q.id}`}>

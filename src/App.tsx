@@ -13,7 +13,7 @@ import ForgotPassword from './components/Authentication/ForgotPassword';
 import NotFoundPage from './components/NotFoundPage';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
-import Spinner from './components/Shared/Spinner';
+import Loading from './components/Shared/Loading';
 import useAuthentication from './hooks/useAuthentication';
 import { analytics } from './config/firebase';
 import useTheme from './hooks/useTheme';
@@ -35,7 +35,7 @@ function App() {
     .querySelector('meta[name=theme-color]')
     .setAttribute('content', theme === 'light' ? '#ffffff' : '#000000');
 
-  if (loading) return <Spinner thickness={1} />;
+  if (loading) return <Loading />;
 
   return (
     <Fragment>

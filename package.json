@@ -27,7 +27,10 @@
     "deploy": "npm run build && firebase deploy --only hosting"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [

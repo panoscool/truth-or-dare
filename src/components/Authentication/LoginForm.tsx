@@ -4,10 +4,12 @@ import SocialLogin from './SocialLogin';
 import useAuthentication from '../../hooks/useAuthentication';
 import { Box, Button, Typography, TextField } from '@mui/material';
 import Layout from '../Layout';
+import Loading from '../Shared/Loading';
 
 function LoginForm() {
   const navigate = useNavigate();
   const { signIn } = useAuthentication();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [values, setValues] = useState({
     email: '',
@@ -22,14 +24,19 @@ function LoginForm() {
     event.preventDefault();
 
     try {
+      setLoading(true);
       await signIn(values.email, values.password);
 
       navigate('/');
     } catch (err) {
       console.error((err as any).message);
       setError((err as any).message);
+    } finally {
+      setLoading(false);
     }
   }
+
+  if (loading) return <Loading />;
 
   return (
     <Layout>
@@ -80,7 +87,8 @@ function LoginForm() {
           </Typography>
         </Box>
       </form>
-      <SocialLogin />
+
+      <SocialLogin setLoading={setLoading} />
     </Layout>
   );
 }

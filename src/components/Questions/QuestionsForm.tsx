@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Button, Typography, Box, TextField } from '@mui/material';
 import RadioInput from '../Shared/RadioInput';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
-import Spinner from '../Shared/Spinner';
+import Loading from '../Shared/Loading';
 import firebase, { firestore } from '../../config/firebase';
 import useAuthentication from '../../hooks/useAuthentication';
 import Layout from '../Layout';
@@ -164,7 +164,7 @@ function QuestionsForm() {
 
         <Box pb={4}>
           {state.loading ? (
-            <Spinner thickness={2} />
+            <Loading />
           ) : (
             <Button
               fullWidth
