@@ -87,7 +87,7 @@ function AdminForm({ open, setOpen }: Props) {
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>
-        Make admin
+        Admin
         <CloseButton aria-label="close" onClick={handleClose} size="large">
           <Close />
         </CloseButton>

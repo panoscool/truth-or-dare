@@ -8,6 +8,10 @@ exports.addAdminRole = functions.https.onCall((data, context) => {
     return { error: 'Only admins can add other admins.' };
   }
 
+  if (context.auth.token.email?.trim() === data.email?.trim()) {
+    return { error: 'You cannot add yourself as an admin.' };
+  }
+
   // get user and add custom claim (admin)
   return admin
     .auth()
@@ -28,7 +32,11 @@ exports.addAdminRole = functions.https.onCall((data, context) => {
 exports.removeAdminRole = functions.https.onCall((data, context) => {
   // check request is made by an admin
   if (context.auth.token.admin !== true) {
-    return { error: 'Only admins can add other admins.' };
+    return { error: 'Only admins can remove other admins.' };
+  }
+
+  if (context.auth.token.email?.trim() === data.email?.trim()) {
+    return { error: 'You cannot remove yourself from admin.' };
   }
 
   // get user and add custom claim (admin)
@@ -41,7 +49,7 @@ exports.removeAdminRole = functions.https.onCall((data, context) => {
       });
     })
     .then(() => {
-      return { message: `Success! ${data.email} has been removed as admin.` };
+      return { message: `Success! ${data.email} has been removed from admin.` };
     })
     .catch((err) => {
       return err;
