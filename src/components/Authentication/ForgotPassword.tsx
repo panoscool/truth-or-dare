@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { Typography, Button, Box, TextField } from '@mui/material';
 import useAuthentication from '../../hooks/useAuthentication';
 import Layout from '../Layout';
+import Loading from '../Shared/Loading';
 
 function ForgotPassword() {
   const { resetPassword } = useAuthentication();
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState({
     type: '',
@@ -19,13 +21,16 @@ function ForgotPassword() {
     event.preventDefault();
 
     try {
+      setLoading(true);
       await resetPassword(email);
 
       setEmail('');
-      setMessage({ type: 'success', text: 'Check your inbox for further instractions' });
+      setMessage({ type: 'success', text: 'Check your email for further instructions' });
     } catch (err) {
       console.error((err as any).message);
       setMessage({ type: 'error', text: 'Failed to reset password' });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -43,12 +48,16 @@ function ForgotPassword() {
           required
           name="email"
           label="Add email"
+          disabled={loading}
           placeholder="Add email"
-          value={email || ''}
+          value={email}
           onChange={handleChange}
         />
+
+        {loading && <Loading type="linear" />}
+
         <Box mt={2} pb={4}>
-          <Button fullWidth type="submit" variant="contained" color="primary">
+          <Button fullWidth type="submit" variant="contained" color="primary" disabled={loading}>
             Submit
           </Button>
         </Box>

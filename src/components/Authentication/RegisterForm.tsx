@@ -4,10 +4,12 @@ import useAuthentication from '../../hooks/useAuthentication';
 import Layout from '../Layout';
 import { Typography, Button, Box, TextField } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
+import Loading from '../Shared/Loading';
 
 function RegisterForm() {
   const navigate = useNavigate();
   const { signUp } = useAuthentication();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [values, setValues] = useState({
     displayName: '',
@@ -23,10 +25,8 @@ function RegisterForm() {
     event.preventDefault();
 
     try {
-      // It has effect, otherwise createdUser will be undefined
       const createdUser = await signUp(values.email, values.password);
-      // @ts-ignore
-      await createdUser.user.updateProfile({ displayName: values.displayName });
+      await (createdUser as any).user.updateProfile({ displayName: values.displayName });
 
       navigate('/');
     } catch (err) {
@@ -34,6 +34,8 @@ function RegisterForm() {
       setError((err as any).message);
     }
   }
+
+  if (loading) return <Loading />;
 
   return (
     <Layout>
@@ -88,7 +90,8 @@ function RegisterForm() {
           </Typography>
         </Box>
       </form>
-      <SocialLogin />
+
+      <SocialLogin setLoading={setLoading} />
     </Layout>
   );
 }

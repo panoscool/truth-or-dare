@@ -1,5 +1,5 @@
 import { Typography, Box } from '@mui/material';
-import Spinner from '../Shared/Spinner';
+import Loading from '../Shared/Loading';
 
 interface Props {
   state: any;
@@ -19,7 +19,7 @@ function GameDisplay({
   currentPlayer,
 }: Props) {
   if (state.loading) {
-    return <Spinner thickness={2} />;
+    return <Loading />;
   }
   if (isTruthOver && isDareOver) {
     return (

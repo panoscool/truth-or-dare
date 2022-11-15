@@ -4,17 +4,24 @@ import Twitter from '../Icons/Twitter';
 import useAuthentication from '../../hooks/useAuthentication';
 import { useNavigate } from 'react-router-dom';
 
-function SocialLogin() {
+type Props = {
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function SocialLogin({ setLoading }: Props) {
   const navigate = useNavigate();
   const { socialLogin } = useAuthentication();
 
   async function handleSocialLogin(selectedProvider: any) {
     try {
+      setLoading(true);
       await socialLogin(selectedProvider);
 
       navigate('/');
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   }
 
