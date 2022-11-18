@@ -8,6 +8,7 @@ import useAuthentication from '../../hooks/useAuthentication';
 import useGameOptions from '../../hooks/useGameOptions';
 import Layout from '../Layout';
 import GameTitle from '../Shared/GameTitle';
+import SocialShare from '../SocialShare';
 
 function HomePage() {
   const { authenticated, admin } = useAuthentication();
@@ -41,6 +42,8 @@ function HomePage() {
           </Typography>
         </Box>
       )}
+
+      <SocialShare />
     </Layout>
   );
 }
