@@ -1,5 +1,6 @@
-import { Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Box, IconButton } from '@mui/material';
+import { styled, alpha } from '@mui/material/styles';
+import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -24,9 +25,25 @@ const BoxWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
+const ShareIconButton = styled(IconButton)(({ theme }) => ({
+  backgroundColor: alpha(theme.palette.primary.main, 0.5),
+}));
+
 function SocialShare() {
   const url = 'https://tord.vercel.app/';
   const title = 'TorD - The Ultimate Truth or Dare Game';
+
+  const handleShare = async () => {
+    try {
+      await navigator.share({
+        title,
+        url,
+        text: 'Let the game begin!',
+      });
+    } catch (err) {
+      console.error(`Error sharing: ${err}`);
+    }
+  };
 
   return (
     <BoxWrapper>
@@ -45,6 +62,19 @@ function SocialShare() {
       <RedditShareButton title={title} url={url}>
         <RedditIcon size={32} round />
       </RedditShareButton>
+
+      <div>
+        <ShareIconButton
+          onClick={handleShare}
+          aria-label="share"
+          disableFocusRipple
+          disableRipple
+          disableTouchRipple
+          size="small"
+        >
+          <ShareRoundedIcon fontSize="small" />
+        </ShareIconButton>
+      </div>
     </BoxWrapper>
   );
 }
