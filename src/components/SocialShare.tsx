@@ -30,6 +30,7 @@ const ShareIconButton = styled(IconButton)(({ theme }) => ({
 }));
 
 function SocialShare() {
+  const size = 32;
   const url = 'https://tord.vercel.app/';
   const title = 'TorD - The Ultimate Truth or Dare Game';
 
@@ -48,28 +49,28 @@ function SocialShare() {
   return (
     <BoxWrapper>
       <FacebookShareButton title={title} url={url} hashtag="#truthordare">
-        <FacebookIcon size={32} round />
+        <FacebookIcon size={size} round />
       </FacebookShareButton>
 
-      <TwitterShareButton title={title} url={url} hashtags={['tord', 'truthordare', 'tordgame']}>
-        <TwitterIcon size={32} round />
+      <TwitterShareButton title={title} url={url} hashtags={['truthordare', 'tord', 'tordgame']}>
+        <TwitterIcon size={size} round />
       </TwitterShareButton>
 
       <WhatsappShareButton title={title} url={url}>
-        <WhatsappIcon size={32} round />
+        <WhatsappIcon size={size} round />
       </WhatsappShareButton>
 
       <RedditShareButton title={title} url={url}>
-        <RedditIcon size={32} round />
+        <RedditIcon size={size} round />
       </RedditShareButton>
 
       <div>
         <ShareIconButton
           onClick={handleShare}
-          aria-label="share"
           disableFocusRipple
           disableRipple
           disableTouchRipple
+          aria-label="share"
           size="small"
         >
           <ShareRoundedIcon fontSize="small" />
