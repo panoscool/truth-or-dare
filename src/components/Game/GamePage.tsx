@@ -106,7 +106,7 @@ function GamePage() {
 
   return (
     <Layout>
-      <Box minHeight={100} display="flex" justifyContent="center" pt={4} pb={8}>
+      <Box minHeight={100} display="flex" justifyContent="center" pt={4} pb={8} position="relative">
         <GameDisplay
           state={state}
           isTruthOver={isTruthOver}

@@ -11,6 +11,7 @@ import {
   RedditShareButton,
   RedditIcon,
 } from 'react-share';
+import { navigatorShare } from '../utils/navigator-share';
 
 const BoxWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -35,15 +36,11 @@ function SocialShare() {
   const title = 'TorD - The Ultimate Truth or Dare Game';
 
   const handleShare = async () => {
-    try {
-      await navigator.share({
-        title,
-        url,
-        text: 'Let the game begin!',
-      });
-    } catch (err) {
-      console.error(`Error sharing: ${err}`);
-    }
+    await navigatorShare({
+      title,
+      url,
+      text: 'Let the game begin!',
+    });
   };
 
   return (

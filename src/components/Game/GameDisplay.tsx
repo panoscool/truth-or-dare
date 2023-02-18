@@ -1,5 +1,7 @@
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, IconButton } from '@mui/material';
+import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
 import Loading from '../Shared/Loading';
+import { navigatorShare } from '../../utils/navigator-share';
 
 interface Props {
   state: any;
@@ -10,14 +12,13 @@ interface Props {
   currentPlayer: string | null;
 }
 
-function GameDisplay({
-  state,
-  isTruthOver,
-  isDareOver,
-  questionType,
-  currentQuestion,
-  currentPlayer,
-}: Props) {
+function GameDisplay(props: Props) {
+  const { state, isTruthOver, isDareOver, questionType, currentQuestion, currentPlayer } = props;
+
+  const handleShare = async () => {
+    await navigatorShare({ title: questionType, text: currentQuestion });
+  };
+
   if (state.loading) {
     return <Loading />;
   }
@@ -31,6 +32,9 @@ function GameDisplay({
   if (questionType && currentQuestion) {
     return (
       <Box textAlign="center">
+        <IconButton onClick={handleShare} sx={{ position: 'absolute', top: '1rem', right: 0 }}>
+          <ShareRoundedIcon fontSize="small" />
+        </IconButton>
         <Typography variant="caption" color="textSecondary" textTransform="capitalize">
           {questionType}
         </Typography>
